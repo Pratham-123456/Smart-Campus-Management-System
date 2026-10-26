@@ -1,0 +1,1896 @@
+﻿========================================================================================================================================================
+XYZ UNIVERSITY - SMART CAMPUS MANAGEMENT SYSTEM
+COMPLETE DATABASE DATASET EXPORT (.TXT)
+========================================================================================================================================================
+Database Service : Oracle 26ai Free (localhost:1521/FREEPDB1)
+Database Schema  : campus_app
+Export Timestamp : 2026-10-15
+Standard Password: 1234 (Temporary development credential for ALL Student, Faculty, and Admin accounts)
+========================================================================================================================================================
+
+------------------------------------------------------------------------------------------------------------------------------------------------------- PROMPT	EXECUTIVE SUMMARY: TABLE ROW COUNTS (14 ACADEMIC TABLES + USER ACCOUNTS)
+------------------------------------------------------------------------------------------------------------------------------------------------------- COL TBL FORMAT A25 HEADING "Table Name"
+
+TBL		    Row Count Contents / Description
+=================== ========= ============================================================
+DEPARTMENT		    6 Academic divisions and campus office locations
+PROGRAM 		   10 Degree curriculums (B.Tech, M.Tech)
+FACULTY 		   15 Teaching professors, associate and assistant professors
+STUDENT 		   60 Enrolled university students across all degree programs
+COURSE			   30 Curriculum subjects (Core, Elective, Lab)
+COURSE_OFFERING 	   45 Active semester sections, rooms, faculty assignments
+ENROLLMENT		  365 Course registration mappings
+ATTENDANCE		  365 Subject-wise class attendance tracking
+MARKS			  250 Continuous assessment, midterm, and final scores
+GRADE			    6 Compatible grade point ranges (S, A, B, C, D, F)
+EXAM			   42 Examination schedules (CAT1, CAT2, FAT)
+EXAM_REGISTRATION	  232 Student exam registrations for enrolled courses
+EXAM_RESULT		  190 Published exam marks, percentages, and letter grades
+RE_EXAM_APPLICATION	   20 Re-examination petitions (Pending, Approved, Rejected)
+USER_ACCOUNT		   76 Authenticated credentials (60 Student + 15 Faculty + 1 Admin
+			      )
+
+
+========================================================================================================================================================
+[1] DEPARTMENTS (6 Records)
+========================================================================================================================================================
+
+Dept ID Department Name 		    Campus Building
+======= =================================== =========================
+      1 Computer Science		    SJT
+      2 Electronics			    TT
+      3 Mechanical Engineering		    MB
+      4 Civil Engineering		    GDN
+      5 Information Technology		    SJT
+      6 Mathematics and Data Sciences	    SMV
+
+========================================================================================================================================================
+[2] DEGREE PROGRAMS (10 Records)
+========================================================================================================================================================
+
+Prog ID Program Name				      Degree	 Years Dept ID
+======= ============================================= ========== ===== =======
+      1 Computer Science Engineering		      B.Tech	     4	     1
+      2 Electronics Engineering 		      B.Tech	     4	     2
+      3 Artificial Intelligence and Data Engineering  B.Tech	     4	     1
+      4 Cyber Security and Digital Forensics	      B.Tech	     4	     1
+      5 VLSI Design and Embedded Systems	      M.Tech	     2	     2
+      6 Communication Systems and IoT		      B.Tech	     4	     2
+      7 Mechanical Engineering			      B.Tech	     4	     3
+      8 Robotics and Industrial Automation	      B.Tech	     4	     3
+      9 Civil and Structural Engineering	      B.Tech	     4	     4
+     10 Data Science and Business Analytics	      B.Tech	     4	     6
+
+========================================================================================================================================================
+[3] FACULTY MEMBERS (15 Records)
+* Note: Login via Faculty Portal using Faculty ID (201 to 215) and password '1234'.
+========================================================================================================================================================
+
+Fac ID Faculty Name		Email Address			 Phone		Designation	       Dept ID
+====== ======================== ================================ ============== ====================== =======
+   201 Dr. Meera Rao		meera.rao@example.com		 9876510001	Professor		     1
+   202 Dr. Karan Singh		karan.singh@example.com 	 9876510002	Associate Professor	     2
+   203 Dr. Vikram Joshi 	vikram.joshi@example.com	 9876510003	Professor		     1
+   204 Dr. Priya Sharma 	priya.sharma@example.com	 9876510004	Associate Professor	     1
+   205 Prof. Rajesh Nair	rajesh.nair@example.com 	 9876510005	Assistant Professor	     1
+   206 Dr. Sunita Menon 	sunita.menon@example.com	 9876510006	Professor		     2
+   207 Prof. Arvind Patel	arvind.patel@example.com	 9876510007	Assistant Professor	     2
+   208 Dr. Ramesh Kulkarni	ramesh.kulkarni@example.com	 9876510008	Professor		     3
+   209 Prof. Deepak Verma	deepak.verma@example.com	 9876510009	Assistant Professor	     3
+   210 Dr. Anita Desai		anita.desai@example.com 	 9876510010	Associate Professor	     3
+   211 Dr. Suresh Reddy 	suresh.reddy@example.com	 9876510011	Professor		     4
+   212 Prof. Kavita Iyer	kavita.iyer@example.com 	 9876510012	Assistant Professor	     4
+   213 Dr. Sanjay Gupta 	sanjay.gupta@example.com	 9876510013	Professor		     5
+   214 Prof. Neha Kapoor	neha.kapoor@example.com 	 9876510014	Assistant Professor	     5
+   215 Dr. Amitava Mukherjee	amitava.mukherjee@example.com	 9876510015	Professor		     6
+
+========================================================================================================================================================
+[4] STUDENTS DIRECTORY (60 Records)
+* Note: Login via Student Portal using Student ID (1001 to 1060) and password '1234'.
+========================================================================================================================================================
+
+Roll No Student Name		 University Email			Phone	       Date of Birt Adm Year Prog ID
+======= ======================== ====================================== ============== ============ ======== =======
+   1001 Aarav Sharma		 aarav.sharma@example.com		9876500001     2006-03-15	2025	   1
+   1002 Ananya Verma		 ananya.verma@example.com		9876500002     2006-07-22	2025	   1
+   1003 Rohan Mehta		 rohan.mehta@example.com		9876500003     2005-11-08	2025	   2
+   1004 Aditya Chopra		 aditya.chopra1004@example.com		9876501004     2004-06-17	2025	   1
+   1005 Ishaan Bose		 ishaan.bose1005@example.com		9876501005     2006-02-08	2025	   2
+   1006 Sneha Rao		 sneha.rao1006@example.com		9876501006     2006-09-14	2025	   3
+   1007 Diya Hegde		 diya.hegde1007@example.com		9876501007     2006-12-25	2024	   4
+   1008 Kabir Pandey		 kabir.pandey1008@example.com		9876501008     2006-08-08	2023	   5
+   1009 Rhea Shukla		 rhea.shukla1009@example.com		9876501009     2006-02-04	2024	   6
+   1010 Arjun Gupta		 arjun.gupta1010@example.com		9876501010     2004-08-01	2025	   7
+   1011 Tanvi Singhal		 tanvi.singhal1011@example.com		9876501011     2005-11-11	2023	   8
+   1012 Varun Goswami		 varun.goswami1012@example.com		9876501012     2005-05-12	2024	   9
+   1013 Anika Rajput		 anika.rajput1013@example.com		9876501013     2005-12-17	2025	  10
+   1014 Dhruv Choudhary 	 dhruv.choudhary1014@example.com	9876501014     2004-12-11	2023	   1
+   1015 Pooja Nair		 pooja.nair1015@example.com		9876501015     2006-09-10	2024	   2
+   1016 Siddharth Iyer		 siddharth.iyer1016@example.com 	9876501016     2005-03-21	2025	   3
+   1017 Meera Deshmukh		 meera.deshmukh1017@example.com 	9876501017     2006-10-10	2023	   4
+   1018 Gaurav Chatterjee	 gaurav.chatterjee1018@example.com	9876501018     2006-06-12	2024	   5
+   1019 Tara Pillai		 tara.pillai1019@example.com		9876501019     2005-02-13	2025	   6
+   1020 Nikhil Shetty		 nikhil.shetty1020@example.com		9876501020     2006-08-28	2023	   7
+   1021 Simran Mishra		 simran.mishra1021@example.com		9876501021     2005-09-26	2025	   8
+   1022 Kunal Dubey		 kunal.dubey1022@example.com		9876501022     2005-07-17	2024	   9
+   1023 Shruti Agrawal		 shruti.agrawal1023@example.com 	9876501023     2005-10-16	2025	  10
+   1024 Ayush Jain		 ayush.jain1024@example.com		9876501024     2006-01-19	2023	   1
+   1025 Kavya Bhardwaj		 kavya.bhardwaj1025@example.com 	9876501025     2004-01-23	2025	   2
+   1026 Manish Rathore		 manish.rathore1026@example.com 	9876501026     2006-02-23	2025	   3
+   1027 Neha Parmar		 neha.parmar1027@example.com		9876501027     2005-08-05	2024	   4
+   1028 Pranav Verma		 pranav.verma1028@example.com		9876501028     2004-02-21	2025	   5
+   1029 Bhavna Reddy		 bhavna.reddy1029@example.com		9876501029     2005-11-16	2025	   6
+   1030 Rishi Kulkarni		 rishi.kulkarni1030@example.com 	9876501030     2006-05-18	2024	   7
+   1031 Sakshi Kapoor		 sakshi.kapoor1031@example.com		9876501031     2006-05-18	2025	   8
+   1032 Harsh Sengupta		 harsh.sengupta1032@example.com 	9876501032     2006-12-16	2024	   9
+   1033 Divya Bhat		 divya.bhat1033@example.com		9876501033     2005-04-10	2024	  10
+   1034 Abhishek Gowda		 abhishek.gowda1034@example.com 	9876501034     2004-01-05	2025	   1
+   1035 Swati Tiwari		 swati.tiwari1035@example.com		9876501035     2006-08-26	2025	   2
+   1036 Karthik Saxena		 karthik.saxena1036@example.com 	9876501036     2005-06-07	2024	   3
+   1037 Nandini Bansal		 nandini.bansal1037@example.com 	9876501037     2006-08-15	2025	   4
+   1038 Rahul Goyal		 rahul.goyal1038@example.com		9876501038     2005-07-18	2025	   5
+   1039 Isha Chauhan		 isha.chauhan1039@example.com		9876501039     2004-05-11	2024	   6
+   1040 Akash Solanki		 akash.solanki1040@example.com		9876501040     2004-08-23	2025	   7
+   1041 Shreya Yadav		 shreya.yadav1041@example.com		9876501041     2006-05-15	2023	   8
+   1042 Chirag Patel		 chirag.patel1042@example.com		9876501042     2005-12-16	2023	   9
+   1043 Payal Menon		 payal.menon1043@example.com		9876501043     2006-05-16	2024	  10
+   1044 Vivek Chopra		 vivek.chopra1044@example.com		9876501044     2004-04-24	2024	   1
+   1045 Pallavi Bose		 pallavi.bose1045@example.com		9876501045     2004-08-01	2023	   2
+   1046 Sanjay Rao		 sanjay.rao1046@example.com		9876501046     2004-08-19	2025	   3
+   1047 Geeta Hegde		 geeta.hegde1047@example.com		9876501047     2004-10-26	2023	   4
+   1048 Mohit Pandey		 mohit.pandey1048@example.com		9876501048     2004-02-20	2023	   5
+   1049 Vidya Shukla		 vidya.shukla1049@example.com		9876501049     2006-05-22	2025	   6
+   1050 Deepak Gupta		 deepak.gupta1050@example.com		9876501050     2005-03-01	2024	   7
+   1051 Preeti Singhal		 preeti.singhal1051@example.com 	9876501051     2006-10-19	2024	   8
+   1052 Yash Goswami		 yash.goswami1052@example.com		9876501052     2006-12-05	2025	   9
+   1053 Ritu Rajput		 ritu.rajput1053@example.com		9876501053     2004-08-19	2023	  10
+   1054 Sameer Choudhary	 sameer.choudhary1054@example.com	9876501054     2006-12-17	2024	   1
+   1055 Shalini Nair		 shalini.nair1055@example.com		9876501055     2004-07-22	2023	   2
+   1056 Tarun Iyer		 tarun.iyer1056@example.com		9876501056     2004-10-10	2025	   3
+   1057 Anjali Deshmukh 	 anjali.deshmukh1057@example.com	9876501057     2005-07-26	2023	   4
+   1058 Karan Chatterjee	 karan.chatterjee1058@example.com	9876501058     2006-04-13	2023	   5
+   1059 Komal Pillai		 komal.pillai1059@example.com		9876501059     2004-07-03	2023	   6
+   1060 Alok Shetty		 alok.shetty1060@example.com		9876501060     2005-11-12	2023	   7
+
+========================================================================================================================================================
+[5] MASTER COURSES (30 Records)
+========================================================================================================================================================
+
+Course ID Course Title					Credits Type	     Dept ID
+========= ============================================= ======= ============ =======
+      301 Database Systems				      4 Core		   1
+      302 Computer Networks				      3 Core		   1
+      303 Digital Electronics				      3 Core		   2
+      304 Data Structures and Algorithms		      4 Core		   1
+      305 Operating Systems				      4 Core		   1
+      306 Software Engineering				      3 Core		   1
+      307 Machine Learning				      4 Elective	   1
+      308 Cloud Computing Architecture			      3 Elective	   1
+      309 Discrete Mathematics				      4 Core		   1
+      310 Full Stack Web Development			      3 Elective	   1
+      311 Signals and Systems				      4 Core		   2
+      312 Microprocessors and Interfacing		      4 Core		   2
+      313 Analog Electronic Circuits			      3 Core		   2
+      314 VLSI System Design				      4 Core		   2
+      315 Wireless and Mobile Communication		      3 Elective	   2
+      316 Engineering Thermodynamics			      4 Core		   3
+      317 Fluid Mechanics and Machinery 		      4 Core		   3
+      318 Strength of Materials 			      3 Core		   3
+      319 CAD and Computer Aided Manufacturing		      3 Elective	   3
+      320 Robotics and Industrial Automation		      4 Elective	   3
+      321 Structural Analysis and Design		      4 Core		   4
+      322 Surveying and Geomatics			      3 Core		   4
+      323 Geotechnical Engineering			      4 Core		   4
+      324 Environmental Engineering			      3 Core		   4
+      325 Information Security Principles		      3 Core		   5
+      326 Distributed Systems				      4 Core		   5
+      327 Mobile Application Development		      3 Elective	   5
+      328 Linear Algebra and Differential Calculus	      4 Core		   6
+      329 Probability and Statistics			      4 Core		   6
+      330 Optimization Techniques			      3 Elective	   6
+
+========================================================================================================================================================
+[6] SEMESTER COURSE OFFERINGS (45 Records)
+========================================================================================================================================================
+
+Off ID Course Faculty Sem Year	     Sec   Room 	Seats Classes Held
+====== ====== ======= === ========== ===== ============ ===== ============
+   401	  301	  201	3 2026-2027  A	   SJT-301	   60		30
+   402	  302	  201	3 2026-2027  A	   SJT-302	   60		28
+   403	  303	  202	3 2026-2027  B	   TT-201	   50		25
+   404	  301	  203	3 2026-2027  B	   SJT-303	   60		28
+   405	  302	  204	3 2026-2027  B	   SJT-304	   60		26
+   406	  304	  201	3 2026-2027  A	   SJT-305	   60		30
+   407	  304	  203	3 2026-2027  B	   SJT-306	   60		29
+   408	  305	  204	4 2026-2027  A	   SJT-401	   55		27
+   409	  305	  205	4 2026-2027  B	   SJT-402	   55		26
+   410	  306	  205	4 2026-2027  A	   SJT-403	   50		24
+   411	  307	  201	5 2026-2027  A	   SJT-501	   50		28
+   412	  308	  203	5 2026-2027  A	   SJT-502	   50		25
+   413	  309	  215	3 2026-2027  A	   SMV-101	   60		32
+   414	  310	  205	4 2026-2027  A	   SJT-503	   45		25
+   415	  303	  206	3 2026-2027  A	   TT-202	   50		26
+   416	  311	  202	3 2026-2027  A	   TT-203	   55		28
+   417	  311	  206	3 2026-2027  B	   TT-204	   55		27
+   418	  312	  202	4 2026-2027  A	   TT-301	   50		29
+   419	  313	  207	3 2026-2027  A	   TT-302	   50		25
+   420	  314	  206	5 2026-2027  A	   TT-401	   45		24
+   421	  315	  207	5 2026-2027  A	   TT-402	   45		26
+   422	  316	  208	3 2026-2027  A	   MB-101	   60		30
+   423	  316	  209	3 2026-2027  B	   MB-102	   60		28
+   424	  317	  208	4 2026-2027  A	   MB-201	   55		27
+   425	  318	  210	3 2026-2027  A	   MB-202	   55		29
+   426	  319	  209	4 2026-2027  A	   MB-301	   45		25
+   427	  320	  210	5 2026-2027  A	   MB-302	   45		28
+   428	  321	  211	3 2026-2027  A	   GDN-101	   50		28
+   429	  322	  212	3 2026-2027  A	   GDN-102	   50		26
+   430	  323	  211	4 2026-2027  A	   GDN-201	   45		25
+   431	  324	  212	4 2026-2027  A	   GDN-202	   45		27
+   432	  325	  213	3 2026-2027  A	   SJT-601	   55		29
+   433	  325	  214	3 2026-2027  B	   SJT-602	   55		28
+   434	  326	  213	4 2026-2027  A	   SJT-603	   50		27
+   435	  327	  214	4 2026-2027  A	   SJT-604	   50		26
+   436	  328	  215	1 2026-2027  A	   SMV-102	   60		30
+   437	  328	  215	1 2026-2027  B	   SMV-103	   60		30
+   438	  329	  215	2 2026-2027  A	   SMV-201	   60		29
+   439	  329	  215	2 2026-2027  B	   SMV-202	   60		28
+   440	  330	  215	4 2026-2027  A	   SMV-203	   50		26
+   441	  304	  204	3 2026-2027  C	   SJT-307	   55		28
+   442	  301	  205	3 2026-2027  C	   SJT-308	   55		27
+   443	  302	  201	3 2026-2027  C	   SJT-309	   55		26
+   444	  311	  207	3 2026-2027  C	   TT-205	   50		25
+   445	  316	  210	3 2026-2027  C	   MB-103	   50		26
+
+========================================================================================================================================================
+[7] COURSE ENROLLMENTS (365 Records)
+========================================================================================================================================================
+
+Enr ID Student Off ID Date	   Status
+====== ======= ====== ============ ============
+   501	  1001	  401 2026-07-15   ENROLLED
+   502	  1002	  401 2026-07-15   ENROLLED
+   503	  1001	  402 2026-07-15   ENROLLED
+   504	  1003	  403 2026-07-15   ENROLLED
+   505	  1001	  442 2026-07-15   ENROLLED
+   506	  1001	  441 2026-07-15   ENROLLED
+   507	  1001	  412 2026-07-15   ENROLLED
+   508	  1001	  443 2026-07-15   ENROLLED
+   509	  1001	  406 2026-07-15   ENROLLED
+   510	  1002	  412 2026-07-15   ENROLLED
+   511	  1002	  405 2026-07-15   ENROLLED
+   512	  1002	  441 2026-07-15   ENROLLED
+   513	  1002	  409 2026-07-15   ENROLLED
+   514	  1002	  411 2026-07-15   ENROLLED
+   515	  1002	  436 2026-07-15   ENROLLED
+   516	  1003	  416 2026-07-15   ENROLLED
+   517	  1003	  438 2026-07-15   ENROLLED
+   518	  1003	  436 2026-07-15   ENROLLED
+   519	  1003	  417 2026-07-15   ENROLLED
+   520	  1003	  421 2026-07-15   ENROLLED
+   521	  1004	  412 2026-07-15   ENROLLED
+   522	  1004	  438 2026-07-15   ENROLLED
+   523	  1004	  409 2026-07-15   ENROLLED
+   524	  1004	  443 2026-07-15   ENROLLED
+   525	  1004	  413 2026-07-15   ENROLLED
+   526	  1004	  402 2026-07-15   ENROLLED
+   527	  1004	  410 2026-07-15   ENROLLED
+   528	  1005	  403 2026-07-15   ENROLLED
+   529	  1005	  417 2026-07-15   ENROLLED
+   530	  1005	  416 2026-07-15   ENROLLED
+   531	  1005	  444 2026-07-15   ENROLLED
+   532	  1005	  419 2026-07-15   ENROLLED
+   533	  1005	  418 2026-07-15   ENROLLED
+   534	  1006	  438 2026-07-15   ENROLLED
+   535	  1006	  408 2026-07-15   ENROLLED
+   536	  1006	  441 2026-07-15   ENROLLED
+   537	  1006	  413 2026-07-15   ENROLLED
+   538	  1006	  412 2026-07-15   ENROLLED
+   539	  1007	  406 2026-07-15   ENROLLED
+   540	  1007	  442 2026-07-15   ENROLLED
+   541	  1007	  408 2026-07-15   ENROLLED
+   542	  1007	  414 2026-07-15   ENROLLED
+   543	  1007	  410 2026-07-15   ENROLLED
+   544	  1008	  416 2026-07-15   ENROLLED
+   545	  1008	  444 2026-07-15   ENROLLED
+   546	  1008	  420 2026-07-15   ENROLLED
+   547	  1008	  418 2026-07-15   ENROLLED
+   548	  1008	  417 2026-07-15   ENROLLED
+   549	  1009	  420 2026-07-15   ENROLLED
+   550	  1009	  415 2026-07-15   ENROLLED
+   551	  1009	  444 2026-07-15   ENROLLED
+   552	  1009	  418 2026-07-15   ENROLLED
+   553	  1009	  438 2026-07-15   ENROLLED
+   554	  1009	  416 2026-07-15   ENROLLED
+   555	  1009	  436 2026-07-15   ENROLLED
+   556	  1010	  438 2026-07-15   ENROLLED
+   557	  1010	  445 2026-07-15   ENROLLED
+   558	  1010	  436 2026-07-15   ENROLLED
+   559	  1010	  425 2026-07-15   ENROLLED
+   560	  1010	  424 2026-07-15   ENROLLED
+   561	  1010	  427 2026-07-15   ENROLLED
+   562	  1011	  427 2026-07-15   ENROLLED
+   563	  1011	  438 2026-07-15   ENROLLED
+   564	  1011	  425 2026-07-15   ENROLLED
+   565	  1011	  422 2026-07-15   ENROLLED
+   566	  1011	  426 2026-07-15   ENROLLED
+   567	  1012	  430 2026-07-15   ENROLLED
+   568	  1012	  428 2026-07-15   ENROLLED
+   569	  1012	  429 2026-07-15   ENROLLED
+   570	  1012	  436 2026-07-15   ENROLLED
+   571	  1012	  438 2026-07-15   ENROLLED
+   572	  1012	  431 2026-07-15   ENROLLED
+   573	  1013	  438 2026-07-15   ENROLLED
+   574	  1013	  436 2026-07-15   ENROLLED
+   575	  1013	  437 2026-07-15   ENROLLED
+   576	  1013	  406 2026-07-15   ENROLLED
+   577	  1013	  401 2026-07-15   ENROLLED
+   578	  1013	  440 2026-07-15   ENROLLED
+   579	  1014	  413 2026-07-15   ENROLLED
+   580	  1014	  408 2026-07-15   ENROLLED
+   581	  1014	  405 2026-07-15   ENROLLED
+   582	  1014	  411 2026-07-15   ENROLLED
+   583	  1014	  443 2026-07-15   ENROLLED
+   584	  1015	  436 2026-07-15   ENROLLED
+   585	  1015	  438 2026-07-15   ENROLLED
+   586	  1015	  417 2026-07-15   ENROLLED
+   587	  1015	  418 2026-07-15   ENROLLED
+   588	  1015	  421 2026-07-15   ENROLLED
+   589	  1015	  416 2026-07-15   ENROLLED
+   590	  1016	  443 2026-07-15   ENROLLED
+   591	  1016	  406 2026-07-15   ENROLLED
+   592	  1016	  405 2026-07-15   ENROLLED
+   593	  1016	  414 2026-07-15   ENROLLED
+   594	  1016	  442 2026-07-15   ENROLLED
+   595	  1016	  402 2026-07-15   ENROLLED
+   596	  1016	  408 2026-07-15   ENROLLED
+   597	  1017	  405 2026-07-15   ENROLLED
+   598	  1017	  402 2026-07-15   ENROLLED
+   599	  1017	  413 2026-07-15   ENROLLED
+   600	  1017	  441 2026-07-15   ENROLLED
+   601	  1017	  414 2026-07-15   ENROLLED
+   602	  1018	  444 2026-07-15   ENROLLED
+   603	  1018	  415 2026-07-15   ENROLLED
+   604	  1018	  436 2026-07-15   ENROLLED
+   605	  1018	  419 2026-07-15   ENROLLED
+   606	  1018	  416 2026-07-15   ENROLLED
+   607	  1019	  415 2026-07-15   ENROLLED
+   608	  1019	  418 2026-07-15   ENROLLED
+   609	  1019	  419 2026-07-15   ENROLLED
+   610	  1019	  416 2026-07-15   ENROLLED
+   611	  1019	  421 2026-07-15   ENROLLED
+   612	  1019	  420 2026-07-15   ENROLLED
+   613	  1019	  403 2026-07-15   ENROLLED
+   614	  1020	  436 2026-07-15   ENROLLED
+   615	  1020	  426 2026-07-15   ENROLLED
+   616	  1020	  425 2026-07-15   ENROLLED
+   617	  1020	  422 2026-07-15   ENROLLED
+   618	  1020	  427 2026-07-15   ENROLLED
+   619	  1021	  425 2026-07-15   ENROLLED
+   620	  1021	  422 2026-07-15   ENROLLED
+   621	  1021	  424 2026-07-15   ENROLLED
+   622	  1021	  438 2026-07-15   ENROLLED
+   623	  1021	  427 2026-07-15   ENROLLED
+   624	  1022	  436 2026-07-15   ENROLLED
+   625	  1022	  438 2026-07-15   ENROLLED
+   626	  1022	  430 2026-07-15   ENROLLED
+   627	  1022	  429 2026-07-15   ENROLLED
+   628	  1022	  431 2026-07-15   ENROLLED
+   629	  1022	  428 2026-07-15   ENROLLED
+   630	  1023	  438 2026-07-15   ENROLLED
+   631	  1023	  437 2026-07-15   ENROLLED
+   632	  1023	  406 2026-07-15   ENROLLED
+   633	  1023	  439 2026-07-15   ENROLLED
+   634	  1023	  436 2026-07-15   ENROLLED
+   635	  1023	  440 2026-07-15   ENROLLED
+   636	  1024	  405 2026-07-15   ENROLLED
+   637	  1024	  413 2026-07-15   ENROLLED
+   638	  1024	  410 2026-07-15   ENROLLED
+   639	  1024	  408 2026-07-15   ENROLLED
+   640	  1024	  406 2026-07-15   ENROLLED
+   641	  1024	  407 2026-07-15   ENROLLED
+   642	  1024	  401 2026-07-15   ENROLLED
+   643	  1025	  420 2026-07-15   ENROLLED
+   644	  1025	  403 2026-07-15   ENROLLED
+   645	  1025	  418 2026-07-15   ENROLLED
+   646	  1025	  419 2026-07-15   ENROLLED
+   647	  1025	  416 2026-07-15   ENROLLED
+   648	  1025	  421 2026-07-15   ENROLLED
+   649	  1025	  438 2026-07-15   ENROLLED
+   650	  1026	  436 2026-07-15   ENROLLED
+   651	  1026	  412 2026-07-15   ENROLLED
+   652	  1026	  401 2026-07-15   ENROLLED
+   653	  1026	  410 2026-07-15   ENROLLED
+   654	  1026	  407 2026-07-15   ENROLLED
+   655	  1026	  405 2026-07-15   ENROLLED
+   656	  1027	  402 2026-07-15   ENROLLED
+   657	  1027	  405 2026-07-15   ENROLLED
+   658	  1027	  407 2026-07-15   ENROLLED
+   659	  1027	  411 2026-07-15   ENROLLED
+   660	  1027	  443 2026-07-15   ENROLLED
+   661	  1027	  436 2026-07-15   ENROLLED
+   662	  1027	  401 2026-07-15   ENROLLED
+   663	  1028	  436 2026-07-15   ENROLLED
+   664	  1028	  419 2026-07-15   ENROLLED
+   665	  1028	  418 2026-07-15   ENROLLED
+   666	  1028	  403 2026-07-15   ENROLLED
+   667	  1028	  417 2026-07-15   ENROLLED
+   668	  1029	  416 2026-07-15   ENROLLED
+   669	  1029	  419 2026-07-15   ENROLLED
+   670	  1029	  420 2026-07-15   ENROLLED
+   671	  1029	  436 2026-07-15   ENROLLED
+   672	  1029	  417 2026-07-15   ENROLLED
+   673	  1029	  415 2026-07-15   ENROLLED
+   674	  1029	  421 2026-07-15   ENROLLED
+   675	  1030	  425 2026-07-15   ENROLLED
+   676	  1030	  424 2026-07-15   ENROLLED
+   677	  1030	  423 2026-07-15   ENROLLED
+   678	  1030	  426 2026-07-15   ENROLLED
+   679	  1030	  422 2026-07-15   ENROLLED
+   680	  1030	  445 2026-07-15   ENROLLED
+   681	  1030	  436 2026-07-15   ENROLLED
+   682	  1031	  425 2026-07-15   ENROLLED
+   683	  1031	  422 2026-07-15   ENROLLED
+   684	  1031	  438 2026-07-15   ENROLLED
+   685	  1031	  424 2026-07-15   ENROLLED
+   686	  1031	  426 2026-07-15   ENROLLED
+   687	  1032	  431 2026-07-15   ENROLLED
+   688	  1032	  430 2026-07-15   ENROLLED
+   689	  1032	  436 2026-07-15   ENROLLED
+   690	  1032	  428 2026-07-15   ENROLLED
+   691	  1032	  438 2026-07-15   ENROLLED
+   692	  1032	  429 2026-07-15   ENROLLED
+   693	  1033	  401 2026-07-15   ENROLLED
+   694	  1033	  438 2026-07-15   ENROLLED
+   695	  1033	  437 2026-07-15   ENROLLED
+   696	  1033	  411 2026-07-15   ENROLLED
+   697	  1033	  439 2026-07-15   ENROLLED
+   698	  1033	  436 2026-07-15   ENROLLED
+   699	  1033	  406 2026-07-15   ENROLLED
+   700	  1034	  401 2026-07-15   ENROLLED
+   701	  1034	  409 2026-07-15   ENROLLED
+   702	  1034	  441 2026-07-15   ENROLLED
+   703	  1034	  443 2026-07-15   ENROLLED
+   704	  1034	  405 2026-07-15   ENROLLED
+   705	  1035	  436 2026-07-15   ENROLLED
+   706	  1035	  416 2026-07-15   ENROLLED
+   707	  1035	  420 2026-07-15   ENROLLED
+   708	  1035	  419 2026-07-15   ENROLLED
+   709	  1035	  444 2026-07-15   ENROLLED
+   710	  1035	  415 2026-07-15   ENROLLED
+   711	  1035	  418 2026-07-15   ENROLLED
+   712	  1036	  412 2026-07-15   ENROLLED
+   713	  1036	  408 2026-07-15   ENROLLED
+   714	  1036	  413 2026-07-15   ENROLLED
+   715	  1036	  407 2026-07-15   ENROLLED
+   716	  1036	  409 2026-07-15   ENROLLED
+   717	  1036	  443 2026-07-15   ENROLLED
+   718	  1037	  443 2026-07-15   ENROLLED
+   719	  1037	  441 2026-07-15   ENROLLED
+   720	  1037	  411 2026-07-15   ENROLLED
+   721	  1037	  405 2026-07-15   ENROLLED
+   722	  1037	  404 2026-07-15   ENROLLED
+   723	  1037	  412 2026-07-15   ENROLLED
+   724	  1038	  416 2026-07-15   ENROLLED
+   725	  1038	  421 2026-07-15   ENROLLED
+   726	  1038	  403 2026-07-15   ENROLLED
+   727	  1038	  419 2026-07-15   ENROLLED
+   728	  1038	  420 2026-07-15   ENROLLED
+   729	  1038	  418 2026-07-15   ENROLLED
+   730	  1039	  420 2026-07-15   ENROLLED
+   731	  1039	  403 2026-07-15   ENROLLED
+   732	  1039	  416 2026-07-15   ENROLLED
+   733	  1039	  415 2026-07-15   ENROLLED
+   734	  1039	  436 2026-07-15   ENROLLED
+   735	  1039	  444 2026-07-15   ENROLLED
+   736	  1039	  418 2026-07-15   ENROLLED
+   737	  1040	  426 2026-07-15   ENROLLED
+   738	  1040	  424 2026-07-15   ENROLLED
+   739	  1040	  427 2026-07-15   ENROLLED
+   740	  1040	  436 2026-07-15   ENROLLED
+   741	  1040	  422 2026-07-15   ENROLLED
+   742	  1040	  445 2026-07-15   ENROLLED
+   743	  1040	  438 2026-07-15   ENROLLED
+   744	  1041	  426 2026-07-15   ENROLLED
+   745	  1041	  422 2026-07-15   ENROLLED
+   746	  1041	  425 2026-07-15   ENROLLED
+   747	  1041	  436 2026-07-15   ENROLLED
+   748	  1041	  445 2026-07-15   ENROLLED
+   749	  1042	  438 2026-07-15   ENROLLED
+   750	  1042	  429 2026-07-15   ENROLLED
+   751	  1042	  428 2026-07-15   ENROLLED
+   752	  1042	  431 2026-07-15   ENROLLED
+   753	  1042	  430 2026-07-15   ENROLLED
+   754	  1042	  436 2026-07-15   ENROLLED
+   755	  1043	  437 2026-07-15   ENROLLED
+   756	  1043	  411 2026-07-15   ENROLLED
+   757	  1043	  401 2026-07-15   ENROLLED
+   758	  1043	  440 2026-07-15   ENROLLED
+   759	  1043	  406 2026-07-15   ENROLLED
+   760	  1043	  438 2026-07-15   ENROLLED
+   761	  1044	  411 2026-07-15   ENROLLED
+   762	  1044	  443 2026-07-15   ENROLLED
+   763	  1044	  413 2026-07-15   ENROLLED
+   764	  1044	  404 2026-07-15   ENROLLED
+   765	  1044	  408 2026-07-15   ENROLLED
+   766	  1044	  405 2026-07-15   ENROLLED
+   767	  1045	  444 2026-07-15   ENROLLED
+   768	  1045	  403 2026-07-15   ENROLLED
+   769	  1045	  421 2026-07-15   ENROLLED
+   770	  1045	  420 2026-07-15   ENROLLED
+   771	  1045	  416 2026-07-15   ENROLLED
+   772	  1045	  418 2026-07-15   ENROLLED
+   773	  1045	  415 2026-07-15   ENROLLED
+   774	  1046	  442 2026-07-15   ENROLLED
+   775	  1046	  401 2026-07-15   ENROLLED
+   776	  1046	  407 2026-07-15   ENROLLED
+   777	  1046	  441 2026-07-15   ENROLLED
+   778	  1046	  410 2026-07-15   ENROLLED
+   779	  1046	  404 2026-07-15   ENROLLED
+   780	  1046	  414 2026-07-15   ENROLLED
+   781	  1047	  405 2026-07-15   ENROLLED
+   782	  1047	  442 2026-07-15   ENROLLED
+   783	  1047	  401 2026-07-15   ENROLLED
+   784	  1047	  436 2026-07-15   ENROLLED
+   785	  1047	  407 2026-07-15   ENROLLED
+   786	  1048	  419 2026-07-15   ENROLLED
+   787	  1048	  418 2026-07-15   ENROLLED
+   788	  1048	  417 2026-07-15   ENROLLED
+   789	  1048	  416 2026-07-15   ENROLLED
+   790	  1048	  438 2026-07-15   ENROLLED
+   791	  1049	  417 2026-07-15   ENROLLED
+   792	  1049	  416 2026-07-15   ENROLLED
+   793	  1049	  415 2026-07-15   ENROLLED
+   794	  1049	  419 2026-07-15   ENROLLED
+   795	  1049	  444 2026-07-15   ENROLLED
+   796	  1049	  403 2026-07-15   ENROLLED
+   797	  1049	  421 2026-07-15   ENROLLED
+   798	  1050	  426 2026-07-15   ENROLLED
+   799	  1050	  445 2026-07-15   ENROLLED
+   800	  1050	  427 2026-07-15   ENROLLED
+   801	  1050	  422 2026-07-15   ENROLLED
+   802	  1050	  424 2026-07-15   ENROLLED
+   803	  1050	  425 2026-07-15   ENROLLED
+   804	  1051	  423 2026-07-15   ENROLLED
+   805	  1051	  425 2026-07-15   ENROLLED
+   806	  1051	  436 2026-07-15   ENROLLED
+   807	  1051	  424 2026-07-15   ENROLLED
+   808	  1051	  438 2026-07-15   ENROLLED
+   809	  1051	  427 2026-07-15   ENROLLED
+   810	  1052	  428 2026-07-15   ENROLLED
+   811	  1052	  438 2026-07-15   ENROLLED
+   812	  1052	  431 2026-07-15   ENROLLED
+   813	  1052	  429 2026-07-15   ENROLLED
+   814	  1052	  430 2026-07-15   ENROLLED
+   815	  1053	  436 2026-07-15   ENROLLED
+   816	  1053	  406 2026-07-15   ENROLLED
+   817	  1053	  411 2026-07-15   ENROLLED
+   818	  1053	  440 2026-07-15   ENROLLED
+   819	  1053	  438 2026-07-15   ENROLLED
+   820	  1053	  439 2026-07-15   ENROLLED
+   821	  1053	  437 2026-07-15   ENROLLED
+   822	  1054	  412 2026-07-15   ENROLLED
+   823	  1054	  407 2026-07-15   ENROLLED
+   824	  1054	  408 2026-07-15   ENROLLED
+   825	  1054	  414 2026-07-15   ENROLLED
+   826	  1054	  409 2026-07-15   ENROLLED
+   827	  1054	  405 2026-07-15   ENROLLED
+   828	  1055	  419 2026-07-15   ENROLLED
+   829	  1055	  444 2026-07-15   ENROLLED
+   830	  1055	  420 2026-07-15   ENROLLED
+   831	  1055	  436 2026-07-15   ENROLLED
+   832	  1055	  415 2026-07-15   ENROLLED
+   833	  1055	  421 2026-07-15   ENROLLED
+   834	  1055	  417 2026-07-15   ENROLLED
+   835	  1056	  406 2026-07-15   ENROLLED
+   836	  1056	  436 2026-07-15   ENROLLED
+   837	  1056	  410 2026-07-15   ENROLLED
+   838	  1056	  407 2026-07-15   ENROLLED
+   839	  1056	  442 2026-07-15   ENROLLED
+   840	  1056	  402 2026-07-15   ENROLLED
+   841	  1056	  438 2026-07-15   ENROLLED
+   842	  1057	  438 2026-07-15   ENROLLED
+   843	  1057	  410 2026-07-15   ENROLLED
+   844	  1057	  406 2026-07-15   ENROLLED
+   845	  1057	  442 2026-07-15   ENROLLED
+   846	  1057	  412 2026-07-15   ENROLLED
+   847	  1057	  441 2026-07-15   ENROLLED
+   848	  1058	  419 2026-07-15   ENROLLED
+   849	  1058	  416 2026-07-15   ENROLLED
+   850	  1058	  436 2026-07-15   ENROLLED
+   851	  1058	  415 2026-07-15   ENROLLED
+   852	  1058	  438 2026-07-15   ENROLLED
+   853	  1059	  438 2026-07-15   ENROLLED
+   854	  1059	  421 2026-07-15   ENROLLED
+   855	  1059	  420 2026-07-15   ENROLLED
+   856	  1059	  436 2026-07-15   ENROLLED
+   857	  1059	  403 2026-07-15   ENROLLED
+   858	  1059	  418 2026-07-15   ENROLLED
+   859	  1060	  427 2026-07-15   ENROLLED
+   860	  1060	  436 2026-07-15   ENROLLED
+   861	  1060	  424 2026-07-15   ENROLLED
+   862	  1060	  422 2026-07-15   ENROLLED
+   863	  1060	  425 2026-07-15   ENROLLED
+   864	  1060	  423 2026-07-15   ENROLLED
+   865	  1060	  426 2026-07-15   ENROLLED
+
+========================================================================================================================================================
+[8] ATTENDANCE RECORDS (365 Records)
+* Rule: Classes_Attended <= Classes_Held (Percentages calculated dynamically)
+========================================================================================================================================================
+
+Att ID Student Off ID Attended Held  Att % Eligibility
+====== ======= ====== ======== ==== ====== ================
+   601	  1001	  401	    28	 30   93.3 ELIGIBLE
+   602	  1002	  401	    24	 30   80.0 ELIGIBLE
+   603	  1001	  402	    25	 28   89.3 ELIGIBLE
+   604	  1003	  403	    22	 25   88.0 ELIGIBLE
+   605	  1001	  442	    24	 27   88.9 ELIGIBLE
+   606	  1001	  441	    19	 28   67.9 SHORTAGE (<75%)
+   607	  1001	  412	    23	 25   92.0 ELIGIBLE
+   608	  1001	  443	    23	 26   88.5 ELIGIBLE
+   609	  1001	  406	    27	 30   90.0 ELIGIBLE
+   610	  1002	  412	    20	 25   80.0 ELIGIBLE
+   611	  1002	  405	    15	 26   57.7 SHORTAGE (<75%)
+   612	  1002	  441	    25	 28   89.3 ELIGIBLE
+   613	  1002	  409	    25	 26   96.2 ELIGIBLE
+   614	  1002	  411	    24	 28   85.7 ELIGIBLE
+   615	  1002	  436	    27	 30   90.0 ELIGIBLE
+   616	  1003	  416	    26	 28   92.9 ELIGIBLE
+   617	  1003	  438	    27	 29   93.1 ELIGIBLE
+   618	  1003	  436	    26	 30   86.7 ELIGIBLE
+   619	  1003	  417	    24	 27   88.9 ELIGIBLE
+   620	  1003	  421	    24	 26   92.3 ELIGIBLE
+   621	  1004	  412	    22	 25   88.0 ELIGIBLE
+   622	  1004	  438	    27	 29   93.1 ELIGIBLE
+   623	  1004	  409	    21	 26   80.8 ELIGIBLE
+   624	  1004	  443	    22	 26   84.6 ELIGIBLE
+   625	  1004	  413	    29	 32   90.6 ELIGIBLE
+   626	  1004	  402	    26	 28   92.9 ELIGIBLE
+   627	  1004	  410	    18	 24   75.0 ELIGIBLE
+   628	  1005	  403	    16	 25   64.0 SHORTAGE (<75%)
+   629	  1005	  417	    24	 27   88.9 ELIGIBLE
+   630	  1005	  416	    25	 28   89.3 ELIGIBLE
+   631	  1005	  444	    18	 25   72.0 SHORTAGE (<75%)
+   632	  1005	  419	    23	 25   92.0 ELIGIBLE
+   633	  1005	  418	    28	 29   96.6 ELIGIBLE
+   634	  1006	  438	    27	 29   93.1 ELIGIBLE
+   635	  1006	  408	    24	 27   88.9 ELIGIBLE
+   636	  1006	  441	    22	 28   78.6 ELIGIBLE
+   637	  1006	  413	    27	 32   84.4 ELIGIBLE
+   638	  1006	  412	    21	 25   84.0 ELIGIBLE
+   639	  1007	  406	    24	 30   80.0 ELIGIBLE
+   640	  1007	  442	    26	 27   96.3 ELIGIBLE
+   641	  1007	  408	    25	 27   92.6 ELIGIBLE
+   642	  1007	  414	    23	 25   92.0 ELIGIBLE
+   643	  1007	  410	    21	 24   87.5 ELIGIBLE
+   644	  1008	  416	    25	 28   89.3 ELIGIBLE
+   645	  1008	  444	    24	 25   96.0 ELIGIBLE
+   646	  1008	  420	    18	 24   75.0 ELIGIBLE
+   647	  1008	  418	    28	 29   96.6 ELIGIBLE
+   648	  1008	  417	    22	 27   81.5 ELIGIBLE
+   649	  1009	  420	    21	 24   87.5 ELIGIBLE
+   650	  1009	  415	    23	 26   88.5 ELIGIBLE
+   651	  1009	  444	    22	 25   88.0 ELIGIBLE
+   652	  1009	  418	    27	 29   93.1 ELIGIBLE
+   653	  1009	  438	    28	 29   96.6 ELIGIBLE
+   654	  1009	  416	    27	 28   96.4 ELIGIBLE
+   655	  1009	  436	    28	 30   93.3 ELIGIBLE
+   656	  1010	  438	    23	 29   79.3 ELIGIBLE
+   657	  1010	  445	    15	 26   57.7 SHORTAGE (<75%)
+   658	  1010	  436	    28	 30   93.3 ELIGIBLE
+   659	  1010	  425	    27	 29   93.1 ELIGIBLE
+   660	  1010	  424	    18	 27   66.7 SHORTAGE (<75%)
+   661	  1010	  427	    27	 28   96.4 ELIGIBLE
+   662	  1011	  427	    24	 28   85.7 ELIGIBLE
+   663	  1011	  438	    25	 29   86.2 ELIGIBLE
+   664	  1011	  425	    24	 29   82.8 ELIGIBLE
+   665	  1011	  422	    27	 30   90.0 ELIGIBLE
+   666	  1011	  426	    22	 25   88.0 ELIGIBLE
+   667	  1012	  430	    22	 25   88.0 ELIGIBLE
+   668	  1012	  428	    24	 28   85.7 ELIGIBLE
+   669	  1012	  429	    24	 26   92.3 ELIGIBLE
+   670	  1012	  436	    28	 30   93.3 ELIGIBLE
+   671	  1012	  438	    25	 29   86.2 ELIGIBLE
+   672	  1012	  431	    25	 27   92.6 ELIGIBLE
+   673	  1013	  438	    27	 29   93.1 ELIGIBLE
+   674	  1013	  436	    27	 30   90.0 ELIGIBLE
+   675	  1013	  437	    23	 30   76.7 ELIGIBLE
+   676	  1013	  406	    26	 30   86.7 ELIGIBLE
+   677	  1013	  401	    28	 30   93.3 ELIGIBLE
+   678	  1013	  440	    20	 26   76.9 ELIGIBLE
+   679	  1014	  413	    24	 32   75.0 ELIGIBLE
+   680	  1014	  408	    26	 27   96.3 ELIGIBLE
+   681	  1014	  405	    24	 26   92.3 ELIGIBLE
+   682	  1014	  411	    21	 28   75.0 ELIGIBLE
+   683	  1014	  443	    25	 26   96.2 ELIGIBLE
+   684	  1015	  436	    26	 30   86.7 ELIGIBLE
+   685	  1015	  438	    17	 29   58.6 SHORTAGE (<75%)
+   686	  1015	  417	    26	 27   96.3 ELIGIBLE
+   687	  1015	  418	    24	 29   82.8 ELIGIBLE
+   688	  1015	  421	    24	 26   92.3 ELIGIBLE
+   689	  1015	  416	    18	 28   64.3 SHORTAGE (<75%)
+   690	  1016	  443	    25	 26   96.2 ELIGIBLE
+   691	  1016	  406	    23	 30   76.7 ELIGIBLE
+   692	  1016	  405	    25	 26   96.2 ELIGIBLE
+   693	  1016	  414	    22	 25   88.0 ELIGIBLE
+   694	  1016	  442	    25	 27   92.6 ELIGIBLE
+   695	  1016	  402	    27	 28   96.4 ELIGIBLE
+   696	  1016	  408	    14	 27   51.9 SHORTAGE (<75%)
+   697	  1017	  405	    17	 26   65.4 SHORTAGE (<75%)
+   698	  1017	  402	    19	 28   67.9 SHORTAGE (<75%)
+   699	  1017	  413	    29	 32   90.6 ELIGIBLE
+   700	  1017	  441	    26	 28   92.9 ELIGIBLE
+   701	  1017	  414	    18	 25   72.0 SHORTAGE (<75%)
+   702	  1018	  444	    22	 25   88.0 ELIGIBLE
+   703	  1018	  415	    21	 26   80.8 ELIGIBLE
+   704	  1018	  436	    18	 30   60.0 SHORTAGE (<75%)
+   705	  1018	  419	    23	 25   92.0 ELIGIBLE
+   706	  1018	  416	    19	 28   67.9 SHORTAGE (<75%)
+   707	  1019	  415	    23	 26   88.5 ELIGIBLE
+   708	  1019	  418	    26	 29   89.7 ELIGIBLE
+   709	  1019	  419	    24	 25   96.0 ELIGIBLE
+   710	  1019	  416	    26	 28   92.9 ELIGIBLE
+   711	  1019	  421	    23	 26   88.5 ELIGIBLE
+   712	  1019	  420	    22	 24   91.7 ELIGIBLE
+   713	  1019	  403	    24	 25   96.0 ELIGIBLE
+   714	  1020	  436	    27	 30   90.0 ELIGIBLE
+   715	  1020	  426	    23	 25   92.0 ELIGIBLE
+   716	  1020	  425	    26	 29   89.7 ELIGIBLE
+   717	  1020	  422	    29	 30   96.7 ELIGIBLE
+   718	  1020	  427	    24	 28   85.7 ELIGIBLE
+   719	  1021	  425	    27	 29   93.1 ELIGIBLE
+   720	  1021	  422	    29	 30   96.7 ELIGIBLE
+   721	  1021	  424	    20	 27   74.1 SHORTAGE (<75%)
+   722	  1021	  438	    25	 29   86.2 ELIGIBLE
+   723	  1021	  427	    20	 28   71.4 SHORTAGE (<75%)
+   724	  1022	  436	    23	 30   76.7 ELIGIBLE
+   725	  1022	  438	    26	 29   89.7 ELIGIBLE
+   726	  1022	  430	    17	 25   68.0 SHORTAGE (<75%)
+   727	  1022	  429	    24	 26   92.3 ELIGIBLE
+   728	  1022	  431	    21	 27   77.8 ELIGIBLE
+   729	  1022	  428	    26	 28   92.9 ELIGIBLE
+   730	  1023	  438	    28	 29   96.6 ELIGIBLE
+   731	  1023	  437	    28	 30   93.3 ELIGIBLE
+   732	  1023	  406	    26	 30   86.7 ELIGIBLE
+   733	  1023	  439	    17	 28   60.7 SHORTAGE (<75%)
+   734	  1023	  436	    27	 30   90.0 ELIGIBLE
+   735	  1023	  440	    23	 26   88.5 ELIGIBLE
+   736	  1024	  405	    23	 26   88.5 ELIGIBLE
+   737	  1024	  413	    30	 32   93.8 ELIGIBLE
+   738	  1024	  410	    22	 24   91.7 ELIGIBLE
+   739	  1024	  408	    26	 27   96.3 ELIGIBLE
+   740	  1024	  406	    27	 30   90.0 ELIGIBLE
+   741	  1024	  407	    25	 29   86.2 ELIGIBLE
+   742	  1024	  401	    27	 30   90.0 ELIGIBLE
+   743	  1025	  420	    21	 24   87.5 ELIGIBLE
+   744	  1025	  403	    15	 25   60.0 SHORTAGE (<75%)
+   745	  1025	  418	    25	 29   86.2 ELIGIBLE
+   746	  1025	  419	    24	 25   96.0 ELIGIBLE
+   747	  1025	  416	    27	 28   96.4 ELIGIBLE
+   748	  1025	  421	    23	 26   88.5 ELIGIBLE
+   749	  1025	  438	    16	 29   55.2 SHORTAGE (<75%)
+   750	  1026	  436	    25	 30   83.3 ELIGIBLE
+   751	  1026	  412	    24	 25   96.0 ELIGIBLE
+   752	  1026	  401	    26	 30   86.7 ELIGIBLE
+   753	  1026	  410	    18	 24   75.0 ELIGIBLE
+   754	  1026	  407	    28	 29   96.6 ELIGIBLE
+   755	  1026	  405	    25	 26   96.2 ELIGIBLE
+   756	  1027	  402	    20	 28   71.4 SHORTAGE (<75%)
+   757	  1027	  405	    17	 26   65.4 SHORTAGE (<75%)
+   758	  1027	  407	    15	 29   51.7 SHORTAGE (<75%)
+   759	  1027	  411	    26	 28   92.9 ELIGIBLE
+   760	  1027	  443	    22	 26   84.6 ELIGIBLE
+   761	  1027	  436	    26	 30   86.7 ELIGIBLE
+   762	  1027	  401	    16	 30   53.3 SHORTAGE (<75%)
+   763	  1028	  436	    24	 30   80.0 ELIGIBLE
+   764	  1028	  419	    23	 25   92.0 ELIGIBLE
+   765	  1028	  418	    27	 29   93.1 ELIGIBLE
+   766	  1028	  403	    22	 25   88.0 ELIGIBLE
+   767	  1028	  417	    25	 27   92.6 ELIGIBLE
+   768	  1029	  416	    24	 28   85.7 ELIGIBLE
+   769	  1029	  419	    22	 25   88.0 ELIGIBLE
+   770	  1029	  420	    21	 24   87.5 ELIGIBLE
+   771	  1029	  436	    28	 30   93.3 ELIGIBLE
+   772	  1029	  417	    24	 27   88.9 ELIGIBLE
+   773	  1029	  415	    24	 26   92.3 ELIGIBLE
+   774	  1029	  421	    22	 26   84.6 ELIGIBLE
+   775	  1030	  425	    27	 29   93.1 ELIGIBLE
+   776	  1030	  424	    26	 27   96.3 ELIGIBLE
+   777	  1030	  423	    23	 28   82.1 ELIGIBLE
+   778	  1030	  426	    20	 25   80.0 ELIGIBLE
+   779	  1030	  422	    28	 30   93.3 ELIGIBLE
+   780	  1030	  445	    24	 26   92.3 ELIGIBLE
+   781	  1030	  436	    26	 30   86.7 ELIGIBLE
+   782	  1031	  425	    28	 29   96.6 ELIGIBLE
+   783	  1031	  422	    27	 30   90.0 ELIGIBLE
+   784	  1031	  438	    27	 29   93.1 ELIGIBLE
+   785	  1031	  424	    26	 27   96.3 ELIGIBLE
+   786	  1031	  426	    23	 25   92.0 ELIGIBLE
+   787	  1032	  431	    24	 27   88.9 ELIGIBLE
+   788	  1032	  430	    22	 25   88.0 ELIGIBLE
+   789	  1032	  436	    28	 30   93.3 ELIGIBLE
+   790	  1032	  428	    25	 28   89.3 ELIGIBLE
+   791	  1032	  438	    28	 29   96.6 ELIGIBLE
+   792	  1032	  429	    25	 26   96.2 ELIGIBLE
+   793	  1033	  401	    24	 30   80.0 ELIGIBLE
+   794	  1033	  438	    26	 29   89.7 ELIGIBLE
+   795	  1033	  437	    19	 30   63.3 SHORTAGE (<75%)
+   796	  1033	  411	    26	 28   92.9 ELIGIBLE
+   797	  1033	  439	    24	 28   85.7 ELIGIBLE
+   798	  1033	  436	    27	 30   90.0 ELIGIBLE
+   799	  1033	  406	    26	 30   86.7 ELIGIBLE
+   800	  1034	  401	    27	 30   90.0 ELIGIBLE
+   801	  1034	  409	    24	 26   92.3 ELIGIBLE
+   802	  1034	  441	    26	 28   92.9 ELIGIBLE
+   803	  1034	  443	    25	 26   96.2 ELIGIBLE
+   804	  1034	  405	    22	 26   84.6 ELIGIBLE
+   805	  1035	  436	    27	 30   90.0 ELIGIBLE
+   806	  1035	  416	    23	 28   82.1 ELIGIBLE
+   807	  1035	  420	    19	 24   79.2 ELIGIBLE
+   808	  1035	  419	    20	 25   80.0 ELIGIBLE
+   809	  1035	  444	    22	 25   88.0 ELIGIBLE
+   810	  1035	  415	    24	 26   92.3 ELIGIBLE
+   811	  1035	  418	    25	 29   86.2 ELIGIBLE
+   812	  1036	  412	    24	 25   96.0 ELIGIBLE
+   813	  1036	  408	    21	 27   77.8 ELIGIBLE
+   814	  1036	  413	    26	 32   81.3 ELIGIBLE
+   815	  1036	  407	    25	 29   86.2 ELIGIBLE
+   816	  1036	  409	    24	 26   92.3 ELIGIBLE
+   817	  1036	  443	    23	 26   88.5 ELIGIBLE
+   818	  1037	  443	    23	 26   88.5 ELIGIBLE
+   819	  1037	  441	    27	 28   96.4 ELIGIBLE
+   820	  1037	  411	    25	 28   89.3 ELIGIBLE
+   821	  1037	  405	    15	 26   57.7 SHORTAGE (<75%)
+   822	  1037	  404	    24	 28   85.7 ELIGIBLE
+   823	  1037	  412	    22	 25   88.0 ELIGIBLE
+   824	  1038	  416	    25	 28   89.3 ELIGIBLE
+   825	  1038	  421	    24	 26   92.3 ELIGIBLE
+   826	  1038	  403	    23	 25   92.0 ELIGIBLE
+   827	  1038	  419	    22	 25   88.0 ELIGIBLE
+   828	  1038	  420	    22	 24   91.7 ELIGIBLE
+   829	  1038	  418	    26	 29   89.7 ELIGIBLE
+   830	  1039	  420	    23	 24   95.8 ELIGIBLE
+   831	  1039	  403	    23	 25   92.0 ELIGIBLE
+   832	  1039	  416	    23	 28   82.1 ELIGIBLE
+   833	  1039	  415	    24	 26   92.3 ELIGIBLE
+   834	  1039	  436	    19	 30   63.3 SHORTAGE (<75%)
+   835	  1039	  444	    20	 25   80.0 ELIGIBLE
+   836	  1039	  418	    25	 29   86.2 ELIGIBLE
+   837	  1040	  426	    23	 25   92.0 ELIGIBLE
+   838	  1040	  424	    26	 27   96.3 ELIGIBLE
+   839	  1040	  427	    23	 28   82.1 ELIGIBLE
+   840	  1040	  436	    27	 30   90.0 ELIGIBLE
+   841	  1040	  422	    25	 30   83.3 ELIGIBLE
+   842	  1040	  445	    23	 26   88.5 ELIGIBLE
+   843	  1040	  438	    27	 29   93.1 ELIGIBLE
+   844	  1041	  426	    24	 25   96.0 ELIGIBLE
+   845	  1041	  422	    26	 30   86.7 ELIGIBLE
+   846	  1041	  425	    25	 29   86.2 ELIGIBLE
+   847	  1041	  436	    26	 30   86.7 ELIGIBLE
+   848	  1041	  445	    24	 26   92.3 ELIGIBLE
+   849	  1042	  438	    28	 29   96.6 ELIGIBLE
+   850	  1042	  429	    24	 26   92.3 ELIGIBLE
+   851	  1042	  428	    27	 28   96.4 ELIGIBLE
+   852	  1042	  431	    23	 27   85.2 ELIGIBLE
+   853	  1042	  430	    22	 25   88.0 ELIGIBLE
+   854	  1042	  436	    26	 30   86.7 ELIGIBLE
+   855	  1043	  437	    29	 30   96.7 ELIGIBLE
+   856	  1043	  411	    22	 28   78.6 ELIGIBLE
+   857	  1043	  401	    28	 30   93.3 ELIGIBLE
+   858	  1043	  440	    23	 26   88.5 ELIGIBLE
+   859	  1043	  406	    27	 30   90.0 ELIGIBLE
+   860	  1043	  438	    22	 29   75.9 ELIGIBLE
+   861	  1044	  411	    19	 28   67.9 SHORTAGE (<75%)
+   862	  1044	  443	    25	 26   96.2 ELIGIBLE
+   863	  1044	  413	    30	 32   93.8 ELIGIBLE
+   864	  1044	  404	    27	 28   96.4 ELIGIBLE
+   865	  1044	  408	    23	 27   85.2 ELIGIBLE
+   866	  1044	  405	    25	 26   96.2 ELIGIBLE
+   867	  1045	  444	    15	 25   60.0 SHORTAGE (<75%)
+   868	  1045	  403	    21	 25   84.0 ELIGIBLE
+   869	  1045	  421	    21	 26   80.8 ELIGIBLE
+   870	  1045	  420	    21	 24   87.5 ELIGIBLE
+   871	  1045	  416	    27	 28   96.4 ELIGIBLE
+   872	  1045	  418	    28	 29   96.6 ELIGIBLE
+   873	  1045	  415	    25	 26   96.2 ELIGIBLE
+   874	  1046	  442	    22	 27   81.5 ELIGIBLE
+   875	  1046	  401	    28	 30   93.3 ELIGIBLE
+   876	  1046	  407	    27	 29   93.1 ELIGIBLE
+   877	  1046	  441	    26	 28   92.9 ELIGIBLE
+   878	  1046	  410	    23	 24   95.8 ELIGIBLE
+   879	  1046	  404	    22	 28   78.6 ELIGIBLE
+   880	  1046	  414	    20	 25   80.0 ELIGIBLE
+   881	  1047	  405	    24	 26   92.3 ELIGIBLE
+   882	  1047	  442	    25	 27   92.6 ELIGIBLE
+   883	  1047	  401	    27	 30   90.0 ELIGIBLE
+   884	  1047	  436	    25	 30   83.3 ELIGIBLE
+   885	  1047	  407	    28	 29   96.6 ELIGIBLE
+   886	  1048	  419	    20	 25   80.0 ELIGIBLE
+   887	  1048	  418	    27	 29   93.1 ELIGIBLE
+   888	  1048	  417	    16	 27   59.3 SHORTAGE (<75%)
+   889	  1048	  416	    22	 28   78.6 ELIGIBLE
+   890	  1048	  438	    19	 29   65.5 SHORTAGE (<75%)
+   891	  1049	  417	    24	 27   88.9 ELIGIBLE
+   892	  1049	  416	    18	 28   64.3 SHORTAGE (<75%)
+   893	  1049	  415	    23	 26   88.5 ELIGIBLE
+   894	  1049	  419	    23	 25   92.0 ELIGIBLE
+   895	  1049	  444	    22	 25   88.0 ELIGIBLE
+   896	  1049	  403	    24	 25   96.0 ELIGIBLE
+   897	  1049	  421	    24	 26   92.3 ELIGIBLE
+   898	  1050	  426	    23	 25   92.0 ELIGIBLE
+   899	  1050	  445	    25	 26   96.2 ELIGIBLE
+   900	  1050	  427	    25	 28   89.3 ELIGIBLE
+   901	  1050	  422	    27	 30   90.0 ELIGIBLE
+   902	  1050	  424	    25	 27   92.6 ELIGIBLE
+   903	  1050	  425	    28	 29   96.6 ELIGIBLE
+   904	  1051	  423	    27	 28   96.4 ELIGIBLE
+   905	  1051	  425	    22	 29   75.9 ELIGIBLE
+   906	  1051	  436	    27	 30   90.0 ELIGIBLE
+   907	  1051	  424	    26	 27   96.3 ELIGIBLE
+   908	  1051	  438	    22	 29   75.9 ELIGIBLE
+   909	  1051	  427	    24	 28   85.7 ELIGIBLE
+   910	  1052	  428	    26	 28   92.9 ELIGIBLE
+   911	  1052	  438	    21	 29   72.4 SHORTAGE (<75%)
+   912	  1052	  431	    23	 27   85.2 ELIGIBLE
+   913	  1052	  429	    24	 26   92.3 ELIGIBLE
+   914	  1052	  430	    22	 25   88.0 ELIGIBLE
+   915	  1053	  436	    27	 30   90.0 ELIGIBLE
+   916	  1053	  406	    29	 30   96.7 ELIGIBLE
+   917	  1053	  411	    19	 28   67.9 SHORTAGE (<75%)
+   918	  1053	  440	    24	 26   92.3 ELIGIBLE
+   919	  1053	  438	    23	 29   79.3 ELIGIBLE
+   920	  1053	  439	    27	 28   96.4 ELIGIBLE
+   921	  1053	  437	    26	 30   86.7 ELIGIBLE
+   922	  1054	  412	    19	 25   76.0 ELIGIBLE
+   923	  1054	  407	    18	 29   62.1 SHORTAGE (<75%)
+   924	  1054	  408	    21	 27   77.8 ELIGIBLE
+   925	  1054	  414	    15	 25   60.0 SHORTAGE (<75%)
+   926	  1054	  409	    24	 26   92.3 ELIGIBLE
+   927	  1054	  405	    14	 26   53.8 SHORTAGE (<75%)
+   928	  1055	  419	    21	 25   84.0 ELIGIBLE
+   929	  1055	  444	    23	 25   92.0 ELIGIBLE
+   930	  1055	  420	    19	 24   79.2 ELIGIBLE
+   931	  1055	  436	    29	 30   96.7 ELIGIBLE
+   932	  1055	  415	    25	 26   96.2 ELIGIBLE
+   933	  1055	  421	    21	 26   80.8 ELIGIBLE
+   934	  1055	  417	    26	 27   96.3 ELIGIBLE
+   935	  1056	  406	    26	 30   86.7 ELIGIBLE
+   936	  1056	  436	    28	 30   93.3 ELIGIBLE
+   937	  1056	  410	    20	 24   83.3 ELIGIBLE
+   938	  1056	  407	    26	 29   89.7 ELIGIBLE
+   939	  1056	  442	    24	 27   88.9 ELIGIBLE
+   940	  1056	  402	    27	 28   96.4 ELIGIBLE
+   941	  1056	  438	    27	 29   93.1 ELIGIBLE
+   942	  1057	  438	    25	 29   86.2 ELIGIBLE
+   943	  1057	  410	    21	 24   87.5 ELIGIBLE
+   944	  1057	  406	    26	 30   86.7 ELIGIBLE
+   945	  1057	  442	    25	 27   92.6 ELIGIBLE
+   946	  1057	  412	    22	 25   88.0 ELIGIBLE
+   947	  1057	  441	    21	 28   75.0 ELIGIBLE
+   948	  1058	  419	    23	 25   92.0 ELIGIBLE
+   949	  1058	  416	    25	 28   89.3 ELIGIBLE
+   950	  1058	  436	    27	 30   90.0 ELIGIBLE
+   951	  1058	  415	    25	 26   96.2 ELIGIBLE
+   952	  1058	  438	    18	 29   62.1 SHORTAGE (<75%)
+   953	  1059	  438	    19	 29   65.5 SHORTAGE (<75%)
+   954	  1059	  421	    23	 26   88.5 ELIGIBLE
+   955	  1059	  420	    15	 24   62.5 SHORTAGE (<75%)
+   956	  1059	  436	    17	 30   56.7 SHORTAGE (<75%)
+   957	  1059	  403	    17	 25   68.0 SHORTAGE (<75%)
+   958	  1059	  418	    28	 29   96.6 ELIGIBLE
+   959	  1060	  427	    15	 28   53.6 SHORTAGE (<75%)
+   960	  1060	  436	    29	 30   96.7 ELIGIBLE
+   961	  1060	  424	    18	 27   66.7 SHORTAGE (<75%)
+   962	  1060	  422	    26	 30   86.7 ELIGIBLE
+   963	  1060	  425	    20	 29   69.0 SHORTAGE (<75%)
+   964	  1060	  423	    25	 28   89.3 ELIGIBLE
+   965	  1060	  426	    24	 25   96.0 ELIGIBLE
+
+========================================================================================================================================================
+[9] CONTINUOUS ASSESSMENT & EXAM MARKS (250 Records)
+* Components: Continuous Assessment (max 30), Midterm (max 30), Final Exam (max 50) -> Total (100)
+========================================================================================================================================================
+
+Mark ID Student Off ID CA (30) Mid (30) Final (50) Total (100) Grade
+======= ======= ====== ======= ======== ========== =========== =====
+    701    1001    401	  18.0	   24.0       42.0	  84.0 A
+    702    1002    401	  16.0	   21.0       38.0	  75.0 B
+    703    1001    402	  17.0	   22.0       40.0	  79.0 B
+    704    1003    403	  19.0	   23.0       41.0	  83.0 A
+    705    1001    442	  20.5	   20.8       31.5	  72.8 B
+    706    1001    441	  26.6	   26.0       44.7	  97.3 S
+    707    1001    412	  30.0	   27.6       48.1	 105.7 S
+    708    1001    443	  24.8	   26.9       44.2	  95.9 S
+    709    1001    406	  22.6	   22.8       35.2	  80.6 A
+    710    1002    412	  19.7	   19.5       33.4	  72.6 B
+    711    1002    405	  21.2	   23.0       39.4	  83.6 A
+    712    1002    441	  26.8	   25.7       42.6	  95.1 S
+    713    1002    409	  19.6	   20.3       33.2	  73.1 B
+    714    1002    411	  17.4	   16.3       29.7	  63.4 C
+    715    1002    436	  28.8	   28.4       49.3	 106.5 S
+    716    1003    416	  21.4	   23.7       39.3	  84.4 A
+    717    1003    438	   9.6	    9.5       12.7	  31.8 F
+    718    1003    436	  27.0	   25.4       43.4	  95.8 S
+    719    1003    417	  29.2	   28.6       46.8	 104.6 S
+    720    1003    421	  26.4	   25.9       44.1	  96.4 S
+    721    1004    412	  18.9	   18.9       32.2	  70.0 B
+    722    1004    438	  25.3	   25.3       40.4	  91.0 S
+    723    1004    409	  25.1	   24.6       42.7	  92.4 S
+    724    1004    443	  23.3	   23.9       36.3	  83.5 A
+    725    1004    413	  26.1	   26.2       44.0	  96.3 S
+    726    1004    402	  16.0	   15.3       26.0	  57.3 D
+    727    1004    410	  24.2	   24.5       43.6	  92.3 S
+    728    1005    403	  24.9	   25.2       44.2	  94.3 S
+    729    1005    417	  27.8	   29.9       49.4	 107.1 S
+    730    1005    416	  24.3	   24.1       44.2	  92.6 S
+    731    1005    444	  19.0	   20.4       33.8	  73.2 B
+    732    1005    419	  16.5	   17.2       27.1	  60.8 C
+    733    1005    418	  29.1	   27.4       45.3	 101.8 S
+    734    1006    438	  15.7	   16.0       27.9	  59.6 D
+    735    1006    408	  24.7	   25.8       41.4	  91.9 S
+    736    1006    441	  23.7	   22.7       36.4	  82.8 A
+    737    1006    413	  22.4	   22.6       38.6	  83.6 A
+    738    1006    412	  20.3	   18.4       34.0	  72.7 B
+    739    1007    406	  24.5	   26.9       43.1	  94.5 S
+    740    1007    442	  25.7	   24.0       42.8	  92.5 S
+    741    1007    408	  29.7	   29.9       45.2	 104.8 S
+    742    1007    414	  24.4	   24.1       40.3	  88.8 A
+    743    1007    410	  29.8	   28.3       45.3	 103.4 S
+    744    1008    416	  19.8	   19.5       34.9	  74.2 B
+    745    1008    444	  28.4	   27.6       46.6	 102.6 S
+    746    1008    420	  10.9	   12.2       18.3	  41.4 F
+    747    1008    418	  28.3	   29.1       49.3	 106.7 S
+    748    1008    417	  15.9	   15.7       25.4	  57.0 D
+    749    1009    420	  27.1	   28.5       49.7	 105.3 S
+    750    1009    415	  27.9	   28.9       45.0	 101.8 S
+    751    1009    444	  27.5	   27.6       47.2	 102.3 S
+    752    1009    418	  28.3	   27.3       49.5	 105.1 S
+    753    1009    438	  25.8	   26.7       40.4	  92.9 S
+    754    1009    416	  10.5	    8.3       18.5	  37.3 F
+    755    1009    436	  20.3	   20.6       32.2	  73.1 B
+    756    1010    438	  28.0	   28.5       48.6	 105.1 S
+    757    1010    445	  22.9	   21.6       39.2	  83.7 A
+    758    1010    436	  29.6	   27.6       47.5	 104.7 S
+    759    1010    425	  21.0	   20.1       30.5	  71.6 B
+    760    1010    424	  25.1	   26.6       40.7	  92.4 S
+    761    1010    427	  23.6	   22.8       39.6	  86.0 A
+    762    1011    427	  13.6	   12.0       15.6	  41.2 F
+    763    1011    438	  24.8	   26.7       40.3	  91.8 S
+    764    1011    425	  26.9	   26.4       40.5	  93.8 S
+    765    1011    422	  23.4	   22.6       39.9	  85.9 A
+    766    1011    426	  19.7	   18.6       32.7	  71.0 B
+    767    1012    430	  27.8	   28.4       49.9	 106.1 S
+    768    1012    428	  23.0	   21.5       36.3	  80.8 A
+    769    1012    429	  20.2	   19.2       34.0	  73.4 B
+    770    1012    436	  21.5	   21.1       38.3	  80.9 A
+    771    1012    438	  23.9	   21.0       38.7	  83.6 A
+    772    1012    431	  18.4	   20.2       30.8	  69.4 C
+    773    1013    438	  26.2	   24.4       40.8	  91.4 S
+    774    1013    436	  25.4	   26.9       43.9	  96.2 S
+    775    1013    437	  22.8	   23.1       35.2	  81.1 A
+    776    1013    406	  30.0	   27.4       49.9	 107.3 S
+    777    1013    401	  22.7	   21.0       35.6	  79.3 B
+    778    1013    440	  29.7	   27.2       45.5	 102.4 S
+    779    1014    413	  25.9	   25.0       40.9	  91.8 S
+    780    1014    408	  23.7	   22.3       39.7	  85.7 A
+    781    1014    405	  10.8	   13.6       19.6	  44.0 F
+    782    1014    411	  16.2	   15.1       27.6	  58.9 D
+    783    1014    443	  29.6	   28.2       45.5	 103.3 S
+    784    1015    436	  28.6	   28.0       45.3	 101.9 S
+    785    1015    438	  27.5	   27.6       47.0	 102.1 S
+    786    1015    417	  19.7	   19.8       31.7	  71.2 B
+    787    1015    418	  24.4	   24.9       42.0	  91.3 S
+    788    1015    421	  25.0	   24.2       44.3	  93.5 S
+    789    1015    416	  18.4	   20.2       34.9	  73.5 B
+    790    1016    443	  27.6	   29.6       47.4	 104.6 S
+    791    1016    406	  29.2	   29.6       47.4	 106.2 S
+    792    1016    405	   8.7	   12.6       20.3	  41.6 F
+    793    1016    414	  25.9	   24.2       41.7	  91.8 S
+    794    1016    442	  25.8	   25.7       42.0	  93.5 S
+    795    1016    402	  23.3	   22.0       36.1	  81.4 A
+    796    1016    408	  24.1	   26.8       44.7	  95.6 S
+    797    1017    405	  28.1	   27.5       46.8	 102.4 S
+    798    1017    402	  25.1	   26.2       40.4	  91.7 S
+    799    1017    413	  21.4	   23.0       39.1	  83.5 A
+    800    1017    441	  21.0	   18.9       32.8	  72.7 B
+    801    1017    414	  15.4	   15.6       27.5	  58.5 D
+    802    1018    444	  18.2	   18.7       34.0	  70.9 B
+    803    1018    415	  20.7	   18.4       30.9	  70.0 B
+    804    1018    436	  26.4	   25.6       43.3	  95.3 S
+    805    1018    419	  25.5	   26.7       43.9	  96.1 S
+    806    1018    416	  22.2	   21.9       35.1	  79.2 B
+    807    1019    415	  24.5	   26.5       42.6	  93.6 S
+    808    1019    418	  26.0	   24.8       43.8	  94.6 S
+    809    1019    419	  26.5	   24.2       43.5	  94.2 S
+    810    1019    416	  23.7	   22.9       37.5	  84.1 A
+    811    1019    421	  25.9	   25.2       40.2	  91.3 S
+    812    1019    420	  20.8	   19.4       31.1	  71.3 B
+    813    1019    403	  26.2	   26.0       41.7	  93.9 S
+    814    1020    436	  25.2	   26.8       40.1	  92.1 S
+    815    1020    426	  25.0	   24.8       41.1	  90.9 S
+    816    1020    425	  25.4	   26.4       43.4	  95.2 S
+    817    1020    422	  25.6	   25.5       40.5	  91.6 S
+    818    1020    427	  23.8	   22.2       36.3	  82.3 A
+    819    1021    425	  25.8	   26.4       40.2	  92.4 S
+    820    1021    422	  24.5	   24.9       42.7	  92.1 S
+    821    1021    424	  20.8	   20.5       31.9	  73.2 B
+    822    1021    438	  21.0	   22.0       37.5	  80.5 A
+    823    1021    427	  16.1	   16.2       26.5	  58.8 D
+    824    1022    436	  28.7	   27.5       48.3	 104.5 S
+    825    1022    438	  16.7	   15.5       25.9	  58.1 D
+    826    1022    430	  22.6	   22.3       37.9	  82.8 A
+    827    1022    429	  26.7	   26.2       42.5	  95.4 S
+    828    1022    431	  27.1	   28.7       48.0	 103.8 S
+    829    1022    428	  23.0	   21.1       38.8	  82.9 A
+    830    1023    438	  18.5	   18.0       32.5	  69.0 C
+    831    1023    437	  16.9	   17.4       29.8	  64.1 C
+    832    1023    406	  28.9	   27.8       45.9	 102.6 S
+    833    1023    439	  21.4	   23.1       38.7	  83.2 A
+    834    1023    436	  18.8	   18.8       30.3	  67.9 C
+    835    1023    440	  22.3	   22.3       39.0	  83.6 A
+    836    1024    405	  24.5	   24.6       42.2	  91.3 S
+    837    1024    413	  22.3	   22.8       35.4	  80.5 A
+    838    1024    410	  28.1	   29.9       49.3	 107.3 S
+    839    1024    408	  18.9	   19.3       33.9	  72.1 B
+    840    1024    406	  10.4	    8.8       14.2	  33.4 F
+    841    1024    407	  25.6	   25.8       40.2	  91.6 S
+    842    1024    401	  24.5	   24.4       42.2	  91.1 S
+    843    1025    420	  25.3	   25.8       44.9	  96.0 S
+    844    1025    403	  26.5	   24.7       40.9	  92.1 S
+    845    1025    418	  18.5	   19.7       33.7	  71.9 B
+    846    1025    419	  22.1	   21.1       39.8	  83.0 A
+    847    1025    416	  29.2	   28.9       45.7	 103.8 S
+    848    1025    421	  25.5	   24.5       41.9	  91.9 S
+    849    1025    438	  25.7	   24.6       40.5	  90.8 S
+    850    1026    436	  21.7	   22.0       37.1	  80.8 A
+    851    1026    412	  20.1	   20.7       31.3	  72.1 B
+    852    1026    401	  29.6	   27.2       46.9	 103.7 S
+    853    1026    410	   9.7	    8.2       20.9	  38.8 F
+    854    1026    407	  25.1	   25.9       41.4	  92.4 S
+    855    1026    405	  20.8	   18.1       33.2	  72.1 B
+    856    1027    402	  19.0	   20.7       32.7	  72.4 B
+    857    1027    405	   8.7	   12.8       10.8	  32.3 F
+    858    1027    407	  19.3	   18.8       33.4	  71.5 B
+    859    1027    411	  23.5	   23.7       37.6	  84.8 A
+    860    1027    443	  16.8	   17.5       28.9	  63.2 C
+    861    1027    436	  16.3	   17.8       25.1	  59.2 D
+    862    1027    401	  28.7	   29.9       49.2	 107.8 S
+    863    1028    436	  20.8	   20.8       31.5	  73.1 B
+    864    1028    419	  27.3	   28.1       47.4	 102.8 S
+    865    1028    418	  18.7	   19.9       30.7	  69.3 C
+    866    1028    403	  29.0	   28.1       47.9	 105.0 S
+    867    1028    417	  20.6	   19.8       34.2	  74.6 B
+    868    1029    416	  17.5	   16.7       27.5	  61.7 C
+    869    1029    419	  20.2	   18.9       33.0	  72.1 B
+    870    1029    420	  24.2	   24.9       41.1	  90.2 S
+    871    1029    436	  21.6	   22.1       37.8	  81.5 A
+    872    1029    417	  25.0	   27.0       42.1	  94.1 S
+    873    1029    415	  26.8	   24.4       42.3	  93.5 S
+    874    1029    421	  26.2	   24.0       42.9	  93.1 S
+    875    1030    425	  11.0	   12.4       14.4	  37.8 F
+    876    1030    424	  22.1	   22.3       39.0	  83.4 A
+    877    1030    423	  28.0	   28.6       46.6	 103.2 S
+    878    1030    426	  18.2	   19.6       34.9	  72.7 B
+    879    1030    422	  18.8	   19.9       32.0	  70.7 B
+    880    1030    445	  25.5	   25.1       42.1	  92.7 S
+    881    1030    436	  18.5	   19.9       33.2	  71.6 B
+    882    1031    425	  21.4	   21.9       36.0	  79.3 B
+    883    1031    422	  28.8	   29.7       49.6	 108.1 S
+    884    1031    438	  24.1	   24.8       42.3	  91.2 S
+    885    1031    424	  26.0	   26.3       42.6	  94.9 S
+    886    1031    426	  25.7	   25.6       41.5	  92.8 S
+    887    1032    431	  20.1	   18.2       32.2	  70.5 B
+    888    1032    430	  29.5	   29.0       48.3	 106.8 S
+    889    1032    436	  29.7	   28.3       48.2	 106.2 S
+    890    1032    428	  24.7	   26.9       40.9	  92.5 S
+    891    1032    438	  23.6	   22.1       36.4	  82.1 A
+    892    1032    429	  26.3	   25.5       43.6	  95.4 S
+    893    1033    401	  16.0	   16.3       25.6	  57.9 D
+    894    1033    438	  23.9	   21.8       36.9	  82.6 A
+    895    1033    437	  24.5	   24.4       44.9	  93.8 S
+    896    1033    411	  15.6	   17.5       27.7	  60.8 C
+    897    1033    439	  30.0	   29.5       45.1	 104.6 S
+    898    1033    436	  25.1	   25.9       43.8	  94.8 S
+    899    1033    406	  19.3	   18.2       32.4	  69.9 C
+    900    1034    401	  22.5	   21.8       37.9	  82.2 A
+    901    1034    409	  12.6	    8.7       17.1	  38.4 F
+    902    1034    441	  23.7	   22.0       37.5	  83.2 A
+    903    1034    443	  24.0	   25.1       44.8	  93.9 S
+    904    1034    405	  25.6	   26.7       43.6	  95.9 S
+    905    1035    436	  23.0	   23.1       38.5	  84.6 A
+    906    1035    416	  24.2	   25.6       42.5	  92.3 S
+    907    1035    420	  24.2	   26.7       41.3	  92.2 S
+    908    1035    419	  25.6	   24.2       42.3	  92.1 S
+    909    1035    444	  23.8	   22.2       36.4	  82.4 A
+    910    1035    415	  18.4	   18.2       30.4	  67.0 C
+    911    1035    418	  24.4	   24.2       43.8	  92.4 S
+    912    1036    412	  21.1	   22.6       37.4	  81.1 A
+    913    1036    408	  22.5	   24.0       36.7	  83.2 A
+    914    1036    413	  25.4	   24.3       40.6	  90.3 S
+    915    1036    407	  16.2	   17.7       25.9	  59.8 D
+    916    1036    409	  23.2	   24.0       36.0	  83.2 A
+    917    1036    443	  26.9	   26.6       41.4	  94.9 S
+    918    1037    443	  21.0	   18.8       31.6	  71.4 B
+    919    1037    441	  28.0	   27.6       48.2	 103.8 S
+    920    1037    411	  22.2	   22.4       39.0	  83.6 A
+    921    1037    405	  21.9	   21.2       39.9	  83.0 A
+    922    1037    404	  24.7	   24.5       43.8	  93.0 S
+    923    1037    412	  27.0	   26.8       44.5	  98.3 S
+    924    1038    416	  16.5	   15.3       25.9	  57.7 D
+    925    1038    421	  24.8	   26.6       40.1	  91.5 S
+    926    1038    403	  24.1	   26.3       41.4	  91.8 S
+    927    1038    419	  21.9	   23.8       39.1	  84.8 A
+    928    1038    420	  20.9	   20.5       31.0	  72.4 B
+    929    1038    418	  23.6	   22.5       38.8	  84.9 A
+    930    1039    420	  15.3	   15.9       28.1	  59.3 D
+    931    1039    403	  25.4	   26.6       44.5	  96.5 S
+    932    1039    416	  29.3	   29.8       46.9	 106.0 S
+    933    1039    415	  26.0	   24.2       40.7	  90.9 S
+    934    1039    436	  21.4	   23.4       38.5	  83.3 A
+    935    1039    444	  22.2	   23.7       35.4	  81.3 A
+    936    1039    418	  23.4	   23.1       35.9	  82.4 A
+    937    1040    426	  16.9	   18.0       27.7	  62.6 C
+    938    1040    424	  26.8	   25.8       40.3	  92.9 S
+    939    1040    427	  21.2	   24.0       36.8	  82.0 A
+    940    1040    436	  23.3	   22.1       37.9	  83.3 A
+    941    1040    422	  25.0	   24.3       44.1	  93.4 S
+    942    1040    445	  21.2	   23.9       38.1	  83.2 A
+    943    1040    438	  21.9	   22.2       39.3	  83.4 A
+    944    1041    426	  10.7	    9.1       12.0	  31.8 F
+    945    1041    422	  19.6	   19.6       31.2	  70.4 B
+    946    1041    425	  15.5	   16.2       26.7	  58.4 D
+    947    1041    436	  21.1	   22.8       35.9	  79.8 B
+    948    1041    445	  26.4	   24.6       44.0	  95.0 S
+    949    1042    438	  26.4	   26.2       40.0	  92.6 S
+    950    1042    429	  26.7	   24.4       44.0	  95.1 S
+
+========================================================================================================================================================
+[10] GRADING SCALE (6 Records)
+========================================================================================================================================================
+
+Grade Grade Point   Min %   Max %
+===== =========== ======= =======
+S	     10.0   90.00  100.00
+A	      9.0   80.00   89.99
+B	      8.0   70.00   79.99
+C	      7.0   60.00   69.99
+D	      6.0   50.00   59.99
+F	      0.0    0.00   49.99
+
+========================================================================================================================================================
+[11] EXAMINATION TIMETABLE (42 Records)
+========================================================================================================================================================
+
+Exam ID Off ID Exam Type  Date	       Start - End Time     Venue	    Max Marks Status
+======= ====== ========== ============ ==================== =============== ========= ============
+    801    401 CAT1	  2026-09-10   09:00 - 10:00	    SJT-301		   50 COMPLETED
+    802    402 CAT1	  2026-09-12   11:00 - 12:00	    SJT-302		   50 COMPLETED
+    803    403 CAT1	  2026-09-15   14:00 - 15:00	    TT-201		   50 COMPLETED
+    804    404 CAT2	  2026-10-24   14:00 - 15:30	    MB-102		   50 COMPLETED
+    805    405 CAT1	  2026-09-18   09:00 - 10:30	    MB-102		   50 COMPLETED
+    806    406 CAT2	  2026-10-24   14:00 - 15:30	    SMV-101		   50 COMPLETED
+    807    407 CAT1	  2026-09-18   09:00 - 10:30	    TT-304		   50 COMPLETED
+    808    408 CAT2	  2026-10-24   14:00 - 15:30	    GDN-103		   50 COMPLETED
+    809    409 CAT2	  2026-10-24   14:00 - 15:30	    TT-304		   50 COMPLETED
+    810    410 FAT	  2026-11-20   09:00 - 12:00	    SJT-202		  100 COMPLETED
+    811    411 FAT	  2026-11-20   09:00 - 12:00	    MB-102		  100 COMPLETED
+    812    412 FAT	  2026-11-20   09:00 - 12:00	    SMV-204		  100 SCHEDULED
+    813    413 CAT1	  2026-09-18   09:00 - 10:30	    SMV-204		   50 COMPLETED
+    814    414 FAT	  2026-11-20   09:00 - 12:00	    GDN-103		  100 SCHEDULED
+    815    415 CAT1	  2026-09-18   09:00 - 10:30	    TT-201		   50 COMPLETED
+    816    416 FAT	  2026-11-20   09:00 - 12:00	    SJT-202		  100 COMPLETED
+    817    417 FAT	  2026-11-20   09:00 - 12:00	    SMV-101		  100 SCHEDULED
+    818    418 CAT2	  2026-10-24   14:00 - 15:30	    TT-201		   50 COMPLETED
+    819    419 CAT1	  2026-09-18   09:00 - 10:30	    TT-201		   50 COMPLETED
+    820    420 CAT2	  2026-10-24   14:00 - 15:30	    MB-102		   50 COMPLETED
+    821    421 CAT1	  2026-09-18   09:00 - 10:30	    MB-205		   50 COMPLETED
+    822    422 FAT	  2026-11-20   09:00 - 12:00	    MB-102		  100 SCHEDULED
+    823    423 CAT2	  2026-10-24   14:00 - 15:30	    SMV-101		   50 COMPLETED
+    824    424 CAT2	  2026-10-24   14:00 - 15:30	    SJT-101		   50 COMPLETED
+    825    425 CAT2	  2026-10-24   14:00 - 15:30	    SJT-202		   50 COMPLETED
+    826    426 FAT	  2026-11-20   09:00 - 12:00	    GDN-103		  100 SCHEDULED
+    827    427 CAT2	  2026-10-24   14:00 - 15:30	    SJT-202		   50 COMPLETED
+    828    428 CAT1	  2026-09-18   09:00 - 10:30	    MB-102		   50 COMPLETED
+    829    429 CAT1	  2026-09-18   09:00 - 10:30	    SMV-204		   50 COMPLETED
+    830    430 FAT	  2026-11-20   09:00 - 12:00	    MB-102		  100 SCHEDULED
+    831    431 CAT2	  2026-10-24   14:00 - 15:30	    MB-102		   50 COMPLETED
+    832    432 FAT	  2026-11-20   09:00 - 12:00	    GDN-103		  100 SCHEDULED
+    833    433 CAT1	  2026-09-18   09:00 - 10:30	    GDN-103		   50 COMPLETED
+    834    434 CAT1	  2026-09-18   09:00 - 10:30	    SJT-101		   50 COMPLETED
+    835    435 FAT	  2026-11-20   09:00 - 12:00	    SMV-204		  100 SCHEDULED
+    836    436 CAT1	  2026-09-18   09:00 - 10:30	    SMV-101		   50 COMPLETED
+    837    437 CAT2	  2026-10-24   14:00 - 15:30	    SJT-305		   50 COMPLETED
+    838    438 CAT2	  2026-10-24   14:00 - 15:30	    GDN-103		   50 COMPLETED
+    839    439 CAT1	  2026-09-18   09:00 - 10:30	    SJT-305		   50 COMPLETED
+    840    440 CAT2	  2026-10-24   14:00 - 15:30	    TT-304		   50 COMPLETED
+    841    441 CAT2	  2026-10-24   14:00 - 15:30	    MB-102		   50 COMPLETED
+    842    442 CAT1	  2026-09-18   09:00 - 10:30	    GDN-103		   50 COMPLETED
+
+========================================================================================================================================================
+[12] EXAM REGISTRATIONS (232 Records)
+========================================================================================================================================================
+
+Reg ID Student Exam ID Reg Date     Status
+====== ======= ======= ============ ============
+   901	  1001	   801 2026-08-20   REGISTERED
+   902	  1002	   801 2026-08-20   REGISTERED
+   903	  1001	   802 2026-08-20   REGISTERED
+   904	  1003	   803 2026-08-20   REGISTERED
+   905	  1037	   804 2026-08-25   REGISTERED
+   906	  1044	   804 2026-08-25   REGISTERED
+   907	  1046	   804 2026-08-25   REGISTERED
+   908	  1017	   805 2026-08-25   REGISTERED
+   909	  1014	   805 2026-08-25   REGISTERED
+   910	  1002	   805 2026-08-25   REGISTERED
+   911	  1024	   805 2026-08-25   REGISTERED
+   912	  1047	   805 2026-08-25   REGISTERED
+   913	  1054	   805 2026-08-25   REGISTERED
+   914	  1034	   805 2026-08-25   REGISTERED
+   915	  1027	   805 2026-08-25   REGISTERED
+   916	  1023	   806 2026-08-25   REGISTERED
+   917	  1013	   806 2026-08-25   REGISTERED
+   918	  1056	   806 2026-08-25   REGISTERED
+   919	  1024	   806 2026-08-25   REGISTERED
+   920	  1001	   806 2026-08-25   REGISTERED
+   921	  1053	   806 2026-08-25   REGISTERED
+   922	  1026	   807 2026-08-25   REGISTERED
+   923	  1036	   807 2026-08-25   REGISTERED
+   924	  1047	   807 2026-08-25   REGISTERED
+   925	  1027	   807 2026-08-25   REGISTERED
+   926	  1054	   807 2026-08-25   REGISTERED
+   927	  1056	   807 2026-08-25   REGISTERED
+   928	  1046	   807 2026-08-25   REGISTERED
+   929	  1014	   808 2026-08-25   REGISTERED
+   930	  1016	   808 2026-08-25   REGISTERED
+   931	  1006	   808 2026-08-25   REGISTERED
+   932	  1054	   808 2026-08-25   REGISTERED
+   933	  1036	   808 2026-08-25   REGISTERED
+   934	  1024	   808 2026-08-25   REGISTERED
+   935	  1007	   808 2026-08-25   REGISTERED
+   936	  1044	   808 2026-08-25   REGISTERED
+   937	  1004	   809 2026-08-25   REGISTERED
+   938	  1054	   809 2026-08-25   REGISTERED
+   939	  1034	   809 2026-08-25   REGISTERED
+   940	  1002	   809 2026-08-25   REGISTERED
+   941	  1036	   809 2026-08-25   REGISTERED
+   942	  1004	   810 2026-08-25   REGISTERED
+   943	  1046	   810 2026-08-25   REGISTERED
+   944	  1057	   810 2026-08-25   REGISTERED
+   945	  1007	   810 2026-08-25   REGISTERED
+   946	  1056	   810 2026-08-25   REGISTERED
+   947	  1026	   810 2026-08-25   REGISTERED
+   948	  1024	   810 2026-08-25   REGISTERED
+   949	  1002	   811 2026-08-25   REGISTERED
+   950	  1033	   811 2026-08-25   REGISTERED
+   951	  1053	   811 2026-08-25   REGISTERED
+   952	  1043	   811 2026-08-25   REGISTERED
+   953	  1044	   811 2026-08-25   REGISTERED
+   954	  1027	   811 2026-08-25   REGISTERED
+   955	  1014	   811 2026-08-25   REGISTERED
+   956	  1037	   811 2026-08-25   REGISTERED
+   957	  1026	   812 2026-08-25   REGISTERED
+   958	  1057	   812 2026-08-25   REGISTERED
+   959	  1006	   812 2026-08-25   REGISTERED
+   960	  1054	   812 2026-08-25   REGISTERED
+   961	  1037	   812 2026-08-25   REGISTERED
+   962	  1002	   812 2026-08-25   REGISTERED
+   963	  1036	   812 2026-08-25   REGISTERED
+   964	  1004	   812 2026-08-25   REGISTERED
+   965	  1001	   812 2026-08-25   REGISTERED
+   966	  1036	   813 2026-08-25   REGISTERED
+   967	  1017	   813 2026-08-25   REGISTERED
+   968	  1044	   813 2026-08-25   REGISTERED
+   969	  1004	   813 2026-08-25   REGISTERED
+   970	  1024	   813 2026-08-25   REGISTERED
+   971	  1006	   813 2026-08-25   REGISTERED
+   972	  1014	   813 2026-08-25   REGISTERED
+   973	  1046	   814 2026-08-25   REGISTERED
+   974	  1017	   814 2026-08-25   REGISTERED
+   975	  1054	   814 2026-08-25   REGISTERED
+   976	  1016	   814 2026-08-25   REGISTERED
+   977	  1007	   814 2026-08-25   REGISTERED
+   978	  1019	   815 2026-08-25   REGISTERED
+   979	  1045	   815 2026-08-25   REGISTERED
+   980	  1029	   815 2026-08-25   REGISTERED
+   981	  1049	   815 2026-08-25   REGISTERED
+   982	  1058	   815 2026-08-25   REGISTERED
+   983	  1039	   815 2026-08-25   REGISTERED
+   984	  1029	   816 2026-08-25   REGISTERED
+   985	  1005	   816 2026-08-25   REGISTERED
+   986	  1018	   816 2026-08-25   REGISTERED
+   987	  1015	   816 2026-08-25   REGISTERED
+   988	  1025	   816 2026-08-25   REGISTERED
+   989	  1039	   816 2026-08-25   REGISTERED
+   990	  1009	   816 2026-08-25   REGISTERED
+   991	  1035	   816 2026-08-25   REGISTERED
+   992	  1058	   816 2026-08-25   REGISTERED
+   993	  1028	   817 2026-08-25   REGISTERED
+   994	  1015	   817 2026-08-25   REGISTERED
+   995	  1049	   817 2026-08-25   REGISTERED
+   996	  1029	   817 2026-08-25   REGISTERED
+   997	  1048	   817 2026-08-25   REGISTERED
+   998	  1005	   817 2026-08-25   REGISTERED
+   999	  1003	   817 2026-08-25   REGISTERED
+  1000	  1055	   817 2026-08-25   REGISTERED
+  1001	  1008	   817 2026-08-25   REGISTERED
+  1002	  1008	   818 2026-08-25   REGISTERED
+  1003	  1038	   818 2026-08-25   REGISTERED
+  1004	  1059	   818 2026-08-25   REGISTERED
+  1005	  1045	   818 2026-08-25   REGISTERED
+  1006	  1048	   818 2026-08-25   REGISTERED
+  1007	  1015	   818 2026-08-25   REGISTERED
+  1008	  1039	   818 2026-08-25   REGISTERED
+  1009	  1005	   818 2026-08-25   REGISTERED
+  1010	  1035	   818 2026-08-25   REGISTERED
+  1011	  1019	   819 2026-08-25   REGISTERED
+  1012	  1005	   819 2026-08-25   REGISTERED
+  1013	  1029	   819 2026-08-25   REGISTERED
+  1014	  1028	   819 2026-08-25   REGISTERED
+  1015	  1055	   819 2026-08-25   REGISTERED
+  1016	  1049	   819 2026-08-25   REGISTERED
+  1017	  1035	   819 2026-08-25   REGISTERED
+  1018	  1058	   819 2026-08-25   REGISTERED
+  1019	  1038	   819 2026-08-25   REGISTERED
+  1020	  1018	   819 2026-08-25   REGISTERED
+  1021	  1019	   820 2026-08-25   REGISTERED
+  1022	  1009	   820 2026-08-25   REGISTERED
+  1023	  1038	   820 2026-08-25   REGISTERED
+  1024	  1039	   820 2026-08-25   REGISTERED
+  1025	  1008	   820 2026-08-25   REGISTERED
+  1026	  1025	   820 2026-08-25   REGISTERED
+  1027	  1029	   820 2026-08-25   REGISTERED
+  1028	  1029	   821 2026-08-25   REGISTERED
+  1029	  1025	   821 2026-08-25   REGISTERED
+  1030	  1015	   821 2026-08-25   REGISTERED
+  1031	  1055	   821 2026-08-25   REGISTERED
+  1032	  1049	   821 2026-08-25   REGISTERED
+  1033	  1045	   821 2026-08-25   REGISTERED
+  1034	  1059	   821 2026-08-25   REGISTERED
+  1035	  1038	   821 2026-08-25   REGISTERED
+  1036	  1021	   822 2026-08-25   REGISTERED
+  1037	  1050	   822 2026-08-25   REGISTERED
+  1038	  1040	   822 2026-08-25   REGISTERED
+  1039	  1020	   822 2026-08-25   REGISTERED
+  1040	  1060	   822 2026-08-25   REGISTERED
+  1041	  1031	   822 2026-08-25   REGISTERED
+  1042	  1060	   823 2026-08-25   REGISTERED
+  1043	  1051	   823 2026-08-25   REGISTERED
+  1044	  1030	   823 2026-08-25   REGISTERED
+  1045	  1060	   824 2026-08-25   REGISTERED
+  1046	  1030	   824 2026-08-25   REGISTERED
+  1047	  1031	   824 2026-08-25   REGISTERED
+  1048	  1021	   824 2026-08-25   REGISTERED
+  1049	  1050	   824 2026-08-25   REGISTERED
+  1050	  1010	   824 2026-08-25   REGISTERED
+  1051	  1011	   825 2026-08-25   REGISTERED
+  1052	  1020	   825 2026-08-25   REGISTERED
+  1053	  1010	   825 2026-08-25   REGISTERED
+  1054	  1031	   825 2026-08-25   REGISTERED
+  1055	  1060	   825 2026-08-25   REGISTERED
+  1056	  1021	   825 2026-08-25   REGISTERED
+  1057	  1030	   826 2026-08-25   REGISTERED
+  1058	  1031	   826 2026-08-25   REGISTERED
+  1059	  1040	   826 2026-08-25   REGISTERED
+  1060	  1050	   826 2026-08-25   REGISTERED
+  1061	  1020	   826 2026-08-25   REGISTERED
+  1062	  1041	   826 2026-08-25   REGISTERED
+  1063	  1060	   826 2026-08-25   REGISTERED
+  1064	  1011	   826 2026-08-25   REGISTERED
+  1065	  1051	   827 2026-08-25   REGISTERED
+  1066	  1040	   827 2026-08-25   REGISTERED
+  1067	  1021	   827 2026-08-25   REGISTERED
+  1068	  1010	   827 2026-08-25   REGISTERED
+  1069	  1050	   827 2026-08-25   REGISTERED
+  1070	  1020	   827 2026-08-25   REGISTERED
+  1071	  1011	   827 2026-08-25   REGISTERED
+  1072	  1060	   827 2026-08-25   REGISTERED
+  1073	  1042	   828 2026-08-25   REGISTERED
+  1074	  1032	   828 2026-08-25   REGISTERED
+  1075	  1052	   828 2026-08-25   REGISTERED
+  1076	  1012	   828 2026-08-25   REGISTERED
+  1077	  1022	   828 2026-08-25   REGISTERED
+  1078	  1052	   829 2026-08-25   REGISTERED
+  1079	  1022	   829 2026-08-25   REGISTERED
+  1080	  1032	   829 2026-08-25   REGISTERED
+  1081	  1042	   829 2026-08-25   REGISTERED
+  1082	  1012	   829 2026-08-25   REGISTERED
+  1083	  1052	   830 2026-08-25   REGISTERED
+  1084	  1042	   830 2026-08-25   REGISTERED
+  1085	  1012	   830 2026-08-25   REGISTERED
+  1086	  1032	   830 2026-08-25   REGISTERED
+  1087	  1022	   830 2026-08-25   REGISTERED
+  1088	  1052	   831 2026-08-25   REGISTERED
+  1089	  1012	   831 2026-08-25   REGISTERED
+  1090	  1042	   831 2026-08-25   REGISTERED
+  1091	  1022	   831 2026-08-25   REGISTERED
+  1092	  1032	   831 2026-08-25   REGISTERED
+  1093	  1030	   836 2026-08-25   REGISTERED
+  1094	  1053	   836 2026-08-25   REGISTERED
+  1095	  1033	   836 2026-08-25   REGISTERED
+  1096	  1013	   836 2026-08-25   REGISTERED
+  1097	  1028	   836 2026-08-25   REGISTERED
+  1098	  1059	   836 2026-08-25   REGISTERED
+  1099	  1033	   837 2026-08-25   REGISTERED
+  1100	  1053	   837 2026-08-25   REGISTERED
+  1101	  1013	   837 2026-08-25   REGISTERED
+  1102	  1023	   837 2026-08-25   REGISTERED
+  1103	  1043	   837 2026-08-25   REGISTERED
+  1104	  1057	   838 2026-08-25   REGISTERED
+  1105	  1033	   838 2026-08-25   REGISTERED
+  1106	  1015	   838 2026-08-25   REGISTERED
+  1107	  1021	   838 2026-08-25   REGISTERED
+  1108	  1003	   838 2026-08-25   REGISTERED
+  1109	  1010	   838 2026-08-25   REGISTERED
+  1110	  1023	   838 2026-08-25   REGISTERED
+  1111	  1011	   838 2026-08-25   REGISTERED
+  1112	  1009	   838 2026-08-25   REGISTERED
+  1113	  1031	   838 2026-08-25   REGISTERED
+  1114	  1033	   839 2026-08-25   REGISTERED
+  1115	  1053	   839 2026-08-25   REGISTERED
+  1116	  1023	   839 2026-08-25   REGISTERED
+  1117	  1053	   840 2026-08-25   REGISTERED
+  1118	  1023	   840 2026-08-25   REGISTERED
+  1119	  1013	   840 2026-08-25   REGISTERED
+  1120	  1043	   840 2026-08-25   REGISTERED
+  1121	  1001	   841 2026-08-25   REGISTERED
+  1122	  1006	   841 2026-08-25   REGISTERED
+  1123	  1017	   841 2026-08-25   REGISTERED
+  1124	  1057	   841 2026-08-25   REGISTERED
+  1125	  1037	   841 2026-08-25   REGISTERED
+  1126	  1002	   841 2026-08-25   REGISTERED
+  1127	  1056	   842 2026-08-25   REGISTERED
+  1128	  1007	   842 2026-08-25   REGISTERED
+  1129	  1046	   842 2026-08-25   REGISTERED
+  1130	  1016	   842 2026-08-25   REGISTERED
+  1131	  1001	   842 2026-08-25   REGISTERED
+  1132	  1057	   842 2026-08-25   REGISTERED
+
+========================================================================================================================================================
+[13] PUBLISHED EXAMINATION RESULTS (190 Records)
+========================================================================================================================================================
+
+Result ID Reg ID  Score Status	   Grade  Published
+========= ====== ====== ========== ====== ============
+    10001    901   46.0 PASS	   S	  2026-09-20
+    10002    902   38.0 PASS	   A	  2026-09-20
+    10003    903   42.0 PASS	   S	  2026-09-22
+    10004    904   28.0 PASS	   B	  2026-09-22
+    10005    905   15.6 FAIL	   F	  2026-10-05
+    10006    906   35.9 PASS	   B	  2026-10-05
+    10007    907   31.5 PASS	   C	  2026-10-05
+    10008    908   47.2 PASS	   S	  2026-10-05
+    10009    909   26.1 PASS	   D	  2026-10-05
+    10010    910   42.1 PASS	   A	  2026-10-05
+    10011    911   28.9 PASS	   D	  2026-10-05
+    10012    912   45.4 PASS	   S	  2026-10-05
+    10013    913   45.9 PASS	   S	  2026-10-05
+    10014    914   29.9 PASS	   D	  2026-10-05
+    10015    915   37.6 PASS	   B	  2026-10-05
+    10016    916   44.8 PASS	   A	  2026-10-05
+    10017    917   32.5 PASS	   C	  2026-10-05
+    10018    918   45.6 PASS	   S	  2026-10-05
+    10019    919   36.2 PASS	   B	  2026-10-05
+    10020    920   46.1 PASS	   S	  2026-10-05
+    10021    921   40.8 PASS	   A	  2026-10-05
+    10022    922   40.1 PASS	   A	  2026-10-05
+    10023    923   45.6 PASS	   S	  2026-10-05
+    10024    924   42.2 PASS	   A	  2026-10-05
+    10025    925   37.7 PASS	   B	  2026-10-05
+    10026    926   36.0 PASS	   B	  2026-10-05
+    10027    927   43.2 PASS	   A	  2026-10-05
+    10028    928   35.5 PASS	   B	  2026-10-05
+    10029    929   41.5 PASS	   A	  2026-10-05
+    10030    930   27.7 PASS	   D	  2026-10-05
+    10031    931   48.1 PASS	   S	  2026-10-05
+    10032    932   47.4 PASS	   S	  2026-10-05
+    10033    933   38.9 PASS	   B	  2026-10-05
+    10034    934   25.9 PASS	   D	  2026-10-05
+    10035    935   28.6 PASS	   D	  2026-10-05
+    10036    936   47.2 PASS	   S	  2026-10-05
+    10037    937   31.4 PASS	   C	  2026-10-05
+    10038    938   47.4 PASS	   S	  2026-10-05
+    10039    939   40.5 PASS	   A	  2026-10-05
+    10040    940   43.2 PASS	   A	  2026-10-05
+    10041    941   31.7 PASS	   C	  2026-10-05
+    10042    942   75.8 PASS	   B	  2026-10-05
+    10043    943   82.7 PASS	   A	  2026-10-05
+    10044    944   83.0 PASS	   A	  2026-10-05
+    10045    945   59.8 PASS	   D	  2026-10-05
+    10046    946   20.3 FAIL	   F	  2026-10-05
+    10047    947   74.9 PASS	   B	  2026-10-05
+    10048    948   61.3 PASS	   C	  2026-10-05
+    10049    949   92.3 PASS	   S	  2026-10-05
+    10050    950   81.9 PASS	   A	  2026-10-05
+    10051    951   92.1 PASS	   S	  2026-10-05
+    10052    952   58.2 PASS	   D	  2026-10-05
+    10053    953   76.9 PASS	   B	  2026-10-05
+    10054    954   95.0 PASS	   S	  2026-10-05
+    10055    955   89.6 PASS	   A	  2026-10-05
+    10056    956   85.9 PASS	   A	  2026-10-05
+    10057    966   35.7 PASS	   B	  2026-10-05
+    10058    967   44.7 PASS	   A	  2026-10-05
+    10059    968   42.9 PASS	   A	  2026-10-05
+    10060    969   35.5 PASS	   B	  2026-10-05
+    10061    970   25.3 PASS	   D	  2026-10-05
+    10062    971   41.8 PASS	   A	  2026-10-05
+    10063    972   26.8 PASS	   D	  2026-10-05
+    10064    978   42.0 PASS	   A	  2026-10-05
+    10065    979   36.1 PASS	   B	  2026-10-05
+    10066    980   42.6 PASS	   A	  2026-10-05
+    10067    981   44.3 PASS	   A	  2026-10-05
+    10068    982   45.2 PASS	   S	  2026-10-05
+    10069    983   39.4 PASS	   B	  2026-10-05
+    10070    984   84.8 PASS	   A	  2026-10-05
+    10071    985   65.2 PASS	   C	  2026-10-05
+    10072    986   71.4 PASS	   B	  2026-10-05
+    10073    987   86.1 PASS	   A	  2026-10-05
+    10074    988   90.4 PASS	   S	  2026-10-05
+    10075    989   83.5 PASS	   A	  2026-10-05
+    10076    990   68.2 PASS	   C	  2026-10-05
+    10077    991   86.1 PASS	   A	  2026-10-05
+    10078    992   87.6 PASS	   A	  2026-10-05
+    10079   1002   31.3 PASS	   C	  2026-10-05
+    10080   1003   27.8 PASS	   D	  2026-10-05
+    10081   1004   43.6 PASS	   A	  2026-10-05
+    10082   1005   44.9 PASS	   A	  2026-10-05
+    10083   1006   43.5 PASS	   A	  2026-10-05
+    10084   1007   48.8 PASS	   S	  2026-10-05
+    10085   1008   35.7 PASS	   B	  2026-10-05
+    10086   1009   48.1 PASS	   S	  2026-10-05
+    10087   1010   36.3 PASS	   B	  2026-10-05
+    10088   1011   40.4 PASS	   A	  2026-10-05
+    10089   1012   44.8 PASS	   A	  2026-10-05
+    10090   1013   44.0 PASS	   A	  2026-10-05
+    10091   1014   43.4 PASS	   A	  2026-10-05
+    10092   1015   40.4 PASS	   A	  2026-10-05
+    10093   1016   35.0 PASS	   B	  2026-10-05
+    10094   1017   38.7 PASS	   B	  2026-10-05
+    10095   1018   34.3 PASS	   C	  2026-10-05
+    10096   1019   37.3 PASS	   B	  2026-10-05
+    10097   1020   34.7 PASS	   C	  2026-10-05
+    10098   1021   37.3 PASS	   B	  2026-10-05
+    10099   1022   40.1 PASS	   A	  2026-10-05
+    10100   1023   42.7 PASS	   A	  2026-10-05
+    10101   1024   32.6 PASS	   C	  2026-10-05
+    10102   1025   44.5 PASS	   A	  2026-10-05
+    10103   1026   35.6 PASS	   B	  2026-10-05
+    10104   1027   15.1 FAIL	   F	  2026-10-05
+    10105   1028   33.5 PASS	   C	  2026-10-05
+    10106   1029   31.3 PASS	   C	  2026-10-05
+    10107   1030   30.7 PASS	   C	  2026-10-05
+    10108   1031   33.0 PASS	   C	  2026-10-05
+    10109   1032   31.2 PASS	   C	  2026-10-05
+    10110   1033   36.6 PASS	   B	  2026-10-05
+    10111   1034   48.9 PASS	   S	  2026-10-05
+    10112   1035   47.3 PASS	   S	  2026-10-05
+    10113   1042   42.4 PASS	   A	  2026-10-05
+    10114   1043   27.7 PASS	   D	  2026-10-05
+    10115   1044   45.8 PASS	   S	  2026-10-05
+    10116   1045   43.5 PASS	   A	  2026-10-05
+    10117   1046   37.2 PASS	   B	  2026-10-05
+    10118   1047   34.0 PASS	   C	  2026-10-05
+    10119   1048   45.4 PASS	   S	  2026-10-05
+    10120   1049   20.8 FAIL	   F	  2026-10-05
+    10121   1050   46.4 PASS	   S	  2026-10-05
+    10122   1051   39.4 PASS	   B	  2026-10-05
+    10123   1052   44.6 PASS	   A	  2026-10-05
+    10124   1053   10.1 FAIL	   F	  2026-10-05
+    10125   1054   32.9 PASS	   C	  2026-10-05
+    10126   1055   25.9 PASS	   D	  2026-10-05
+    10127   1056   43.7 PASS	   A	  2026-10-05
+    10128   1065   27.5 PASS	   D	  2026-10-05
+    10129   1066   33.3 PASS	   C	  2026-10-05
+    10130   1067   41.1 PASS	   A	  2026-10-05
+    10131   1068   35.2 PASS	   B	  2026-10-05
+    10132   1069   25.5 PASS	   D	  2026-10-05
+    10133   1070   38.5 PASS	   B	  2026-10-05
+    10134   1071   46.6 PASS	   S	  2026-10-05
+    10135   1072   41.3 PASS	   A	  2026-10-05
+    10136   1073   41.8 PASS	   A	  2026-10-05
+    10137   1074   34.4 PASS	   C	  2026-10-05
+    10138   1075   46.4 PASS	   S	  2026-10-05
+    10139   1076   38.1 PASS	   B	  2026-10-05
+    10140   1077   37.2 PASS	   B	  2026-10-05
+    10141   1078   41.3 PASS	   A	  2026-10-05
+    10142   1079   29.3 PASS	   D	  2026-10-05
+    10143   1080   41.0 PASS	   A	  2026-10-05
+    10144   1081   38.7 PASS	   B	  2026-10-05
+    10145   1082   34.8 PASS	   C	  2026-10-05
+    10146   1088   33.7 PASS	   C	  2026-10-05
+    10147   1089   39.5 PASS	   B	  2026-10-05
+    10148   1090   43.2 PASS	   A	  2026-10-05
+    10149   1091   41.7 PASS	   A	  2026-10-05
+    10150   1092   41.4 PASS	   A	  2026-10-05
+    10151   1093   41.7 PASS	   A	  2026-10-05
+    10152   1094   41.5 PASS	   A	  2026-10-05
+    10153   1095   27.9 PASS	   D	  2026-10-05
+    10154   1096   42.5 PASS	   A	  2026-10-05
+    10155   1097   35.3 PASS	   B	  2026-10-05
+    10156   1098   31.5 PASS	   C	  2026-10-05
+    10157   1099   31.5 PASS	   C	  2026-10-05
+    10158   1100   43.7 PASS	   A	  2026-10-05
+    10159   1101   25.8 PASS	   D	  2026-10-05
+    10160   1102   37.4 PASS	   B	  2026-10-05
+    10161   1103   34.7 PASS	   C	  2026-10-05
+    10162   1104   29.8 PASS	   D	  2026-10-05
+    10163   1105   21.0 FAIL	   F	  2026-10-05
+    10164   1106   43.4 PASS	   A	  2026-10-05
+    10165   1107   31.6 PASS	   C	  2026-10-05
+    10166   1108   41.1 PASS	   A	  2026-10-05
+    10167   1109   26.6 PASS	   D	  2026-10-05
+    10168   1110   43.6 PASS	   A	  2026-10-05
+    10169   1111   43.3 PASS	   A	  2026-10-05
+    10170   1112   44.0 PASS	   A	  2026-10-05
+    10171   1113   21.8 FAIL	   F	  2026-10-05
+    10172   1114   41.6 PASS	   A	  2026-10-05
+    10173   1115   41.7 PASS	   A	  2026-10-05
+    10174   1116   43.2 PASS	   A	  2026-10-05
+    10175   1117   36.5 PASS	   B	  2026-10-05
+    10176   1118   25.8 PASS	   D	  2026-10-05
+    10177   1119   35.8 PASS	   B	  2026-10-05
+    10178   1120   47.2 PASS	   S	  2026-10-05
+    10179   1121   37.3 PASS	   B	  2026-10-05
+    10180   1122   35.3 PASS	   B	  2026-10-05
+    10181   1123   40.6 PASS	   A	  2026-10-05
+    10182   1124   47.9 PASS	   S	  2026-10-05
+    10183   1125   30.1 PASS	   C	  2026-10-05
+    10184   1126   37.7 PASS	   B	  2026-10-05
+    10185   1127   29.3 PASS	   D	  2026-10-05
+    10186   1128   43.0 PASS	   A	  2026-10-05
+    10187   1129   43.6 PASS	   A	  2026-10-05
+    10188   1130   48.5 PASS	   S	  2026-10-05
+    10189   1131   36.4 PASS	   B	  2026-10-05
+    10190   1132   44.1 PASS	   A	  2026-10-05
+
+========================================================================================================================================================
+[14] RE-EXAMINATION APPLICATIONS (20 Records)
+========================================================================================================================================================
+
+App ID Result ID App Date     Application Justification 					Decision   Approval Dat
+====== ========= ============ ================================================================= ========== ============
+ 11001	   10002 2026-09-25   Request for re-examination due to exceptional circumstances	APPROVED   2026-10-14
+ 11002	   10137 2026-10-12   Severe road accident on transit to examination venue; traffic cle APPROVED   2026-10-18
+			      arance report submitted.
+
+ 11003	   10146 2026-10-12   Student was hospitalized due to acute viral infection during exam PENDING    Pending
+			       week; medical certificate attached.
+
+ 11004	   10046 2026-10-12   Technical connectivity disruption during online component of hybr APPROVED   2026-10-18
+			      id examination.
+
+ 11005	   10156 2026-10-12   Technical connectivity disruption during online component of hybr PENDING    Pending
+			      id examination.
+
+ 11006	   10105 2026-10-12   Medical emergency with doctor certificate validated by University APPROVED   2026-10-18
+			       Health Center.
+
+ 11007	   10165 2026-10-12   Scored below grade expectations due to documented family bereavem REJECTED   2026-10-18
+			      ent; petitioning for re-evaluation.
+
+ 11008	   10125 2026-10-12   Severe road accident on transit to examination venue; traffic cle REJECTED   2026-10-18
+			      arance report submitted.
+
+ 11009	   10128 2026-10-12   Technical connectivity disruption during online component of hybr PENDING    Pending
+			      id examination.
+
+ 11010	   10041 2026-10-12   Severe road accident on transit to examination venue; traffic cle REJECTED   2026-10-18
+			      arance report submitted.
+
+ 11011	   10109 2026-10-12   Suffered high fever and dizziness during afternoon session; reque REJECTED   2026-10-18
+			      sting re-assessment opportunity.
+
+ 11012	   10017 2026-10-12   Approved academic leave overlap during designated examination slo PENDING    Pending
+			      t.
+
+ 11013	   10142 2026-10-12   Suffered high fever and dizziness during afternoon session; reque REJECTED   2026-10-18
+			      sting re-assessment opportunity.
+
+ 11014	   10126 2026-10-12   Severe road accident on transit to examination venue; traffic cle APPROVED   2026-10-18
+			      arance report submitted.
+
+ 11015	   10034 2026-10-12   Scored below grade expectations due to documented family bereavem REJECTED   2026-10-18
+			      ent; petitioning for re-evaluation.
+
+ 11016	   10124 2026-10-12   Medical emergency with doctor certificate validated by University REJECTED   2026-10-18
+			       Health Center.
+
+ 11017	   10171 2026-10-12   Approved academic leave overlap during designated examination slo PENDING    Pending
+			      t.
+
+ 11018	   10132 2026-10-12   Medical emergency with doctor certificate validated by University REJECTED   2026-10-18
+			       Health Center.
+
+ 11019	   10011 2026-10-12   Technical connectivity disruption during online component of hybr APPROVED   2026-10-18
+			      id examination.
+
+ 11020	   10183 2026-10-12   Student was hospitalized due to acute viral infection during exam PENDING    Pending
+			       week; medical certificate attached.
+
+
+========================================================================================================================================================
+[15] USER ACCOUNTS DIRECTORY (76 Records)
+* Note: Password for ALL accounts is '1234' (stored securely as BCrypt hash).
+========================================================================================================================================================
+
+Acc ID Login Identifier     Portal Role     Student ID Faculty ID Active
+====== ==================== =============== ========== ========== ======
+     1 admin		    ADMINISTRATOR			       1
+     3 201		    FACULTY			      201      1
+     6 202		    FACULTY			      202      1
+    78 203		    FACULTY			      203      1
+    79 204		    FACULTY			      204      1
+    80 205		    FACULTY			      205      1
+    81 206		    FACULTY			      206      1
+    82 207		    FACULTY			      207      1
+    83 208		    FACULTY			      208      1
+    84 209		    FACULTY			      209      1
+    85 210		    FACULTY			      210      1
+    86 211		    FACULTY			      211      1
+    87 212		    FACULTY			      212      1
+    88 213		    FACULTY			      213      1
+    89 214		    FACULTY			      214      1
+    90 215		    FACULTY			      215      1
+     2 1001		    STUDENT		  1001		       1
+     4 1002		    STUDENT		  1002		       1
+     5 1003		    STUDENT		  1003		       1
+    21 1004		    STUDENT		  1004		       1
+    22 1005		    STUDENT		  1005		       1
+    23 1006		    STUDENT		  1006		       1
+    24 1007		    STUDENT		  1007		       1
+    25 1008		    STUDENT		  1008		       1
+    26 1009		    STUDENT		  1009		       1
+    27 1010		    STUDENT		  1010		       1
+    28 1011		    STUDENT		  1011		       1
+    29 1012		    STUDENT		  1012		       1
+    30 1013		    STUDENT		  1013		       1
+    31 1014		    STUDENT		  1014		       1
+    32 1015		    STUDENT		  1015		       1
+    33 1016		    STUDENT		  1016		       1
+    34 1017		    STUDENT		  1017		       1
+    35 1018		    STUDENT		  1018		       1
+    36 1019		    STUDENT		  1019		       1
+    37 1020		    STUDENT		  1020		       1
+    38 1021		    STUDENT		  1021		       1
+    39 1022		    STUDENT		  1022		       1
+    40 1023		    STUDENT		  1023		       1
+    41 1024		    STUDENT		  1024		       1
+    42 1025		    STUDENT		  1025		       1
+    43 1026		    STUDENT		  1026		       1
+    44 1027		    STUDENT		  1027		       1
+    45 1028		    STUDENT		  1028		       1
+    46 1029		    STUDENT		  1029		       1
+    47 1030		    STUDENT		  1030		       1
+    48 1031		    STUDENT		  1031		       1
+    49 1032		    STUDENT		  1032		       1
+    50 1033		    STUDENT		  1033		       1
+    51 1034		    STUDENT		  1034		       1
+    52 1035		    STUDENT		  1035		       1
+    53 1036		    STUDENT		  1036		       1
+    54 1037		    STUDENT		  1037		       1
+    55 1038		    STUDENT		  1038		       1
+    56 1039		    STUDENT		  1039		       1
+    57 1040		    STUDENT		  1040		       1
+    58 1041		    STUDENT		  1041		       1
+    59 1042		    STUDENT		  1042		       1
+    60 1043		    STUDENT		  1043		       1
+    61 1044		    STUDENT		  1044		       1
+    62 1045		    STUDENT		  1045		       1
+    63 1046		    STUDENT		  1046		       1
+    64 1047		    STUDENT		  1047		       1
+    65 1048		    STUDENT		  1048		       1
+    66 1049		    STUDENT		  1049		       1
+    67 1050		    STUDENT		  1050		       1
+    68 1051		    STUDENT		  1051		       1
+    69 1052		    STUDENT		  1052		       1
+    70 1053		    STUDENT		  1053		       1
+    71 1054		    STUDENT		  1054		       1
+    72 1055		    STUDENT		  1055		       1
+    73 1056		    STUDENT		  1056		       1
+    74 1057		    STUDENT		  1057		       1
+    75 1058		    STUDENT		  1058		       1
+    76 1059		    STUDENT		  1059		       1
+    77 1060		    STUDENT		  1060		       1
+
+========================================================================================================================================================
+END OF DATASET EXPORT - XYZ UNIVERSITY
+========================================================================================================================================================

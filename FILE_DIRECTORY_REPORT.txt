@@ -1,0 +1,367 @@
+================================================================================
+XYZ UNIVERSITY SMART CAMPUS MANAGEMENT SYSTEM
+COMPLETE PROJECT FILE DIRECTORY & FUNCTIONAL REPORT
+================================================================================
+
+This document explains what every single file in the project does across
+all layers of the application stack (SQL, Backend Java, Frontend Web,
+Automation Scripts, and Launchers).
+
+================================================================================
+1. SYSTEM ARCHITECTURE OVERVIEW
+================================================================================
+
+The application is structured into four distinct layers:
+
+  [1. Browser Client]
+        HTML / CSS / JavaScript (Single-Page Application)
+               |
+               v (HTTP REST Requests with Session Cookies)
+  [2. Security & Routing Layer]
+        AuthInterceptor (Role-based access control, session validation)
+        GlobalExceptionHandler (Centralized HTTP error mapping)
+               |
+               v
+  [3. Spring Boot Backend Services]
+        Controllers -> Services (Business Logic) -> JDBC Repositories
+               |
+               v (JDBC via HikariCP Connection Pool)
+  [4. Relational Database]
+        Oracle Database 26ai Free (Docker container: oracle-db, port 1521)
+
+
+================================================================================
+2. ROOT DIRECTORY LAUNCHERS & DOCUMENTATION
+================================================================================
+
+File: run.bat
+- Purpose: Windows batch one-click launcher.
+- Details: Automatically verifies if Docker container 'oracle-db' is running
+  (starts it if stopped), sets the CAMPUS_DB_PASSWORD environment variable,
+  opens the browser to http://localhost:8080/, and launches the pre-built
+  Spring Boot JAR (or executes mvnw.cmd if unbuilt).
+
+File: run.ps1
+- Purpose: Interactive PowerShell launcher.
+- Details: Provides colorized terminal health checks, Docker container validation,
+  Maven packaging, and Spring Boot server execution with clean status reporting.
+
+File: EXPANSION_SETUP.md
+- Purpose: Technical guide for database expansion and credential setup.
+- Details: Documents how the database was expanded to 60 students, 15 faculty,
+  45 course offerings, 365 enrollments, 250 marks, and 76 user accounts with
+  temporary development passwords ('1234').
+
+File: PROJECT_REPORT.md
+- Purpose: Course project report document.
+- Details: Summarizes project background, ER relationships, relational schema,
+  business logic constraints, and verification methodology.
+
+File: dataset_export.txt
+- Purpose: Full raw text export of the entire database dataset.
+- Details: Contains 1,896 lines listing every single record across all 15 tables
+  (Departments, Programs, Faculty, Students, Courses, Offerings, Enrollments,
+  Attendance, Marks, Grades, Exams, Registrations, Results, Re-Exams, Accounts).
+
+File: TestConnection.java (and TestConnection.class)
+- Purpose: Standalone JDBC connection probe.
+- Details: Simple console Java program used to test direct JDBC connectivity to
+  Oracle 26ai at localhost:1521/FREEPDB1 without running the Spring Boot web app.
+
+Files: Module2.pdf, Module3.pdf
+- Purpose: Course reference materials and lecture slides for Database Systems.
+
+
+================================================================================
+3. DATABASE SQL SCRIPTS (Folder: sql/)
+================================================================================
+
+File: sql/01_create_schema.sql
+- Purpose: Relational DDL schema creation.
+- Details: Creates all 14 academic tables:
+    1. DEPARTMENT (Dept_ID, Name, Code, Office_Location)
+    2. PROGRAM (Program_ID, Dept_ID, Name, Degree_Level, Duration_Years)
+    3. FACULTY (Faculty_ID, Dept_ID, Name, Email, Designation, Phone)
+    4. STUDENT (Student_ID, Program_ID, Name, Email, Phone, DOB, Admission_Year)
+    5. COURSE (Course_ID, Dept_ID, Course_Code, Course_Name, Credits, Course_Type)
+    6. COURSE_OFFERING (Offering_ID, Course_ID, Faculty_ID, Semester, Year, Section, Max_Seats, Classes_Held)
+    7. ENROLLMENT (Enrollment_ID, Student_ID, Offering_ID, Enrollment_Date, Status)
+    8. ATTENDANCE (Attendance_ID, Student_ID, Offering_ID, Classes_Attended)
+    9. MARKS (Mark_ID, Student_ID, Offering_ID, Continuous_Assessment_Marks, Midterm_Marks, Final_Exam_Marks)
+   10. GRADE (Grade_Code, Min_Percentage, Max_Percentage, Grade_Point, Description)
+   11. EXAM (Exam_ID, Offering_ID, Exam_Type, Exam_Date, Start_Time, End_Time, Venue, Max_Marks, Status)
+   12. EXAM_REGISTRATION (Exam_Registration_ID, Student_ID, Exam_ID, Registration_Date, Status)
+   13. EXAM_RESULT (Exam_Result_ID, Exam_Registration_ID, Marks_Obtained, Result_Status, Grade_Code, Published_Date)
+   14. RE_EXAM_APPLICATION (ReExam_Application_ID, Exam_Result_ID, Application_Date, Reason, Status, Approval_Date)
+  Defines primary keys, foreign keys, check constraints, and sequence counters.
+
+File: sql/02_insert_sample_data.sql
+- Purpose: Baseline seed data script.
+- Details: Contains the original minimal sample dataset (3 departments, 5 programs,
+  10 students, 5 faculty, 10 courses, 8 offerings, basic enrollments, and initial results).
+
+File: sql/03_expand_sample_data.sql
+- Purpose: Substantial realistic dataset expansion script.
+- Details: Populates the university dataset up to target course project scale:
+  - 6 Departments, 10 Programs, 15 Faculty, 60 Students
+  - 30 Courses, 45 Offerings, 365 Enrollments, 365 Attendance records
+  - 250 Marks records, 42 Exams, 232 Registrations, 190 Results, 20 Re-Exams
+  Strictly computes percentages and assigns grades according to the authoritative
+  GRADE boundary (S: >=90, A: 80-89.99, B: 70-79.99, C: 60-69.99, D: 50-59.99, F: <50).
+
+File: sql/04_authentication_migration.sql
+- Purpose: Security DDL and multi-role account provisioning.
+- Details: Creates the USER_ACCOUNT table (User_ID, Username, Password_Hash, Role,
+  Reference_ID, Created_Date, Is_Active) and inserts 76 active accounts (60 students,
+  15 faculty, 1 administrator), all hashed using BCrypt for password '1234'.
+
+File: sql/03_create_user_accounts.sql
+- Purpose: Early prototype DDL for user account table.
+
+File: sql/04_provision_dev_students.sql
+- Purpose: Targeted script for provisioning development student accounts.
+
+File: sql/04_reset_student_passwords_dev.sql
+- Purpose: Reset script to re-apply BCrypt hashes for password '1234' on student accounts.
+
+
+================================================================================
+4. AUTOMATION & VERIFICATION SCRIPTS (Folder: scripts/)
+================================================================================
+
+File: scripts/verify_workflows.ps1
+- Purpose: Comprehensive automated end-to-end verification test suite.
+- Details: Tests all 15 workflow scenarios required by Section 32 against the running
+  server and Oracle database:
+    1. Student login and enrollment retrieval.
+    2. Rejection of duplicate course registrations (HTTP 409).
+    3. Rejection of registration when seat capacity is full (HTTP 409).
+    4. Successful course registration and database persistence.
+    5. Faculty attendance entry and persistence verification in student view.
+    6. Faculty marks entry and persistence verification in student view.
+    7. Published results viewing with correct grades per GRADE table scale.
+    8. Student without exam results sees a clean empty state.
+    9. Student applies for re-examination; tracked as PENDING in student & admin views.
+   10. Rejection of unauthorized cross-faculty offering access (HTTP 403 Forbidden).
+   11. Administrator views all university entities and statistics.
+   12. Table formatting and responsive CSS verification without overflow.
+   13. Real-time table search filtering responsiveness.
+   14. Meaningful validation error messages on invalid input.
+   15. Clean server logs without unhandled exceptions or crashes.
+
+File: scripts/provision_dev_accounts.ps1
+- Purpose: Automated provisioning runner.
+- Details: Connects to Oracle DB inside Docker and executes 04_authentication_migration.sql.
+
+File: scripts/provision_dev_students.ps1
+- Purpose: Student account provisioning helper.
+
+
+================================================================================
+5. SPRING BOOT BACKEND (Folder: SmartCampus/)
+================================================================================
+
+Build & Configuration:
+- SmartCampus/pom.xml: Maven configuration declaring Java 21, Spring Boot 3.3.4,
+  Spring Web, Spring JDBC, Spring Validation, Oracle JDBC Driver (ojdbc11),
+  HikariCP, and Spring Security Crypto (for BCrypt).
+- SmartCampus/mvnw.cmd: Maven wrapper script directing commands to the local Maven runtime.
+- SmartCampus/src/main/resources/application.properties: Configures server port 8080,
+  Oracle JDBC connection URL (jdbc:oracle:thin:@localhost:1521/FREEPDB1),
+  username (campus_app), and HikariCP connection pool parameters.
+
+Application Entrypoint:
+- SmartCampus/src/main/java/com/campus/smartcampus/SmartCampusApplication.java:
+  Main Spring Boot bootstrap class.
+
+Configuration Classes (config/):
+- DatabaseConfig.java:
+  Configures the HikariCP DataSource. Injects the database password securely
+  from the environment and optimizes connection pool settings.
+- WebMvcConfig.java:
+  Registers AuthInterceptor with Spring MVC to protect endpoints.
+- AuthInterceptor.java:
+  Session security interceptor. Intercepts incoming requests:
+  * Public endpoints (/api/auth/**, static files, css, js) are allowed.
+  * Checks for active session. Returns 401 Unauthorized if missing.
+  * Enforces role isolation: Students can only access their own studentId;
+    Faculty can only access their own facultyId. Mismatches return 403 Forbidden.
+  * Admin accounts have authorized system oversight.
+
+Exception Handling:
+- GlobalExceptionHandler.java:
+  Centralized controller advice. Converts IllegalArgumentException into 400 Bad Request,
+  IllegalStateException into 409 Conflict, and Bean Validation errors into clear JSON messages.
+
+REST Controllers (controller/):
+- AuthController.java:
+  Handles login (/api/auth/login), session check (/api/auth/me), logout (/api/auth/logout),
+  setup status, initial admin creation, account provisioning, and database health check.
+- StudentController.java:
+  Handles student endpoints: profile, enrollments, available offerings, course registration,
+  attendance records, continuous marks, available exams, exam registration, published results,
+  and re-examination applications.
+- FacultyController.java:
+  Handles faculty endpoints: profile, assigned course offerings, enrolled student rosters,
+  classes held update, attendance updates, marks updates, and exam duty schedules.
+- AdminController.java:
+  Handles administrative endpoints: KPI dashboard statistics, and full CRUD for departments,
+  programs, faculty, students, courses, course offerings, exams, results, and re-exam reviews.
+
+Business Logic Services (service/):
+- AuthService.java:
+  Authenticates user credentials using BCrypt password verification, verifies roles,
+  and manages HTTP session state.
+- StudentService.java:
+  Implements business validations: prevents duplicate course enrollments, checks seat
+  capacity limits, initializes attendance and mark records upon enrollment, prevents
+  duplicate exam registrations, and accepts re-exam applications.
+- FacultyService.java:
+  Validates that offerings belong to the logged-in faculty member before edits, checks
+  that classes attended cannot exceed total classes held, and validates marks ceilings
+  (CA <= 30, Midterm <= 30, Final <= 50).
+- AdminService.java:
+  Calculates campus KPI counts and oversees university entity creation and re-exam decisions.
+
+Data Access Repositories (repository/):
+- CommonRepository.java:
+  Executes database health queries and connection verification against Oracle.
+- UserAccountRepository.java:
+  Direct JDBC operations on the USER_ACCOUNT table for login verification and provisioning.
+- StudentRepository.java:
+  Executes multi-table joins for student profiles, enrollments, course offerings, seat counts,
+  attendance calculations, marks, exams, results, and re-examinations.
+- FacultyRepository.java:
+  Executes queries for faculty offerings, student rosters with marks and attendance,
+  attendance update statements, and marks update statements.
+- AdminRepository.java:
+  Executes global list and insert statements for all university entities and statistics.
+
+Domain Models (model/):
+- ApiResponse.java: Generic JSON response envelope ({ success, message, data }).
+- Student.java, Faculty.java, Department.java, Program.java, Course.java: Core entity models.
+- CourseOffering.java: Course offering section with seat availability calculations.
+- Enrollment.java: Student course enrollment record.
+- Attendance.java: Attendance tracking record with attendance percentage computation.
+- Marks.java: Assessment marks model with total calculation and letter grade mapping.
+- Grade.java: Official grade scale (S, A, B, C, D, F) and grade points.
+- Exam.java, ExamRegistration.java, ExamResult.java: Examination management models.
+- ReExamApplication.java: Re-evaluation petition model.
+- UserAccount.java: User authentication credentials and role entity.
+
+Data Transfer Objects (dto/):
+- LoginRequest.java, LoginResponse.java: Authentication request and response DTOs.
+- SetupAdminRequest.java, AccountProvisionRequest.java: Account creation DTOs.
+- CourseRegistrationRequest.java, ExamRegistrationRequest.java: Registration payloads.
+- AttendanceUpdateRequest.java, MarksUpdateRequest.java: Faculty grade/attendance payloads.
+- StudentAttendanceMarksDTO.java: Combined roster view for faculty gradebook.
+- ReExamApplicationRequest.java, ReExamDecisionRequest.java: Re-exam petition payloads.
+- Administrative creation DTOs: DepartmentCreateRequest, ProgramCreateRequest,
+  CourseCreateRequest, OfferingCreateRequest, ExamCreateRequest,
+  StudentCreateRequest, FacultyCreateRequest.
+
+
+================================================================================
+6. FRONTEND SINGLE-PAGE WEB APPLICATION (Folder: SmartCampus/.../static/)
+================================================================================
+
+File: SmartCampus/src/main/resources/static/index.html
+- Purpose: Master Single-Page Application (SPA) HTML container.
+- Details: Contains the responsive layout structure:
+  * Public university login screen with role switch buttons (Student, Faculty, Admin).
+  * Authenticated university portal header with user badge and logout button.
+  * Primary navigation tabs (Academics and Examinations).
+  * Dynamic view containers where portal content is rendered.
+  * Real-time toast notification container and interactive modal dialogs.
+
+File: SmartCampus/src/main/resources/static/css/portal.css
+- Purpose: Comprehensive portal stylesheet.
+- Details: Implements the restrained XYZ University navy-and-white visual identity:
+  * Color tokens: Deep Navy (#1B365D), Slate Blue (#2C5282), Background (#F7FAFC).
+  * Responsive cards, form fields, and status badges.
+  * Dedicated data table styling with zebra striping and hover effects.
+  * Card-table resets (.card > .table-responsive) and .table-responsive { overflow-x: auto }
+    to prevent horizontal page clipping.
+
+File: SmartCampus/src/main/resources/static/js/app.js
+- Purpose: Main application controller and UI toolkit.
+- Details: Controls client-side initialization, session restoration via /api/auth/me,
+  role switching, primary/secondary tab navigation, user banner updates, toast alerts,
+  modal dialogs, and the real-time table search filter utility (UI.filterTable).
+
+File: SmartCampus/src/main/resources/static/js/api.js
+- Purpose: Unified HTTP client.
+- Details: Thin wrapper over fetch() that automatically serializes JSON payloads,
+  includes session cookies (credentials: 'same-origin'), parses JSON responses,
+  and standardizes error handling.
+
+File: SmartCampus/src/main/resources/static/js/student.js
+- Purpose: Student portal view controller.
+- Details: Renders and manages all student workflows:
+  * Profile overview card.
+  * Active course enrollments table.
+  * Available course catalog with real-time seat tracking and registration buttons.
+  * Course attendance records with visual attendance rate indicators.
+  * Continuous Assessment, Midterm, Final, and Total marks breakdown.
+  * Examination schedules with one-click exam registration.
+  * Published examination results with letter grades and status.
+  * Re-examination petition submission modal and tracking table.
+
+File: SmartCampus/src/main/resources/static/js/faculty.js
+- Purpose: Faculty portal view controller.
+- Details: Renders and manages all faculty workflows:
+  * Faculty profile overview card.
+  * Assigned course offerings overview.
+  * Enrolled student rosters with live attendance and marks overview.
+  * Total classes held updater.
+  * Individual student attendance editing modal.
+  * Student marks entry modal (CA, Midterm, Final exam marks).
+  * Exam supervision duties schedule.
+
+File: SmartCampus/src/main/resources/static/js/admin.js
+- Purpose: Administrator portal view controller.
+- Details: Renders and manages institutional administration:
+  * Real-time KPI counter tiles (Departments, Programs, Faculty, Students, Offerings, Exams).
+  * Department directory and creation modal.
+  * Degree program directory and creation modal.
+  * Faculty member directory and creation modal.
+  * Student directory with program filters.
+  * Course catalog and offering section manager.
+  * University exam schedule creator.
+  * Global examination results view.
+  * Re-examination petition review table with Approve / Reject action buttons.
+  * User Account Provisioning tool.
+
+
+================================================================================
+7. HISTORICAL & PROTOTYPE FILES (Folder: SmartCampus/src/)
+================================================================================
+
+Files:
+- SmartCampus/src/DatabaseConnection.java: Early JDBC helper from the desktop prototype.
+- SmartCampus/src/LoginFrame.java: Early desktop Java Swing GUI login window (superseded by web SPA).
+- SmartCampus/src/Main.java: Early desktop application launcher.
+- SmartCampus/src/TestDatabase.java: Early database console tester.
+* Note: These files are preserved for project history; the production web application
+  runs entirely from SmartCampus/src/main/.
+
+
+================================================================================
+8. QUICK EXECUTION COMMANDS
+================================================================================
+
+Start the Application:
+  Double-click run.bat (or run ./run.ps1 in PowerShell)
+
+Run the 15-Scenario Workflow Verification Suite:
+  powershell -ExecutionPolicy Bypass -File scripts\verify_workflows.ps1
+
+Start Cloudflare Public Tunnel (Internet access):
+  & "C:\Program Files (x86)\cloudflared\cloudflared.exe" tunnel --url http://localhost:8080
+
+Reset / Provision All Development User Accounts:
+  powershell -ExecutionPolicy Bypass -File scripts\provision_dev_accounts.ps1
+
+================================================================================
+END OF REPORT
+================================================================================

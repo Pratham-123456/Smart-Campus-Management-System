@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>XYZ University — Smart Campus Management System Technical Specification</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 16mm 14mm 16mm 14mm;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            color: #1E293B;
+            background: #FFFFFF;
+            font-size: 10pt;
+            line-height: 1.5;
+        }
+
+        /* Cover Page */
+        .cover-page {
+            height: 252mm;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            page-break-after: always;
+            padding: 24mm 16mm 18mm 16mm;
+            border: 6px solid #1B365D;
+            background: #FFFFFF;
+        }
+
+        .cover-header .inst-name {
+            font-size: 24pt;
+            font-weight: 800;
+            color: #1B365D;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .cover-header .inst-sub {
+            font-size: 11pt;
+            font-weight: 600;
+            color: #475569;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .cover-divider {
+            width: 70px;
+            height: 4px;
+            background: #D97706;
+            margin: 16px auto;
+        }
+
+        .cover-body {
+            margin: auto 0;
+        }
+
+        .cover-title {
+            font-size: 21pt;
+            font-weight: 800;
+            color: #0F172A;
+            line-height: 1.25;
+            margin-bottom: 10px;
+        }
+
+        .cover-subtitle {
+            font-size: 12pt;
+            color: #2563EB;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .cover-desc {
+            font-size: 10pt;
+            color: #64748B;
+            max-width: 460px;
+            margin: 0 auto;
+            line-height: 1.5;
+        }
+
+        .cover-meta {
+            width: 100%;
+            border-top: 2px solid #CBD5E1;
+            padding-top: 14px;
+            display: flex;
+            justify-content: space-between;
+            font-size: 9pt;
+            color: #475569;
+            text-align: left;
+        }
+
+        .cover-meta-col strong {
+            color: #1B365D;
+            display: block;
+            margin-bottom: 2px;
+            font-size: 9.5pt;
+        }
+
+        /* Typography & Layout */
+        h1 {
+            font-size: 15pt;
+            font-weight: 800;
+            color: #1B365D;
+            border-bottom: 2px solid #1B365D;
+            padding-bottom: 5px;
+            margin-top: 20px;
+            margin-bottom: 12px;
+            page-break-after: avoid;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        h2 {
+            font-size: 12pt;
+            font-weight: 700;
+            color: #1E3A8A;
+            margin-top: 16px;
+            margin-bottom: 8px;
+            page-break-after: avoid;
+        }
+
+        h3 {
+            font-size: 10.5pt;
+            font-weight: 700;
+            color: #0F172A;
+            margin-top: 12px;
+            margin-bottom: 6px;
+            page-break-after: avoid;
+        }
+
+        p {
+            margin-bottom: 8px;
+            color: #334155;
+            font-size: 9.5pt;
+            text-align: justify;
+        }
+
+        ul, ol {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        li {
+            margin-bottom: 3px;
+            font-size: 9.5pt;
+            color: #334155;
+        }
+
+        .page-break {
+            page-break-before: always;
+        }
+
+        /* Tables */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 10px 0 14px 0;
+            page-break-inside: auto;
+            font-size: 8.5pt;
+        }
+
+        tr {
+            page-break-inside: avoid;
+            page-break-after: auto;
+        }
+
+        thead {
+            display: table-header-group;
+        }
+
+        th {
+            background-color: #1B365D;
+            color: #FFFFFF;
+            font-weight: 700;
+            text-align: left;
+            padding: 6px 8px;
+            border: 1px solid #1B365D;
+            text-transform: uppercase;
+            font-size: 8pt;
+            letter-spacing: 0.5px;
+        }
+
+        td {
+            padding: 5px 8px;
+            border: 1px solid #CBD5E1;
+            color: #1E293B;
+            vertical-align: top;
+        }
+
+        tbody tr:nth-child(even) td {
+            background-color: #F8FAFC;
+        }
+
+        /* Callouts */
+        .callout {
+            background: #F0F9FF;
+            border-left: 4px solid #0284C7;
+            padding: 8px 12px;
+            margin: 10px 0;
+            border-radius: 0 4px 4px 0;
+            font-size: 9pt;
+        }
+
+        .callout-title {
+            font-weight: 700;
+            color: #0369A1;
+            margin-bottom: 3px;
+            font-size: 9.5pt;
+        }
+
+        .card {
+            background: #FFFFFF;
+            border: 1px solid #E2E8F0;
+            border-radius: 4px;
+            padding: 10px 12px;
+            margin: 8px 0;
+        }
+
+        /* Code & Monospace */
+        code {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 8pt;
+            background: #F1F5F9;
+            padding: 1px 4px;
+            border-radius: 3px;
+            color: #0F172A;
+        }
+
+        pre {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 7.5pt;
+            background: #0F172A;
+            color: #F8FAFC;
+            padding: 8px 10px;
+            border-radius: 4px;
+            margin: 8px 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            line-height: 1.35;
+        }
+
+        /* Status Pills */
+        .pill {
+            display: inline-block;
+            padding: 1px 5px;
+            border-radius: 10px;
+            font-size: 7pt;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        .pill-success { background: #DCFCE7; color: #166534; }
+        .pill-info { background: #E0E7FF; color: #3730A3; }
+        .pill-warn { background: #FEF3C7; color: #92400E; }
+
+        .diagram-box {
+            background: #F8FAFC;
+            border: 1px solid #CBD5E1;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            font-family: "SFMono-Regular", Consolas, monospace;
+            font-size: 7.5pt;
+            line-height: 1.35;
+        }
+
+        .formula-box {
+            text-align: center;
+            background: #F8FAFC;
+            border: 1px solid #E2E8F0;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #1B365D;
+            font-size: 9.5pt;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- COVER PAGE -->
+    <div class="cover-page">
+        <div class="cover-header">
+            <div class="inst-name">XYZ University</div>
+            <div class="inst-sub">School of Computer Science & Engineering</div>
+            <div class="cover-divider"></div>
+            <div style="font-size: 10.5pt; color: #64748B; font-weight: 600;">BACSE202 — Database Systems Course Project</div>
+        </div>
+
+        <div class="cover-body">
+            <div class="cover-title">Smart Campus Management System</div>
+            <div class="cover-subtitle">Technical Architecture & Full-Stack System Specification</div>
+            <div class="cover-desc">
+                A comprehensive technical report detailing the frontend architecture, backend REST services, security access controls, relational database schemas, and end-to-end workflow verification for XYZ University's academic management portal.
+            </div>
+        </div>
+
+        <div class="cover-meta">
+            <div class="cover-meta-col">
+                <strong>Course & Semester</strong>
+                BACSE202 &bull; Fall Semester 2026<br>
+                CAT2 Project Submission
+            </div>
+            <div class="cover-meta-col">
+                <strong>Technology Stack</strong>
+                Java 21 &bull; Spring Boot 3.3.4<br>
+                Oracle Database 26ai Free &bull; JavaScript SPA
+            </div>
+            <div class="cover-meta-col">
+                <strong>Deployment Status</strong>
+                Port 8080 &bull; Cloudflare Edge Tunnel<br>
+                Verified Test Suite: 15 / 15 Passed (100%)
+            </div>
+        </div>
+    </div>
+
+    <!-- CHAPTER 1 -->
+    <h1>1. Executive Summary & Architectural Overview</h1>
+    <p>
+        The <strong>XYZ University Smart Campus Management System</strong> is a full-stack, enterprise-grade university portal designed to manage core academic operations and examination lifecycles. Built for the <strong>Database Systems</strong> course, the application replaces legacy desktop paradigms with a modern, high-performance web architecture consisting of a vanilla JavaScript Single-Page Application (SPA) frontend, a Spring Boot 3.3.4 RESTful backend, and an Oracle Database 26ai Free relational database.
+    </p>
+
+    <div class="diagram-box">
++--------------------------------------------------------------------------+
+|                 CLIENT BROWSER (SINGLE-PAGE APPLICATION)                 |
+|   index.html | portal.css | app.js (Routing/Search) | api.js (HTTP)      |
++--------------------------------------------------------------------------+
+                                    |
+                    [ HTTP REST / Session Cookies ]
+                                    v
++--------------------------------------------------------------------------+
+|                       SECURITY & INTERCEPTOR LAYER                       |
+|   AuthInterceptor (Session Verification, 401 Unauth, 403 Forbidden)      |
+|   GlobalExceptionHandler (Centralized HTTP 400/409 Error Formatting)     |
++--------------------------------------------------------------------------+
+                                    |
+                                    v
++--------------------------------------------------------------------------+
+|                    SPRING BOOT 3.3.4 BACKEND SERVICES                    |
+|   Controllers: AuthController | StudentController | Faculty | Admin      |
+|   Services:    AuthService    | StudentService    | Faculty | Admin      |
++--------------------------------------------------------------------------+
+                                    |
+                     [ JDBC Calls via HikariCP Pool ]
+                                    v
++--------------------------------------------------------------------------+
+|                  ORACLE DATABASE 26ai FREE (FREEPDB1)                    |
+|   14 Academic Relations | USER_ACCOUNT (76 BCrypt) | 1,896 Records       |
++--------------------------------------------------------------------------+
+    </div>
+
+    <h2>Core System Roles & Navigation Scope</h2>
+    <p>
+        In accordance with institutional requirements, authenticated user sessions are strictly scoped into two primary academic pillars:
+    </p>
+    <ul>
+        <li><strong>Academics</strong>: Handles student profiles, active course registrations, offerings catalogs with live capacity checking, attendance rate tracking, and continuous assessment gradebooks.</li>
+        <li><strong>Examinations</strong>: Manages centralized exam timetables (CAT1, CAT2, FAT), exam seat registrations, published scorecards with letter grade determinations, and re-evaluation petitions.</li>
+    </ul>
+
+    <!-- CHAPTER 2 -->
+    <div class="page-break"></div>
+    <h1>2. Frontend Architecture & Component Reference</h1>
+    <p>
+        The client-side interface resides completely within <code>SmartCampus/src/main/resources/static/</code>. It utilizes modern vanilla ECMAScript 2023 with an asynchronous, event-driven Single-Page Application architecture without external frontend framework bloat.
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 22%;">Frontend File</th>
+                <th style="width: 15%;">Technology</th>
+                <th>Functional Responsibility & Key Methods</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>index.html</strong></td>
+                <td>HTML5 Semantic</td>
+                <td>
+                    <strong>SPA Document Shell</strong>: Contains login screens with multi-role switcher buttons (Student, Faculty, Administrator), persistent institution navbar, dynamic content containers (<code>#tab-content</code>), modal overlay dialogs, and toast alert viewports.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>css/portal.css</strong></td>
+                <td>CSS3 Custom Props</td>
+                <td>
+                    <strong>Master University Design System</strong>: Defines the restrained XYZ University navy palette (<code>--navy-900: #1B365D</code>, <code>--navy-800: #2C5282</code>, <code>--bg: #F7FAFC</code>). Implements card resets (<code>.card &gt; .table-responsive</code>), zebra-striped data tables, badge pill indicators, and mobile responsive media queries.
+                </td>
+            </tr>
+            <tr>
+                <td><strong>js/app.js</strong></td>
+                <td>Vanilla JavaScript</td>
+                <td>
+                    <strong>Main UI Controller & State Engine</strong>:
+                    <ul>
+                        <li><code>init()</code>: Checks active session against <code>/api/auth/me</code> on page load.</li>
+                        <li><code>renderPortal()</code>: Switches between landing/login screen and authenticated dashboard.</li>
+                        <li><code>UI.showToast()</code>: Renders floating status messages.</li>
+                        <li><code>UI.filterTable()</code>: Live client-side instant search filter for all dynamic tables.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>js/api.js</strong></td>
+                <td>Fetch API Client</td>
+                <td>
+                    <strong>Unified HTTP Client</strong>: Wraps <code>fetch()</code> with <code>credentials: 'same-origin'</code>, JSON payload serialization, error response extraction, and unified API methods (<code>login</code>, <code>getStudentEnrollments</code>, <code>enrollCourse</code>, <code>updateAttendance</code>, <code>updateMarks</code>, etc.).
+                </td>
+            </tr>
+            <tr>
+                <td><strong>js/student.js</strong></td>
+                <td>Client Controller</td>
+                <td>
+                    <strong>Student Portal Logic</strong>:
+                    <ul>
+                        <li><code>loadCourses()</code>: Evaluates offering capacity (<code>enrolled / maxSeats</code>) and renders enrollment buttons.</li>
+                        <li><code>loadAttendance()</code>: Computes and color-codes course attendance percentages.</li>
+                        <li><code>loadMarks()</code>: Renders CA, Midterm, Final exam marks and letter grades.</li>
+                        <li><code>loadResults()</code>: Displays published results and opens re-exam petition modals.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>js/faculty.js</strong></td>
+                <td>Client Controller</td>
+                <td>
+                    <strong>Faculty Portal Logic</strong>:
+                    <ul>
+                        <li><code>loadOfferings()</code>: Lists assigned teaching sections.</li>
+                        <li><code>viewRoster()</code>: Fetches and displays enrolled student rosters.</li>
+                        <li><code>openAttendanceModal()</code>: Edits student attendance against total classes held.</li>
+                        <li><code>openMarksModal()</code>: Validates and persists CA (30), Midterm (30), and Final (50) marks.</li>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td><strong>js/admin.js</strong></td>
+                <td>Client Controller</td>
+                <td>
+                    <strong>Administrator Portal Logic</strong>:
+                    <ul>
+                        <li><code>loadStats()</code>: Displays real-time KPI counter widgets.</li>
+                        <li>CRUD controllers for Departments, Programs, Faculty, Students, Courses, Offerings, and Exams.</li>
+                        <li><code>loadReExams()</code>: Review interface for student petitions with Approve / Reject actions.</li>
+                        <li><code>provisionAccount()</code>: On-demand credential generation utility.</li>
+                    </ul>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="callout">
+        <div class="callout-title">Frontend Table Search Filtering (`UI.filterTable`)</div>
+        All data tables across the administrative and student portals include real-time client-side search filtering. As the user types into any search box, row visibility is toggled instantaneously by inspecting normalized cell text content without issuing server round-trips.
+    </div>
+
+    <!-- CHAPTER 3 -->
+    <div class="page-break"></div>
+    <h1>3. Backend Architecture & REST API Specification</h1>
+    <p>
+        The backend is developed with <strong>Java 21</strong> and <strong>Spring Boot 3.3.4</strong>, following enterprise clean architecture principles. It resides in <code>SmartCampus/src/main/java/com/campus/smartcampus/</code>.
+    </p>
+
+    <h2>1. Security & Interception Layer (`config/AuthInterceptor.java`)</h2>
+    <p>
+        The application employs a defense-in-depth security approach. Because university applications handle private student records and faculty gradebooks, every request is intercepted before hitting controller logic:
+    </p>
+    <ul>
+        <li><strong>Public Whitelist</strong>: <code>/api/auth/**</code>, static resources (<code>/css/**</code>, <code>/js/**</code>, <code>/</code>, <code>/index.html</code>) bypass session checks.</li>
+        <li><strong>Session Enforcement</strong>: All endpoints under <code>/api/student/**</code>, <code>/api/faculty/**</code>, and <code>/api/admin/**</code> require an active <code>HttpSession</code> with an authenticated <code>LoginResponse</code> attribute. Unauthenticated calls receive <code>HTTP 401 Unauthorized</code>.</li>
+        <li><strong>Role Isolation & Cross-Account Defense</strong>:
+            <ul>
+                <li>A student with ID <code>1001</code> attempting to call <code>/api/student/1002/...</code> is rejected with <code>HTTP 403 Forbidden</code>.</li>
+                <li>A faculty member with ID <code>201</code> attempting to access <code>/api/faculty/202/...</code> is rejected with <code>HTTP 403 Forbidden</code>.</li>
+                <li>Administrators have verified institutional oversight access across all student and faculty endpoints.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>2. REST API Endpoints Matrix</h2>
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 15%;">Controller</th>
+                <th style="width: 10%;">Method</th>
+                <th style="width: 32%;">Endpoint Path</th>
+                <th>Description & Access Rules</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="4"><strong>AuthController</strong></td>
+                <td><span class="pill pill-info">POST</span></td>
+                <td><code>/api/auth/login</code></td>
+                <td>Authenticates credentials with BCrypt, initializes session.</td>
+            </tr>
+            <tr>
+                <td><span class="pill pill-success">GET</span></td>
+                <td><code>/api/auth/me</code></td>
+                <td>Returns identity of current logged-in session user.</td>
+            </tr>
+            <tr>
+                <td><span class="pill pill-info">POST</span></td>
+                <td><code>/api/auth/logout</code></td>
+                <td>Invalidates HTTP session and clears security context.</td>
+            </tr>
+            <tr>
+                <td><span class="pill pill-success">GET</span></td>
+                <td><code>/api/auth/health</code></td>
+                <td>Verifies Oracle 26ai database connectivity via HikariCP.</td>
+            </tr>
+
+            <tr>
+                <td rowspan="5"><strong>StudentController</strong></td>
+                <td><span class="pill pill-success">GET</span></td>
+                <td><code>/api/student/{id}/enrollments</code></td>
+                <td>Returns all active course registrations for the student.</td>
+            </tr>
+            <tr>
+                <td><span class="pill pill-success">GET</span></td>
+                <td><code>/api/student/{id}/offerings</code></td>
+                <td>Returns semester offerings with real-time seat capacities.</td>
+            </tr>
+            <tr>
+                <td><span class="pill pill-info">POST</span></td>
+                <td><code>/api/student/{id}/enroll</code></td>
+                <td>Enrolls student in an offering; blocks duplicates & full seats.</td>
+            </tr>
+            <tr>
+                <td><span class="pill pill-success">GET</span></td>
+                <td><code>/api/student/{id}/results</code></td>
+                <td>Retrieves published exam results with letter grades.</td>
+            </tr>
+            <tr>
+                <td><span class="pill pill-info">POST</span></td>
+                <td><code>/api/student/{id}/re-exams/apply</code></td>
+                <td>Submits a re-examination petition for an eligible exam result.</td>
+            </tr>
+
+            <tr>
+                <td rowspan="4"><strong>FacultyController</strong></td>
+                <td><span class="pill pill-success">GET</span></td>
+                <td><code>/api/faculty/{id}/offerings</code></td>
+                <td>Retrieves course sections assigned to the faculty member.</td>
+            </tr>
+            <tr>
+                <td><span class="pill pill-success">GET</span></td>
+                <td><code>/api/faculty/{id}/offerings/{offId}/students</code></td>
+                <td>Returns enrolled student roster with attendance & marks.</td>
+            </tr>
+            <tr>
+                <td><span class="pill pill-info">POST</span></td>
+                <td><code>/api/faculty/{id}/attendance</code></td>
+                <td>Updates student attendance; validates against classes held.</td>
+            </tr>
+            <tr>
+                <td><span class="pill pill-info">POST</span></td>
+                <td><code>/api/faculty/{id}/marks</code></td>
+                <td>Updates continuous assessment, midterm, and final exam marks.</td>
+            </tr>
+
+            <tr>
+                <td rowspan="3"><strong>AdminController</strong></td>
+                <td><span class="pill pill-success">GET</span></td>
+                <td><code>/api/admin/stats</code></td>
+                <td>Aggregates real-time count metrics across all 14 entities.</td>
+            </tr>
+            <tr>
+                <td><span class="pill pill-success">GET/POST</span></td>
+                <td><code>/api/admin/{entities}</code></td>
+                <td>Universal management endpoints (departments, students, faculty, etc.).</td>
+            </tr>
+            <tr>
+                <td><span class="pill pill-info">POST</span></td>
+                <td><code>/api/admin/re-exams/decision</code></td>
+                <td>Processes re-examination petitions (APPROVED / REJECTED).</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- CHAPTER 4 -->
+    <div class="page-break"></div>
+    <h1>4. Business Logic Services & Relational Database Layer</h1>
+
+    <h2>1. Core Business Validation Rules (`service/`)</h2>
+    <ul>
+        <li><strong>Seat Capacity Enforcement</strong>: When a student submits a registration request, <code>StudentService.registerCourse()</code> counts current enrollments against <code>Max_Seats</code>. If full, it throws <code>IllegalStateException</code> returning <code>HTTP 409 Conflict</code>.</li>
+        <li><strong>Duplicate Enrollment Prevention</strong>: Re-registering for an offering already enrolled returns <code>HTTP 409 Conflict</code>.</li>
+        <li><strong>Attendance Ceiling</strong>: <code>FacultyService.updateAttendance()</code> verifies that <code>Classes_Attended &le; Classes_Held</code> for that offering. Exceeding classes held raises <code>IllegalArgumentException</code> returning <code>HTTP 400 Bad Request</code>.</li>
+        <li><strong>Continuous Assessment Ceilings</strong>: In <code>FacultyService.updateMarks()</code>:
+            <div class="formula-box">Continuous Assessment &le; 30, &nbsp;&nbsp; Midterm &le; 30, &nbsp;&nbsp; Final Exam &le; 50</div>
+        </li>
+        <li><strong>Authoritative Letter Grade Calculation</strong>: Exam results calculate percentage dynamically:
+            <div class="formula-box">Percentage = (Marks Obtained / Max Marks) &times; 100</div>
+            The percentage is strictly mapped against the <code>GRADE</code> table boundary:
+            <ul>
+                <li><strong>S</strong>: &ge; 90% (Grade Point: 10.0)</li>
+                <li><strong>A</strong>: 80% &ndash; 89.99% (Grade Point: 9.0)</li>
+                <li><strong>B</strong>: 70% &ndash; 79.99% (Grade Point: 8.0)</li>
+                <li><strong>C</strong>: 60% &ndash; 69.99% (Grade Point: 7.0)</li>
+                <li><strong>D</strong>: 50% &ndash; 59.99% (Grade Point: 6.0)</li>
+                <li><strong>F</strong>: &lt; 50% (Grade Point: 0.0)</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h2>2. Live Audited Oracle 26ai Relational Schema</h2>
+    <p>
+        The application communicates directly with Oracle Database 26ai Free (<code>FREEPDB1</code>, user <code>campus_app</code>). The live row counts across all 15 tables are audited below:
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 20%;">Table Name</th>
+                <th style="width: 30%;">Primary & Foreign Keys</th>
+                <th style="width: 15%;">Row Count</th>
+                <th>Business Purpose & Scope</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>DEPARTMENT</strong></td>
+                <td><code>Dept_ID (PK)</code></td>
+                <td><strong>6</strong></td>
+                <td>Academic departments (CSE, ECE, Mech, Civil, Biotech, Management).</td>
+            </tr>
+            <tr>
+                <td><strong>PROGRAM</strong></td>
+                <td><code>Program_ID (PK)</code>, <code>Dept_ID (FK)</code></td>
+                <td><strong>10</strong></td>
+                <td>Degree programs (B.Tech CSE, M.Tech AI, MBA, MCA, etc.).</td>
+            </tr>
+            <tr>
+                <td><strong>FACULTY</strong></td>
+                <td><code>Faculty_ID (PK)</code>, <code>Dept_ID (FK)</code></td>
+                <td><strong>15</strong></td>
+                <td>Teaching staff and course instructors (IDs: 201–215).</td>
+            </tr>
+            <tr>
+                <td><strong>STUDENT</strong></td>
+                <td><code>Student_ID (PK)</code>, <code>Program_ID (FK)</code></td>
+                <td><strong>60</strong></td>
+                <td>Undergraduate & postgraduate students (IDs: 1001–1060).</td>
+            </tr>
+            <tr>
+                <td><strong>COURSE</strong></td>
+                <td><code>Course_ID (PK)</code>, <code>Dept_ID (FK)</code></td>
+                <td><strong>30</strong></td>
+                <td>Core and elective academic subjects (IDs: 301–330).</td>
+            </tr>
+            <tr>
+                <td><strong>COURSE_OFFERING</strong></td>
+                <td><code>Offering_ID (PK)</code>, <code>Course_ID (FK)</code>, <code>Faculty_ID (FK)</code></td>
+                <td><strong>45</strong></td>
+                <td>Semester sections with assigned rooms and faculty (IDs: 401–445).</td>
+            </tr>
+            <tr>
+                <td><strong>ENROLLMENT</strong></td>
+                <td><code>Enrollment_ID (PK)</code>, <code>Student_ID (FK)</code>, <code>Offering_ID (FK)</code></td>
+                <td><strong>365</strong></td>
+                <td>Active student course enrollments.</td>
+            </tr>
+            <tr>
+                <td><strong>ATTENDANCE</strong></td>
+                <td><code>Attendance_ID (PK)</code>, <code>Student_ID (FK)</code>, <code>Offering_ID (FK)</code></td>
+                <td><strong>365</strong></td>
+                <td>Attendance logs recording classes attended against classes held.</td>
+            </tr>
+            <tr>
+                <td><strong>MARKS</strong></td>
+                <td><code>Mark_ID (PK)</code>, <code>Student_ID (FK)</code>, <code>Offering_ID (FK)</code></td>
+                <td><strong>250</strong></td>
+                <td>Continuous assessment (30), midterm (30), and final exam (50) marks.</td>
+            </tr>
+            <tr>
+                <td><strong>GRADE</strong></td>
+                <td><code>Grade_Code (PK)</code></td>
+                <td><strong>6</strong></td>
+                <td>University grade boundaries: S (10.0), A (9.0), B (8.0), C (7.0), D (6.0), F (0.0).</td>
+            </tr>
+            <tr>
+                <td><strong>EXAM</strong></td>
+                <td><code>Exam_ID (PK)</code>, <code>Offering_ID (FK)</code></td>
+                <td><strong>42</strong></td>
+                <td>Examination schedules (CAT1, CAT2, FAT) with date and venues.</td>
+            </tr>
+            <tr>
+                <td><strong>EXAM_REGISTRATION</strong></td>
+                <td><code>Exam_Registration_ID (PK)</code>, <code>Student_ID (FK)</code>, <code>Exam_ID (FK)</code></td>
+                <td><strong>232</strong></td>
+                <td>Student exam seat registrations.</td>
+            </tr>
+            <tr>
+                <td><strong>EXAM_RESULT</strong></td>
+                <td><code>Exam_Result_ID (PK)</code>, <code>Exam_Registration_ID (FK)</code>, <code>Grade_Code (FK)</code></td>
+                <td><strong>190</strong></td>
+                <td>Published exam results with marks obtained and assigned grades.</td>
+            </tr>
+            <tr>
+                <td><strong>RE_EXAM_APPLICATION</strong></td>
+                <td><code>ReExam_Application_ID (PK)</code>, <code>Exam_Result_ID (FK)</code></td>
+                <td><strong>20</strong></td>
+                <td>Re-evaluation requests with status (PENDING, APPROVED, REJECTED).</td>
+            </tr>
+            <tr>
+                <td><strong>USER_ACCOUNT</strong></td>
+                <td><code>User_ID (PK)</code>, <code>Username (UQ)</code></td>
+                <td><strong>76</strong></td>
+                <td>BCrypt credentials for 60 students, 15 faculty, and 1 administrator.</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- CHAPTER 5 -->
+    <div class="page-break"></div>
+    <h1>5. Verification Results & Operational Deployment</h1>
+
+    <h2>1. Section 32 End-to-End Workflow Verification Suite</h2>
+    <p>
+        An automated PowerShell integration test suite (<code>scripts/verify_workflows.ps1</code>) was executed against the running Spring Boot server on port 8080 and the Oracle database. All 15 scenarios passed with 100% compliance:
+    </p>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width: 10%;">Scenario</th>
+                <th style="width: 45%;">Verification Test Description</th>
+                <th style="width: 25%;">Observed System Behavior</th>
+                <th style="width: 20%;">Result Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>1</strong></td>
+                <td>Student login and view own enrollments</td>
+                <td>Student 1001 logged in; fetched 7 active enrollments</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>2</strong></td>
+                <td>Duplicate course registration rejection</td>
+                <td>Rejected duplicate enrollment with HTTP 409 Conflict</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>3</strong></td>
+                <td>Full course capacity rejection</td>
+                <td>Rejected full section registration with HTTP 409 Conflict</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>4</strong></td>
+                <td>Course registration success & persistence</td>
+                <td>Student enrolled; Enrollment ID persisted in database</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>5</strong></td>
+                <td>Faculty attendance entry & student persistence</td>
+                <td>Faculty 201 updated attendance; verified in student view</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>6</strong></td>
+                <td>Faculty marks entry & student viewing</td>
+                <td>Faculty 201 entered CA/Mid/Final marks; verified in student view</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>7</strong></td>
+                <td>Published results with correct GRADE scale</td>
+                <td>92.2% mapped correctly to Grade 'S' (Grade Point: 10.0)</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>8</strong></td>
+                <td>Clean empty state for student without results</td>
+                <td>Student 1041 returned clean empty list <code>[]</code>; no broken rows</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>9</strong></td>
+                <td>Re-examination submission & status tracking</td>
+                <td>Petition created; tracked as PENDING in student & admin views</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>10</strong></td>
+                <td>Unauthorized cross-faculty access rejection</td>
+                <td>Faculty 201 accessing Faculty 202 rejected with HTTP 403 Forbidden</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>11</strong></td>
+                <td>Admin views all university entities</td>
+                <td>Verified counts: 6 Depts, 10 Progs, 15 Faculty, 60 Students, etc.</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>12</strong></td>
+                <td>Detailed tables formatting without overflow</td>
+                <td>Verified <code>.table-responsive</code> and zero-radius container resets</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>13</strong></td>
+                <td>Table search filter responsiveness</td>
+                <td>Verified <code>UI.filterTable</code> reactive bindings across all tables</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>14</strong></td>
+                <td>Meaningful validation error messages</td>
+                <td>Verified exact error messages for invalid credentials & marks</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+            <tr>
+                <td><strong>15</strong></td>
+                <td>Clean server logs without unhandled exceptions</td>
+                <td>Zero NullPointerExceptions or fatal errors in server logs</td>
+                <td><span class="pill pill-success">PASSED</span></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2>2. Deployment & Operational Guide</h2>
+    <div class="card">
+        <h3>Starting the Application Locally</h3>
+        <p>Double-click <code>run.bat</code> in the project root. The script validates Docker, starts the <code>oracle-db</code> container, configures the environment password, and launches Spring Boot on port 8080.</p>
+        <pre>powershell -ExecutionPolicy Bypass -File .\run.ps1</pre>
+    </div>
+
+    <div class="card">
+        <h3>Internet Access via Cloudflare Tunnel</h3>
+        <p>The application can be exposed over a secure, publicly accessible HTTPS URL for live evaluations and presentations without configuring port forwarding:</p>
+        <pre>&amp; "C:\Program Files (x86)\cloudflared\cloudflared.exe" tunnel --url http://localhost:8080</pre>
+    </div>
+
+    <div class="card">
+        <h3>Live Testing Credentials (Universal Password: <code>1234</code>)</h3>
+        <p>
+            &bull; <strong>Student Role</strong>: Username: <code>1001</code> (Aarav Sharma) or <code>1010</code> (Ananya Roy)<br>
+            &bull; <strong>Faculty Role</strong>: Username: <code>201</code> (Dr. Rajesh Sharma) or <code>205</code> (Dr. Sneha Reddy)<br>
+            &bull; <strong>Administrator Role</strong>: Username: <code>admin</code> (System Administrator)
+        </p>
+    </div>
+
+</body>
+</html>

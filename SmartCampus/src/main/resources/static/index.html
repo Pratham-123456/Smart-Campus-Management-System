@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XYZ University | Academic Services Portal</title>
+    <link rel="stylesheet" href="/css/portal.css">
+</head>
+<body>
+
+    <!-- TOP HEADER -->
+    <header class="app-header">
+        <div class="header-inner">
+            <div class="brand-link" onclick="App.navigateToHome()">
+                <div class="brand-seal">XYZ</div>
+                <div class="brand-text">
+                    <span class="brand-name">XYZ University</span>
+                    <span class="brand-subtitle">Academic Services Portal</span>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <!-- Oracle DB Health Indicator -->
+                <span id="health-indicator" class="health-badge">
+                    <span id="health-dot" class="health-dot online"></span>
+                    <span id="health-text">Oracle 26ai: Connected</span>
+                </span>
+
+                <!-- Authenticated User Profile Badge -->
+                <div id="auth-user-badge" class="user-badge" style="display: none;">
+                    <div class="user-avatar" id="user-avatar-initial">U</div>
+                    <div class="user-meta">
+                        <span class="user-name" id="user-display-name">Authenticated User</span>
+                        <span class="user-role-label" id="user-display-role">ROLE</span>
+                    </div>
+                    <button class="btn btn-secondary btn-sm" onclick="App.logout()" title="End session">Sign Out</button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- SECTION NAV BAR (AUTHENTICATED ONLY: EXACTLY ACADEMICS & EXAMINATIONS) -->
+    <nav id="app-section-nav" class="section-nav" style="display: none;">
+        <div class="section-nav-inner">
+            <ul class="section-tabs">
+                <li>
+                    <button id="nav-btn-academics" class="section-tab-btn active" onclick="App.switchMainSection('ACADEMICS')">
+                        🎓 Academics
+                    </button>
+                </li>
+                <li>
+                    <button id="nav-btn-examinations" class="section-tab-btn" onclick="App.switchMainSection('EXAMINATIONS')">
+                        📝 Examinations
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- SUB-NAV BAR (AUTHENTICATED ONLY) -->
+    <nav id="app-subnav" class="subnav-bar" style="display: none;">
+        <div class="subnav-inner" id="subnav-links-container">
+            <!-- Dynamically populated based on active section (Academics / Examinations) and Role -->
+        </div>
+    </nav>
+
+    <!-- 1. UNAUTHENTICATED HOMEPAGE: WELCOME & 3-ROLE CHOOSER -->
+    <main id="view-welcome" class="welcome-container">
+        <div class="welcome-hero">
+            <span class="welcome-tag">XYZ University Information System</span>
+            <h1 class="welcome-title">Academic Services Portal</h1>
+            <p class="welcome-lead">
+                Access your academic information, courses, attendance, and examination services in one place.
+            </p>
+        </div>
+
+        <h2 class="section-label">Choose your portal</h2>
+
+        <!-- Exactly Three User-Role Options -->
+        <div class="portal-roles-grid">
+            <!-- 1. Student Option -->
+            <div class="role-card">
+                <div class="role-card-header">
+                    <div class="role-icon-box">🎓</div>
+                    <h3 class="role-title">Student</h3>
+                    <p class="role-description">
+                        Access course registration, grades, attendance tracking, and examination schedules.
+                    </p>
+                </div>
+                <button class="btn-role-continue" onclick="App.selectPortalRole('STUDENT')">
+                    <span>Continue to Student Portal</span>
+                    <span>&rarr;</span>
+                </button>
+            </div>
+
+            <!-- 2. Faculty Option -->
+            <div class="role-card">
+                <div class="role-card-header">
+                    <div class="role-icon-box">👨‍🏫</div>
+                    <h3 class="role-title">Faculty</h3>
+                    <p class="role-description">
+                        Manage course offerings, student attendance, continuous assessments, and grade submissions.
+                    </p>
+                </div>
+                <button class="btn-role-continue" onclick="App.selectPortalRole('FACULTY')">
+                    <span>Continue to Faculty Portal</span>
+                    <span>&rarr;</span>
+                </button>
+            </div>
+
+            <!-- 3. Administrator Option -->
+            <div class="role-card">
+                <div class="role-card-header">
+                    <div class="role-icon-box">🏛️</div>
+                    <h3 class="role-title">Administrator</h3>
+                    <p class="role-description">
+                        Oversee university curriculum, departments, faculty assignments, and exam administration.
+                    </p>
+                </div>
+                <button class="btn-role-continue" onclick="App.selectPortalRole('ADMINISTRATOR')">
+                    <span>Continue to Administrator Portal</span>
+                    <span>&rarr;</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 2. DEDICATED LOGIN INTERFACE -->
+    <main id="view-login" class="login-view-container" style="display: none;">
+        <div class="login-card">
+            <div class="login-card-header">
+                <span class="login-badge" id="login-role-badge">STUDENT PORTAL</span>
+                <h2 class="login-card-title" id="login-title">Student Sign In</h2>
+                <p class="login-card-subtitle" id="login-subtitle">Enter your official university credentials</p>
+            </div>
+
+            <div class="login-card-body">
+                <!-- Error Alert Box -->
+                <div id="login-error-alert" class="login-alert danger" style="display: none;"></div>
+
+                <!-- Regular Login Form -->
+                <form id="form-login" onsubmit="App.handleLogin(event)" autocomplete="off">
+                    <input type="hidden" id="login-selected-role" value="STUDENT">
+
+                    <div class="form-group">
+                        <label class="form-label" id="label-login-identifier" for="login-username">Registration Number</label>
+                        <input type="text" id="login-username" class="form-input" placeholder="e.g. 1001" required autocomplete="username">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="login-password">Password</label>
+                        <div class="input-container">
+                            <input type="password" id="login-password" class="form-input has-toggle" placeholder="Enter your password" required autocomplete="current-password">
+                            <button type="button" class="input-toggle-btn" onclick="App.togglePasswordVisibility('login-password', this)" title="Show/Hide password">👁</button>
+                        </div>
+                    </div>
+
+                    <button type="submit" id="btn-login-submit" class="btn-submit-login">
+                        <span>Sign In</span>
+                    </button>
+                </form>
+
+                <!-- Initial Admin Setup Wizard (Only shown when 0 admins exist) -->
+                <div id="box-admin-setup" style="display: none;">
+                    <div class="login-alert info" style="margin-bottom: 16px;">
+                        <strong>System Notice:</strong> No administrator account is provisioned yet. Set up the primary administrator account now.
+                    </div>
+                    <form onsubmit="App.handleAdminSetup(event)" autocomplete="off">
+                        <div class="form-group">
+                            <label class="form-label" for="setup-admin-username">Administrator ID</label>
+                            <input type="text" id="setup-admin-username" class="form-input" placeholder="e.g. admin" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="setup-admin-name">Full Name</label>
+                            <input type="text" id="setup-admin-name" class="form-input" placeholder="e.g. Registrar Officer" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label" for="setup-admin-password">Password</label>
+                            <div class="input-container">
+                                <input type="password" id="setup-admin-password" class="form-input has-toggle" placeholder="Min 6 characters" minlength="6" required>
+                                <button type="button" class="input-toggle-btn" onclick="App.togglePasswordVisibility('setup-admin-password', this)">👁</button>
+                            </div>
+                        </div>
+                        <button type="submit" id="btn-setup-admin" class="btn-submit-login">
+                            <span>Initialize Administrator Account</span>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Back to Portal Chooser Button -->
+                <button type="button" class="btn-back-link" onclick="App.backToRoleSelection()">
+                    <span>&larr; Back to portal selection</span>
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <!-- 3. AUTHENTICATED PORTAL VIEW -->
+    <main id="view-portal" class="portal-main-container" style="display: none;">
+        <div id="tab-content">
+            <!-- Populated dynamically based on Academics or Examinations section -->
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="app-footer">
+        <div>&copy; 2026 XYZ University. All rights reserved. &bull; Academic Services Portal</div>
+    </footer>
+
+    <!-- TOAST CONTAINER -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <!-- APPLICATION SCRIPTS -->
+    <script src="/js/api.js"></script>
+    <script src="/js/student.js"></script>
+    <script src="/js/faculty.js"></script>
+    <script src="/js/admin.js"></script>
+    <script src="/js/app.js"></script>
+</body>
+</html>
