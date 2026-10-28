@@ -17,6 +17,20 @@ public class FacultyRepository {
         this.jdbcTemplate = jdbcTemplate;
     }
 
+    /** True when the student holds an active (ENROLLED) enrollment in the offering. */
+    public boolean isStudentEnrolled(Long studentId, Long offeringId) {
+        String sql = "SELECT COUNT(*) FROM ENROLLMENT WHERE Student_ID = ? AND Offering_ID = ? AND Status = 'ENROLLED'";
+        Integer count = jdbcTemplate.queryForObject(sql, Integer.class, studentId, offeringId);
+        return count != null && count > 0;
+    }
+
+    /** Highest Classes_Attended recorded for the offering; Classes_Held may not drop below it. */
+    public int getMaxClassesAttended(Long offeringId) {
+        String sql = "SELECT NVL(MAX(Classes_Attended), 0) FROM ATTENDANCE WHERE Offering_ID = ?";
+        Integer max = jdbcTemplate.queryForObject(sql, Integer.class, offeringId);
+        return max != null ? max : 0;
+    }
+
     public Optional<Faculty> findById(Long facultyId) {
         String sql = """
             SELECT f.Faculty_ID, f.Name, f.Email, f.Phone, f.Designation,

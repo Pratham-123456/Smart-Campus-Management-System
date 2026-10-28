@@ -141,7 +141,7 @@ const FacultyPortal = {
                                             <td>${s.continuousAssessmentMarks}</td>
                                             <td>${s.midtermMarks}</td>
                                             <td>${s.finalExamMarks}</td>
-                                            <td><strong>${s.totalMarks}</strong></td>
+                                            <td title="Raw ${s.rawTotal} / 110"><strong>${s.totalMarks.toFixed(2)}</strong> <span class="marks-ceiling">/ 100</span></td>
                                             <td>
                                                 <div style="display: flex; gap: 6px;">
                                                     <button class="btn btn-sm btn-secondary" onclick="FacultyPortal.openAttendanceModal(${facultyId}, ${offeringId}, ${s.studentId}, '${s.studentName}', ${s.classesAttended}, ${s.classesHeld})">

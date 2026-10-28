@@ -59,7 +59,7 @@ File: PROJECT_REPORT.md
 
 File: dataset_export.txt
 - Purpose: Full raw text export of the entire database dataset.
-- Details: Contains 1,896 lines listing every single record across all 15 tables
+- Details: Contains 1,896 text lines (headers, separators and the records of all 15 tables). The seeded ROW count is 1,712 (1,636 academic + 76 login rows); see database/phase3/01_audit_row_counts.sql
   (Departments, Programs, Faculty, Students, Courses, Offerings, Enrollments,
   Attendance, Marks, Grades, Exams, Registrations, Results, Re-Exams, Accounts).
 

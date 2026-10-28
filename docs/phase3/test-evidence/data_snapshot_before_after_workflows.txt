@@ -1,0 +1,3 @@
+# Live data snapshot before and after scripts/verify_workflows.ps1 (must be identical)
+before: rows=1736 att=8650 marks=20967.8 seats=2355 held=1226 enr=DROPPED58,ENROLLED314 reg=CANCELLED1,REGISTERED232 rea=21 maxid=7
+after:  rows=1736 att=8650 marks=20967.8 seats=2355 held=1226 enr=DROPPED58,ENROLLED314 reg=CANCELLED1,REGISTERED232 rea=21 maxid=7

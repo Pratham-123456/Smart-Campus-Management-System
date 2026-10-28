@@ -4,6 +4,9 @@ import com.campus.smartcampus.dto.AccountProvisionRequest;
 import com.campus.smartcampus.dto.LoginRequest;
 import com.campus.smartcampus.dto.LoginResponse;
 import com.campus.smartcampus.dto.SetupAdminRequest;
+import com.campus.smartcampus.exception.ConflictException;
+import com.campus.smartcampus.exception.ForbiddenException;
+import com.campus.smartcampus.exception.NotFoundException;
 import com.campus.smartcampus.model.UserAccount;
 import com.campus.smartcampus.repository.CommonRepository;
 import com.campus.smartcampus.repository.UserAccountRepository;
@@ -146,7 +149,7 @@ public class AuthService {
     public void provisionAccount(AccountProvisionRequest req, HttpSession session) {
         LoginResponse current = getCurrentUser(session);
         if (!"ADMINISTRATOR".equalsIgnoreCase(current.getRole())) {
-            throw new IllegalStateException("Access denied: Only administrators can provision user accounts.");
+            throw new ForbiddenException("Access denied: Only administrators can provision user accounts.");
         }
 
         String role = req.getRole().toUpperCase().trim();
@@ -155,7 +158,17 @@ public class AuthService {
         }
 
         if (userAccountRepository.existsByUsername(req.getUsername())) {
-            throw new IllegalArgumentException("Username '" + req.getUsername() + "' is already assigned to an account.");
+            throw new ConflictException("Username '" + req.getUsername() + "' is already assigned to an account.");
+        }
+        boolean recordExists = "STUDENT".equals(role)
+                ? commonRepository.getStudentLoginDetails(req.getRecordId()).isPresent()
+                : commonRepository.getFacultyLoginDetails(req.getRecordId()).isPresent();
+        if (!recordExists) {
+            throw new NotFoundException(role.charAt(0) + role.substring(1).toLowerCase() + " ID " + req.getRecordId() + " does not exist.");
+        }
+        if (userAccountRepository.existsForRecord(role, req.getRecordId())) {
+            throw new ConflictException(role.charAt(0) + role.substring(1).toLowerCase() + " ID " + req.getRecordId()
+                    + " already has an account (it may be deactivated).");
         }
 
         UserAccount acc = new UserAccount();

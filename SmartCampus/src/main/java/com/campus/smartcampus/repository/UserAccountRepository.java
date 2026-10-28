@@ -114,4 +114,33 @@ public class UserAccountRepository {
         String sql = "SELECT * FROM USER_ACCOUNT ORDER BY Account_ID ASC";
         return jdbcTemplate.query(sql, rowMapper);
     }
+
+    public Optional<UserAccount> findById(Long accountId) {
+        List<UserAccount> list = jdbcTemplate.query("SELECT * FROM USER_ACCOUNT WHERE Account_ID = ?", rowMapper, accountId);
+        return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));
+    }
+
+    /** Any account (active or not) already linked to the student / faculty record. */
+    public boolean existsForRecord(String role, Long recordId) {
+        String column = "STUDENT".equals(role) ? "Student_ID" : "Faculty_ID";
+        Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM USER_ACCOUNT WHERE " + column + " = ?", Integer.class, recordId);
+        return count != null && count > 0;
+    }
+
+    public int setActive(Long accountId, boolean active) {
+        return jdbcTemplate.update("UPDATE USER_ACCOUNT SET Is_Active = ? WHERE Account_ID = ?", active ? 1 : 0, accountId);
+    }
+
+    public int updatePasswordHash(Long accountId, String passwordHash) {
+        return jdbcTemplate.update("UPDATE USER_ACCOUNT SET Password_Hash = ? WHERE Account_ID = ?", passwordHash, accountId);
+    }
+
+    public int deleteAccount(Long accountId) {
+        return jdbcTemplate.update("DELETE FROM USER_ACCOUNT WHERE Account_ID = ?", accountId);
+    }
+
+    public int countActiveAdmins() {
+        Integer count = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM USER_ACCOUNT WHERE Role = 'ADMINISTRATOR' AND Is_Active = 1", Integer.class);
+        return count != null ? count : 0;
+    }
 }

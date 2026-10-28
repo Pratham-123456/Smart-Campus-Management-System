@@ -1,0 +1,63 @@
+-- Captured 2026-10-28 23:00 IST BEFORE migration
+
+=== Finding 1: live row counts vs seeded baseline (1,712) ===
+
+TABLE_NAME                 SEEDED  LIVE_ROWS ADDED_VIA_PORTAL
+---------------------- ---------- ---------- ----------------
+DEPARTMENT                      6          7                1
+PROGRAM                        10         10                0
+STUDENT                        60         60                0
+FACULTY                        15         15                0
+COURSE                         30         30                0
+COURSE_OFFERING                45         45                0
+ENROLLMENT                    365        372                7
+ATTENDANCE                    365        372                7
+MARKS                         250        257                7
+GRADE                           6          6                0
+EXAM                           42         42                0
+EXAM_REGISTRATION             232        233                1
+EXAM_RESULT                   190        190                0
+RE_EXAM_APPLICATION            20         21                1
+USER_ACCOUNT                   76         76                0
+TOTAL                        1712       1736               24
+
+=== Findings 2-8: summary of violations ===
+
+CHECK_NAME                                                     VIOLATIONS DETAIL
+-------------------------------------------------------------- ---------- ------------------------------------------------------------
+F2  MARKS rows with a component above 30/30/50                          0 ceilings are CA 30, Midterm 30, Final 50
+F2  (info) MARKS rows whose combined total exceeds 100                 40 legitimate: combined maximum is 110
+F3  EXAM_RESULT grade not matching GRADE scale                          3 grade = band of Marks_Obtained / Max_Marks * 100
+F4  students ENROLLED in 2+ sections of one course/term                51 groups (student, course, semester, year)
+F5  overlapping exam registrations (same student)                     102 pairs where startA < endB AND startB < endA
+F6  future EXAM rows marked COMPLETED                                   3 Exam_Date after today
+F6  EXAM_RESULT published before its exam date                        115 Published_Date < Exam_Date
+F6  EXAM_RESULT for an exam not yet held                               24 Exam_Date after today
+F6  EXAM_RESULT attached to an exam that is not COMPLETED               0 results imply the exam was held
+F6  active registration created after the exam ended                    1 Registration_Date > Exam_Date
+F6  re-exam application dated before result publication                 0 Application_Date < Published_Date
+F7  COURSE_OFFERING.Semester precision below 2                          1 NUMBER(1) cannot store semester 10
+F8  status columns without a named CHECK constraint                     5 expects 5 CK_*_STATUS constraints
+F2  MARKS ceiling CHECK constraints missing                             3 CK_MARKS_CA / _MIDTERM / _FINAL
+
+=== Finding 3: the three Review 2 seed grades (expected B, A, D) ===
+
+EXAM_RESULT_ID MARKS_OBTAINED  MAX_MARKS        PCT ST SC
+-------------- -------------- ---------- ---------- -- --
+         10002             38         50         76 A  B
+         10003             42         50         84 S  A
+         10004             28         50         56 B  D
+
+=== Finding 8: distinct values currently stored in the five status columns ===
+
+CHECK_NAME                                                     DETAIL                                                       VIOLATIONS
+-------------------------------------------------------------- ------------------------------------------------------------ ----------
+ENROLLMENT.Status                                              ENROLLED                                                            372
+EXAM.Status                                                    COMPLETED                                                            34
+EXAM.Status                                                    SCHEDULED                                                             8
+EXAM_REGISTRATION.Status                                       REGISTERED                                                          233
+EXAM_RESULT.Result_Status                                      FAIL                                                                  7
+EXAM_RESULT.Result_Status                                      PASS                                                                183
+RE_EXAM_APPLICATION.Status                                     APPROVED                                                              6
+RE_EXAM_APPLICATION.Status                                     PENDING                                                               7
+RE_EXAM_APPLICATION.Status                                     REJECTED                                                              8

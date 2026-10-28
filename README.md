@@ -123,7 +123,7 @@ All accounts in the development environment are configured with the universal pa
 
 ## 🧪 Automated End-to-End Verification Suite
 
-The repository includes a complete automated verification test runner (`scripts/verify_workflows.ps1`) covering 15 end-to-end workflow scenarios:
+The repository includes a complete automated verification test runner (`scripts/verify_workflows.ps1`) covering the 15 original end-to-end workflow scenarios (Part A) plus 31 Phase 3 scenarios (Part B, 46 in total):
 
 ```powershell
 powershell -ExecutionPolicy Bypass -File scripts\verify_workflows.ps1
@@ -148,6 +148,25 @@ All 15 scenarios passed with 100% compliance:
 
 ---
 
+## 🧩 Phase 3: Integration & Delivery
+
+All eight Review 2 Appendix A findings are fixed in the code, the seed scripts and the live database, and every table now has create, read, update and delete (or logical retirement) end to end.
+
+| Area | Where |
+|---|---|
+| Live-database migration (audit → migrate → verify, idempotent) | `database/phase3/` · guide: `docs/phase3/MIGRATION_GUIDE.md` |
+| Implementation report (26 sections) | `docs/phase3/PHASE3_IMPLEMENTATION_REPORT.md` |
+| CRUD matrix for 15 tables | `docs/phase3/CRUD_COVERAGE.md` |
+| Test plan and results | `docs/phase3/TEST_PLAN_AND_RESULTS.md`, evidence in `docs/phase3/test-evidence/` |
+| Screenshots (23) | `docs/phase3/screenshots/` (regenerate: `node scripts/capture_screenshots.js`) |
+| Demo script, viva bank, slide outline, known issues | `docs/phase3/` |
+
+Verification on 28-Oct-2026: Oracle constraint probes 23/23 · SQL audit 0 violations · `mvn test` 36/36 (live Oracle, rolled back) · `verify_workflows.ps1` 46/46 with live data unchanged.
+
+Marks policy: CA /30 + Midterm /30 + Final /50; the course **total is out of 100** (sum × 100 ÷ 110, never above 100) and the grade is taken from it. Students can drop an active course from the registration page or the marks page.
+
+---
+
 ## 📁 Project Directory Structure
 
 ```
@@ -158,7 +177,7 @@ Database Systems/
 ├── EXPANSION_SETUP.md                    # Database expansion & setup guide
 ├── PROJECT_REPORT.md                     # Course project report
 ├── SMART_CAMPUS_SYSTEM_DOCUMENTATION.pdf # Full 10-page technical specification PDF
-├── dataset_export.txt                    # Raw dump of all 1,896 database records
+├── dataset_export.txt                    # Text dump of the seeded data (1,896 LINES incl. headers; 1,712 seeded ROWS)
 ├── docs/                                 # Documentation assets
 │   └── project_documentation.html        # Printable technical specification HTML
 ├── sql/                                  # Database SQL scripts

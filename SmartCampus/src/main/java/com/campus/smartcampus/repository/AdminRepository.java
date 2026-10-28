@@ -26,7 +26,15 @@ public class AdminRepository {
         int offerings = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM COURSE_OFFERING", Integer.class);
         int enrollments = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM ENROLLMENT WHERE Status = 'ENROLLED'", Integer.class);
         int pendingReExams = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM RE_EXAM_APPLICATION WHERE Status = 'PENDING'", Integer.class);
+        int departments = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM DEPARTMENT", Integer.class);
+        int programs = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM PROGRAM", Integer.class);
+        int exams = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM EXAM", Integer.class);
+        int results = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM EXAM_RESULT", Integer.class);
         return java.util.Map.of(
+            "departments", departments,
+            "programs", programs,
+            "exams", exams,
+            "results", results,
             "students", students,
             "faculty", faculty,
             "courses", courses,
@@ -361,6 +369,209 @@ public class AdminRepository {
             }
             return r;
         });
+    }
+
+    // ==================================================================================
+    // Phase 3: Update / Delete via JDBC PreparedStatements (JdbcTemplate binds every ?)
+    // ==================================================================================
+
+    /** COUNT(*) helper used for existence and dependency pre-checks. */
+    public int count(String sql, Object... args) {
+        Integer n = jdbcTemplate.queryForObject(sql, Integer.class, args);
+        return n != null ? n : 0;
+    }
+
+    public Long findEnrollmentId(Long studentId, Long offeringId) {
+        return jdbcTemplate.queryForObject(
+                "SELECT Enrollment_ID FROM ENROLLMENT WHERE Student_ID = ? AND Offering_ID = ?", Long.class, studentId, offeringId);
+    }
+
+    public int updateDepartment(Long id, DepartmentCreateRequest req) {
+        return jdbcTemplate.update("UPDATE DEPARTMENT SET Department_Name = ?, Office_Location = ? WHERE Department_ID = ?",
+                req.getDepartmentName().trim(), req.getOfficeLocation(), id);
+    }
+
+    public int deleteDepartment(Long id) {
+        return jdbcTemplate.update("DELETE FROM DEPARTMENT WHERE Department_ID = ?", id);
+    }
+
+    public int updateProgram(Long id, ProgramCreateRequest req) {
+        return jdbcTemplate.update("UPDATE PROGRAM SET Program_Name = ?, Degree = ?, Duration_Years = ?, Department_ID = ? WHERE Program_ID = ?",
+                req.getProgramName().trim(), req.getDegree(), req.getDurationYears(), req.getDepartmentId(), id);
+    }
+
+    public int deleteProgram(Long id) {
+        return jdbcTemplate.update("DELETE FROM PROGRAM WHERE Program_ID = ?", id);
+    }
+
+    public int updateStudent(Long id, StudentCreateRequest req) {
+        return jdbcTemplate.update("UPDATE STUDENT SET Name = ?, Email = ?, Phone = ?, DOB = ?, Admission_Year = ?, Program_ID = ? WHERE Student_ID = ?",
+                req.getName().trim(), req.getEmail().trim(), req.getPhone(),
+                req.getDob() != null ? java.sql.Date.valueOf(req.getDob()) : null,
+                req.getAdmissionYear(), req.getProgramId(), id);
+    }
+
+    /** Deletes a student with no academic history; the login row goes via FK_ACC_STUDENT ON DELETE CASCADE. */
+    public int deleteStudent(Long id) {
+        return jdbcTemplate.update("DELETE FROM STUDENT WHERE Student_ID = ?", id);
+    }
+
+    public int updateFaculty(Long id, FacultyCreateRequest req) {
+        return jdbcTemplate.update("UPDATE FACULTY SET Name = ?, Email = ?, Phone = ?, Designation = ?, Department_ID = ? WHERE Faculty_ID = ?",
+                req.getName().trim(), req.getEmail().trim(), req.getPhone(), req.getDesignation(), req.getDepartmentId(), id);
+    }
+
+    public int deleteFaculty(Long id) {
+        return jdbcTemplate.update("DELETE FROM FACULTY WHERE Faculty_ID = ?", id);
+    }
+
+    public int updateCourse(Long id, CourseCreateRequest req) {
+        return jdbcTemplate.update("UPDATE COURSE SET Course_Name = ?, Credits = ?, Course_Type = ?, Department_ID = ? WHERE Course_ID = ?",
+                req.getCourseName().trim(), req.getCredits(), req.getCourseType(), req.getDepartmentId(), id);
+    }
+
+    public int deleteCourse(Long id) {
+        return jdbcTemplate.update("DELETE FROM COURSE WHERE Course_ID = ?", id);
+    }
+
+    public boolean existsOtherOffering(Long offeringId, Long courseId, Integer semester, String academicYear, String section) {
+        return count("SELECT COUNT(*) FROM COURSE_OFFERING WHERE Course_ID = ? AND Semester = ? AND Academic_Year = ? AND Section = ? AND Offering_ID <> ?",
+                courseId, semester, academicYear, section, offeringId) > 0;
+    }
+
+    public int updateOffering(Long id, OfferingCreateRequest req) {
+        return jdbcTemplate.update("""
+                UPDATE COURSE_OFFERING SET Course_ID = ?, Faculty_ID = ?, Semester = ?, Academic_Year = ?, Section = ?,
+                       Room_No = ?, Max_Seats = ?, Classes_Held = ?
+                WHERE Offering_ID = ?
+                """,
+                req.getCourseId(), req.getFacultyId(), req.getSemester(), req.getAcademicYear(), req.getSection(),
+                req.getRoomNo(), req.getMaxSeats(), req.getClassesHeld() != null ? req.getClassesHeld() : 0, id);
+    }
+
+    public int deleteOffering(Long id) {
+        return jdbcTemplate.update("DELETE FROM COURSE_OFFERING WHERE Offering_ID = ?", id);
+    }
+
+    public Optional<Exam> findExam(Long examId) {
+        List<Exam> list = jdbcTemplate.query("""
+                SELECT Exam_ID, Offering_ID, Exam_Type, Exam_Date, Start_Time, End_Time, Venue, Max_Marks, Status
+                FROM EXAM WHERE Exam_ID = ?
+                """, (rs, rowNum) -> {
+            Exam ex = new Exam();
+            ex.setExamId(rs.getLong("Exam_ID"));
+            ex.setOfferingId(rs.getLong("Offering_ID"));
+            ex.setExamType(rs.getString("Exam_Type"));
+            ex.setExamDate(rs.getDate("Exam_Date").toLocalDate());
+            ex.setStartTime(rs.getTimestamp("Start_Time").toLocalDateTime());
+            ex.setEndTime(rs.getTimestamp("End_Time").toLocalDateTime());
+            ex.setVenue(rs.getString("Venue"));
+            ex.setMaxMarks(rs.getDouble("Max_Marks"));
+            ex.setStatus(rs.getString("Status"));
+            return ex;
+        }, examId);
+        return list.isEmpty() ? Optional.empty() : Optional.of(list.get(0));
+    }
+
+    public int updateExam(Long id, ExamCreateRequest req) {
+        return jdbcTemplate.update("""
+                UPDATE EXAM SET Offering_ID = ?, Exam_Type = ?, Exam_Date = ?, Start_Time = ?, End_Time = ?, Venue = ?, Max_Marks = ?
+                WHERE Exam_ID = ?
+                """,
+                req.getOfferingId(), req.getExamType(), java.sql.Date.valueOf(req.getExamDate()),
+                Timestamp.valueOf(req.getStartTime()), Timestamp.valueOf(req.getEndTime()),
+                req.getVenue(), req.getMaxMarks(), id);
+    }
+
+    public int updateExamStatus(Long id, String status) {
+        return jdbcTemplate.update("UPDATE EXAM SET Status = ? WHERE Exam_ID = ?", status, id);
+    }
+
+    public int deleteExam(Long id) {
+        return jdbcTemplate.update("DELETE FROM EXAM WHERE Exam_ID = ?", id);
+    }
+
+    /** Registrations for one exam with any published result, for the result-publication screen. */
+    public List<java.util.Map<String, Object>> getExamRegistrations(Long examId) {
+        return jdbcTemplate.query("""
+                SELECT er.Exam_Registration_ID, er.Student_ID, s.Name AS Student_Name, er.Status,
+                       r.Exam_Result_ID, r.Marks_Obtained, r.Grade_Code, r.Result_Status
+                FROM EXAM_REGISTRATION er
+                JOIN STUDENT s ON s.Student_ID = er.Student_ID
+                LEFT JOIN EXAM_RESULT r ON r.Exam_Registration_ID = er.Exam_Registration_ID
+                WHERE er.Exam_ID = ?
+                ORDER BY er.Student_ID
+                """, (rs, rowNum) -> {
+            java.util.Map<String, Object> row = new java.util.LinkedHashMap<>();
+            row.put("examRegistrationId", rs.getLong("Exam_Registration_ID"));
+            row.put("studentId", rs.getLong("Student_ID"));
+            row.put("studentName", rs.getString("Student_Name"));
+            row.put("status", rs.getString("Status"));
+            long resultId = rs.getLong("Exam_Result_ID");
+            row.put("examResultId", rs.wasNull() ? null : resultId);
+            double marks = rs.getDouble("Marks_Obtained");
+            row.put("marksObtained", rs.wasNull() ? null : marks);
+            row.put("gradeCode", rs.getString("Grade_Code"));
+            row.put("resultStatus", rs.getString("Result_Status"));
+            return row;
+        }, examId);
+    }
+
+    /** {examId, registrationStatus} for a registration, or null if it does not exist. */
+    public Object[] findRegistrationExam(Long registrationId) {
+        List<Object[]> list = jdbcTemplate.query(
+                "SELECT Exam_ID, Status FROM EXAM_REGISTRATION WHERE Exam_Registration_ID = ?",
+                (rs, rowNum) -> new Object[]{rs.getLong(1), rs.getString(2)}, registrationId);
+        return list.isEmpty() ? null : list.get(0);
+    }
+
+    /** {registrationId, examId} for a result, or null if it does not exist. */
+    public Object[] findResult(Long resultId) {
+        List<Object[]> list = jdbcTemplate.query("""
+                SELECT r.Exam_Registration_ID, er.Exam_ID FROM EXAM_RESULT r
+                JOIN EXAM_REGISTRATION er ON er.Exam_Registration_ID = r.Exam_Registration_ID
+                WHERE r.Exam_Result_ID = ?
+                """, (rs, rowNum) -> new Object[]{rs.getLong(1), rs.getLong(2)}, resultId);
+        return list.isEmpty() ? null : list.get(0);
+    }
+
+    /** Grade band from the GRADE table for a percentage (two-decimal bands, e.g. 80.00-89.99). */
+    public String gradeForPercentage(double percentage) {
+        List<String> codes = jdbcTemplate.query(
+                "SELECT Grade_Code FROM GRADE WHERE ? BETWEEN Min_Percentage AND Max_Percentage",
+                (rs, rowNum) -> rs.getString(1), Math.round(percentage * 100.0) / 100.0);
+        return codes.isEmpty() ? null : codes.get(0);
+    }
+
+    public List<java.util.Map<String, Object>> getGrades() {
+        return jdbcTemplate.queryForList(
+                "SELECT Grade_Code AS \"gradeCode\", Grade_Point AS \"gradePoint\", Min_Percentage AS \"minPercentage\", "
+                + "Max_Percentage AS \"maxPercentage\" FROM GRADE ORDER BY Grade_Point DESC");
+    }
+
+    public Long insertResult(Long registrationId, double marks, String status, String grade) {
+        Long nextId = jdbcTemplate.queryForObject("SELECT NVL(MAX(Exam_Result_ID), 10000) + 1 FROM EXAM_RESULT", Long.class);
+        jdbcTemplate.update("""
+                INSERT INTO EXAM_RESULT (Exam_Result_ID, Exam_Registration_ID, Marks_Obtained, Result_Status, Grade_Code, Published_Date)
+                VALUES (?, ?, ?, ?, ?, SYSDATE)
+                """, nextId, registrationId, marks, status, grade);
+        return nextId;
+    }
+
+    public int updateResult(Long resultId, double marks, String status, String grade) {
+        return jdbcTemplate.update("UPDATE EXAM_RESULT SET Marks_Obtained = ?, Result_Status = ?, Grade_Code = ?, Published_Date = SYSDATE WHERE Exam_Result_ID = ?",
+                marks, status, grade, resultId);
+    }
+
+    public int deleteResult(Long resultId) {
+        return jdbcTemplate.update("DELETE FROM EXAM_RESULT WHERE Exam_Result_ID = ?", resultId);
+    }
+
+    /** Current status of a re-exam application, or null if it does not exist. */
+    public String findReExamStatus(Long applicationId) {
+        List<String> list = jdbcTemplate.query("SELECT Status FROM RE_EXAM_APPLICATION WHERE ReExam_Application_ID = ?",
+                (rs, rowNum) -> rs.getString(1), applicationId);
+        return list.isEmpty() ? null : list.get(0);
     }
 
     // Foreign Key Existence Checks

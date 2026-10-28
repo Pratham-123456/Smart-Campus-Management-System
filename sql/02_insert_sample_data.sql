@@ -55,9 +55,9 @@ INSERT INTO GRADE (Grade_Code, Grade_Point, Min_Percentage, Max_Percentage) VALU
 INSERT INTO GRADE (Grade_Code, Grade_Point, Min_Percentage, Max_Percentage) VALUES ('F', 0, 0, 49.99);
 
 -- 11. EXAM
-INSERT INTO EXAM (Exam_ID, Offering_ID, Exam_Type, Exam_Date, Start_Time, End_Time, Venue, Max_Marks, Status) VALUES (801, 401, 'CAT1', DATE '2026-09-10', TIMESTAMP '2026-09-10 09:00:00', TIMESTAMP '2026-09-10 10:00:00', 'SJT-301', 50, 'COMPLETED');
-INSERT INTO EXAM (Exam_ID, Offering_ID, Exam_Type, Exam_Date, Start_Time, End_Time, Venue, Max_Marks, Status) VALUES (802, 402, 'CAT1', DATE '2026-09-12', TIMESTAMP '2026-09-12 11:00:00', TIMESTAMP '2026-09-12 12:00:00', 'SJT-302', 50, 'COMPLETED');
-INSERT INTO EXAM (Exam_ID, Offering_ID, Exam_Type, Exam_Date, Start_Time, End_Time, Venue, Max_Marks, Status) VALUES (803, 403, 'CAT1', DATE '2026-09-15', TIMESTAMP '2026-09-15 14:00:00', TIMESTAMP '2026-09-15 15:00:00', 'TT-201', 50, 'COMPLETED');
+INSERT INTO EXAM (Exam_ID, Offering_ID, Exam_Type, Exam_Date, Start_Time, End_Time, Venue, Max_Marks, Status) VALUES (801, 401, 'CAT1', DATE '2026-09-07', TIMESTAMP '2026-09-07 09:00:00', TIMESTAMP '2026-09-07 10:00:00', 'SJT-301', 50, 'COMPLETED');
+INSERT INTO EXAM (Exam_ID, Offering_ID, Exam_Type, Exam_Date, Start_Time, End_Time, Venue, Max_Marks, Status) VALUES (802, 402, 'CAT1', DATE '2026-09-07', TIMESTAMP '2026-09-07 11:30:00', TIMESTAMP '2026-09-07 12:30:00', 'SJT-302', 50, 'COMPLETED');
+INSERT INTO EXAM (Exam_ID, Offering_ID, Exam_Type, Exam_Date, Start_Time, End_Time, Venue, Max_Marks, Status) VALUES (803, 403, 'CAT1', DATE '2026-09-07', TIMESTAMP '2026-09-07 14:30:00', TIMESTAMP '2026-09-07 15:30:00', 'TT-201', 50, 'COMPLETED');
 
 -- 12. EXAM_REGISTRATION
 INSERT INTO EXAM_REGISTRATION (Exam_Registration_ID, Student_ID, Exam_ID, Registration_Date, Status) VALUES (901, 1001, 801, DATE '2026-08-20', 'REGISTERED');
@@ -67,9 +67,9 @@ INSERT INTO EXAM_REGISTRATION (Exam_Registration_ID, Student_ID, Exam_ID, Regist
 
 -- 13. EXAM_RESULT
 INSERT INTO EXAM_RESULT (Exam_Result_ID, Exam_Registration_ID, Marks_Obtained, Result_Status, Grade_Code, Published_Date) VALUES (10001, 901, 46, 'PASS', 'S', DATE '2026-09-20');
-INSERT INTO EXAM_RESULT (Exam_Result_ID, Exam_Registration_ID, Marks_Obtained, Result_Status, Grade_Code, Published_Date) VALUES (10002, 902, 38, 'PASS', 'A', DATE '2026-09-20');
-INSERT INTO EXAM_RESULT (Exam_Result_ID, Exam_Registration_ID, Marks_Obtained, Result_Status, Grade_Code, Published_Date) VALUES (10003, 903, 42, 'PASS', 'S', DATE '2026-09-22');
-INSERT INTO EXAM_RESULT (Exam_Result_ID, Exam_Registration_ID, Marks_Obtained, Result_Status, Grade_Code, Published_Date) VALUES (10004, 904, 28, 'PASS', 'B', DATE '2026-09-22');
+INSERT INTO EXAM_RESULT (Exam_Result_ID, Exam_Registration_ID, Marks_Obtained, Result_Status, Grade_Code, Published_Date) VALUES (10002, 902, 38, 'PASS', 'B', DATE '2026-09-20');
+INSERT INTO EXAM_RESULT (Exam_Result_ID, Exam_Registration_ID, Marks_Obtained, Result_Status, Grade_Code, Published_Date) VALUES (10003, 903, 42, 'PASS', 'A', DATE '2026-09-22');
+INSERT INTO EXAM_RESULT (Exam_Result_ID, Exam_Registration_ID, Marks_Obtained, Result_Status, Grade_Code, Published_Date) VALUES (10004, 904, 28, 'PASS', 'D', DATE '2026-09-22');
 
 -- 14. RE_EXAM_APPLICATION
 INSERT INTO RE_EXAM_APPLICATION (ReExam_Application_ID, Exam_Result_ID, Application_Date, Reason, Status, Approval_Date) VALUES (11001, 10002, DATE '2026-09-25', 'Request for re-examination due to exceptional circumstances', 'PENDING', NULL);

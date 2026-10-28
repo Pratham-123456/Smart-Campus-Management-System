@@ -45,6 +45,11 @@ public class StudentAttendanceMarksDTO {
     public Double getFinalExamMarks() { return finalExamMarks; }
     public void setFinalExamMarks(Double finalExamMarks) { this.finalExamMarks = finalExamMarks; }
 
-    public Double getTotalMarks() { return totalMarks; }
-    public void setTotalMarks(Double totalMarks) { this.totalMarks = totalMarks; }
+    /** Course total out of 100 (raw CA + Midterm + Final scaled from 110). */
+    public Double getTotalMarks() { return totalMarks == null ? null : com.campus.smartcampus.model.Marks.toTotalOutOf100(totalMarks); }
+    public Double getMaxTotal() { return com.campus.smartcampus.model.Marks.MAX_TOTAL; }
+    /** Plain component sum, out of 110. */
+    public Double getRawTotal() { return totalMarks; }
+    /** Takes the raw component sum (as selected from MARKS). */
+    public void setTotalMarks(Double rawTotal) { this.totalMarks = rawTotal; }
 }

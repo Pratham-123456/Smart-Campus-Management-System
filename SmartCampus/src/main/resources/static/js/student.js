@@ -261,6 +261,7 @@ const StudentPortal = {
                                     <th>Faculty</th>
                                     <th>Enrolled Date</th>
                                     <th>Status</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -272,9 +273,12 @@ const StudentPortal = {
                                         <td>Sec ${e.section}</td>
                                         <td>${e.facultyName}</td>
                                         <td>${e.enrollmentDate}</td>
-                                        <td><span class="badge badge-success">${e.status}</span></td>
+                                        <td><span class="badge ${e.status === 'ENROLLED' ? 'badge-success' : e.status === 'DROPPED' ? 'badge-secondary' : 'badge-info'}">${e.status}</span></td>
+                                        <td>${e.status === 'ENROLLED'
+                                            ? `<button class="btn btn-sm btn-danger" onclick="StudentPortal.dropCourse(${studentId}, ${e.offeringId}, '${AdminCrud.esc(e.courseName).replace(/'/g, '&#39;')}')">Drop</button>`
+                                            : ''}</td>
                                     </tr>
-                                `).join('') || '<tr><td colspan="7" class="empty-state">No courses currently registered.</td></tr>'}
+                                `).join('') || '<tr><td colspan="8" class="empty-state">No courses currently registered.</td></tr>'}
                             </tbody>
                         </table>
                     </div>
@@ -321,7 +325,7 @@ const StudentPortal = {
                                             </td>
                                             <td>
                                                 ${o.isEnrolled 
-                                                    ? '<span class="badge badge-success">ALREADY ENROLLED</span>' 
+                                                    ? `<button class="btn btn-sm btn-danger" onclick="StudentPortal.dropCourse(${studentId}, ${o.offeringId}, '${AdminCrud.esc(o.courseName).replace(/'/g, '&#39;')}')">Drop Course</button>`
                                                     : isFull 
                                                         ? '<span class="badge badge-danger">SEATS FULL</span>' 
                                                         : `<button class="btn btn-sm btn-primary" onclick="StudentPortal.enroll(${studentId}, ${o.offeringId}, '${o.courseName}')">Register Now</button>`
@@ -350,7 +354,20 @@ const StudentPortal = {
             UI.showToast(`Successfully enrolled in ${courseName}!`, 'success');
             StudentPortal.loadCourses(studentId);
         } catch (err) {
-            // Toast is shown by API client
+            // Toast is shown by API client (409 duplicate / other section / full, 404 unknown offering)
+        }
+    },
+
+    async dropCourse(studentId, offeringId, courseName, reloadView) {
+        if (!confirm(`Drop ${courseName} (Offering #${offeringId})? Your attendance and marks history is kept, and any pending exam registrations for it are cancelled.`)) {
+            return;
+        }
+        try {
+            await API.dropCourse(studentId, offeringId);
+            if (reloadView === 'marks') StudentPortal.loadMarks(studentId);
+            else StudentPortal.loadCourses(studentId);
+        } catch (err) {
+            // 409 when results are already published
         }
     },
 
@@ -462,9 +479,10 @@ const StudentPortal = {
                                     <th>CA Marks (30)</th>
                                     <th>Midterm (30)</th>
                                     <th>Final Exam (50)</th>
-                                    <th>Total (100)</th>
+                                    <th title="(CA + Midterm + Final) scaled from 110 to 100">Total (100)</th>
                                     <th>Grade</th>
                                     <th>Grade Point</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -473,21 +491,25 @@ const StudentPortal = {
                                         <td><strong>${m.courseName}</strong></td>
                                         <td>${m.credits || 4}</td>
                                         <td>Sec ${m.section}</td>
-                                        <td>${m.continuousAssessmentMarks}</td>
-                                        <td>${m.midtermMarks}</td>
-                                        <td>${m.finalExamMarks}</td>
-                                        <td><strong>${m.totalMarks}</strong> / 100</td>
+                                        <td>${m.continuousAssessmentMarks} <span class="marks-ceiling">/ 30</span></td>
+                                        <td>${m.midtermMarks} <span class="marks-ceiling">/ 30</span></td>
+                                        <td>${m.finalExamMarks} <span class="marks-ceiling">/ 50</span></td>
+                                        <td title="Raw ${m.rawTotal} / 110"><strong>${m.totalMarks.toFixed(2)}</strong> <span class="marks-ceiling">/ 100</span></td>
                                         <td>
                                             <span class="badge ${m.gradeCode === 'F' ? 'badge-danger' : 'badge-success'}">
                                                 Grade ${m.gradeCode}
                                             </span>
                                         </td>
                                         <td><strong>${m.gradePoint !== null ? m.gradePoint : 0}</strong></td>
+                                        <td><button class="btn btn-sm btn-danger" onclick="StudentPortal.dropCourse(${studentId}, ${m.offeringId}, '${AdminCrud.esc(m.courseName).replace(/'/g, '&#39;')}', 'marks')">Drop</button></td>
                                     </tr>
-                                `).join('') || '<tr><td colspan="9" class="empty-state">No marks records available.</td></tr>'}
+                                `).join('') || '<tr><td colspan="10" class="empty-state">No marks records available.</td></tr>'}
                             </tbody>
                         </table>
                     </div>
+                    <p class="marks-ceiling" style="padding: 10px 16px; margin: 0;">
+                        Total = (CA + Midterm + Final) &times; 100 &divide; 110, so it is always out of 100. The grade is taken from this total.
+                    </p>
                 </div>
             `;
         } catch (err) {
@@ -555,7 +577,7 @@ const StudentPortal = {
                                             <td style="padding: 8px 10px; text-align: center;">${m.continuousAssessmentMarks}</td>
                                             <td style="padding: 8px 10px; text-align: center;">${m.midtermMarks}</td>
                                             <td style="padding: 8px 10px; text-align: center;">${m.finalExamMarks}</td>
-                                            <td style="padding: 8px 10px; text-align: center;"><strong>${m.totalMarks}</strong></td>
+                                            <td style="padding: 8px 10px; text-align: center;"><strong>${m.totalMarks.toFixed(2)}</strong> / 100</td>
                                             <td style="padding: 8px 10px; text-align: center; font-weight: 700;">${m.gradeCode}</td>
                                             <td style="padding: 8px 10px; text-align: center;">${m.gradePoint}</td>
                                         </tr>
@@ -638,9 +660,11 @@ const StudentPortal = {
                                             }
                                         </td>
                                         <td>
-                                            ${e.isRegistered 
-                                                ? '<button class="btn btn-sm btn-secondary" disabled>Enrolled</button>' 
-                                                : `<button class="btn btn-sm btn-primary" onclick="StudentPortal.registerForExam(${studentId}, ${e.examId}, '${e.courseName}', '${e.examType}')">Register</button>`
+                                            ${e.status !== 'SCHEDULED'
+                                                ? `<span class="badge badge-secondary">${e.status}</span>`
+                                                : e.isRegistered
+                                                    ? `<button class="btn btn-sm btn-secondary" onclick="StudentPortal.cancelExamRegistration(${studentId}, ${e.examId}, '${e.examType}')">Cancel Registration</button>`
+                                                    : `<button class="btn btn-sm btn-primary" onclick="StudentPortal.registerForExam(${studentId}, ${e.examId}, '${e.courseName}', '${e.examType}')">Register</button>`
                                             }
                                         </td>
                                     </tr>
@@ -664,6 +688,30 @@ const StudentPortal = {
             await API.registerExam(studentId, examId);
             UI.showToast(`Successfully registered for ${courseName} ${examType}!`, 'success');
             StudentPortal.loadExams(studentId);
+        } catch (err) {
+            // Handled (409 duplicate / timetable clash / closed, 404 unknown exam)
+        }
+    },
+
+    async cancelExamRegistration(studentId, examId, examType) {
+        if (!confirm(`Cancel your ${examType} registration for exam #${examId}?`)) {
+            return;
+        }
+        try {
+            await API.cancelExamRegistration(studentId, examId);
+            StudentPortal.loadExams(studentId);
+        } catch (err) {
+            // Handled
+        }
+    },
+
+    async withdrawReExam(studentId, applicationId) {
+        if (!confirm(`Withdraw pending re-examination application #${applicationId}?`)) {
+            return;
+        }
+        try {
+            await API.withdrawReExam(studentId, applicationId);
+            StudentPortal.loadReExams(studentId);
         } catch (err) {
             // Handled
         }
@@ -808,6 +856,7 @@ const StudentPortal = {
                                     <th>Application Date</th>
                                     <th>Status</th>
                                     <th>Approval Date</th>
+                                    <th>Action</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -825,8 +874,11 @@ const StudentPortal = {
                                             </span>
                                         </td>
                                         <td>${a.approvalDate || 'Pending'}</td>
+                                        <td>${a.status === 'PENDING'
+                                            ? `<button class="btn btn-sm btn-secondary" onclick="StudentPortal.withdrawReExam(${studentId}, ${a.reExamApplicationId})">Withdraw</button>`
+                                            : ''}</td>
                                     </tr>
-                                `).join('') || '<tr><td colspan="8" class="empty-state">No re-examination applications submitted.</td></tr>'}
+                                `).join('') || '<tr><td colspan="9" class="empty-state">No re-examination applications submitted.</td></tr>'}
                             </tbody>
                         </table>
                     </div>

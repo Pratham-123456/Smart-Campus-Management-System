@@ -1,0 +1,20 @@
+# mvn test  (run 2026-10-28 23:47 IST; Oracle 26ai FREEPDB1; each test rolled back)
+[INFO] Running com.campus.smartcampus.model.MarksPolicyTest
+[INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.073 s -- in com.campus.smartcampus.model.MarksPolicyTest
+[INFO] Running com.campus.smartcampus.Phase3IntegrationTest
+[INFO] Running com.campus.smartcampus.Phase3IntegrationTest$CrudAndAccess
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 4.078 s -- in com.campus.smartcampus.Phase3IntegrationTest$CrudAndAccess
+[INFO] Running com.campus.smartcampus.Phase3IntegrationTest$SchemaRules
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.128 s -- in com.campus.smartcampus.Phase3IntegrationTest$SchemaRules
+[INFO] Running com.campus.smartcampus.Phase3IntegrationTest$ResultsAndReExams
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.304 s -- in com.campus.smartcampus.Phase3IntegrationTest$ResultsAndReExams
+[INFO] Running com.campus.smartcampus.Phase3IntegrationTest$FacultyUpdates
+[INFO] Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.310 s -- in com.campus.smartcampus.Phase3IntegrationTest$FacultyUpdates
+[INFO] Running com.campus.smartcampus.Phase3IntegrationTest$ExamRegistration
+[INFO] Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.246 s -- in com.campus.smartcampus.Phase3IntegrationTest$ExamRegistration
+[INFO] Running com.campus.smartcampus.Phase3IntegrationTest$CourseRegistration
+[INFO] Tests run: 7, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.284 s -- in com.campus.smartcampus.Phase3IntegrationTest$CourseRegistration
+[INFO] Tests run: 0, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 5.720 s -- in com.campus.smartcampus.Phase3IntegrationTest
+[INFO] Tests run: 36, Failures: 0, Errors: 0, Skipped: 0
+[INFO] BUILD SUCCESS
+[INFO] Total time:  11.115 s

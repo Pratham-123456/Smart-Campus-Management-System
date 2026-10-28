@@ -69,6 +69,22 @@ const AdminPortal = {
                         </div>
                         <div class="stat-icon ${stats.pendingReExams > 0 ? 'orange' : 'blue'}">⚖️</div>
                     </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <div class="label">Departments &amp; Programs</div>
+                            <div class="value">${stats.departments} / ${stats.programs}</div>
+                            <div class="subtitle">Academic Divisions / Degrees</div>
+                        </div>
+                        <div class="stat-icon purple">🏫</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-info">
+                            <div class="label">Exams &amp; Results</div>
+                            <div class="value">${stats.exams} / ${stats.results}</div>
+                            <div class="subtitle">Scheduled Exams / Published Results</div>
+                        </div>
+                        <div class="stat-icon blue">🗓️</div>
+                    </div>
                 </div>
 
                 <div class="card">
@@ -137,16 +153,18 @@ const AdminPortal = {
                                     <th>Department ID</th>
                                     <th>Department Name</th>
                                     <th>Office Location</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${departments.map(d => `
+                                ${(AdminCrud.cache.departments = departments).map(d => `
                                     <tr>
                                         <td>#${d.departmentId}</td>
                                         <td><strong>${d.departmentName}</strong></td>
                                         <td>${d.officeLocation || 'N/A'}</td>
+                                        <td>${AdminCrud.actions('departments', d.departmentId, d.departmentName)}</td>
                                     </tr>
-                                `).join('') || '<tr><td colspan="3" class="empty-state">No departments registered.</td></tr>'}
+                                `).join('') || '<tr><td colspan="4" class="empty-state">No departments registered.</td></tr>'}
                             </tbody>
                         </table>
                     </div>
@@ -231,18 +249,20 @@ const AdminPortal = {
                                     <th>Degree</th>
                                     <th>Duration</th>
                                     <th>Department</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${programs.map(p => `
+                                ${(AdminCrud.cache.programs = programs).map(p => `
                                     <tr>
                                         <td>#${p.programId}</td>
                                         <td><strong>${p.programName}</strong></td>
                                         <td><span class="badge badge-info">${p.degree}</span></td>
                                         <td>${p.durationYears} Years</td>
                                         <td>${p.departmentName}</td>
+                                        <td>${AdminCrud.actions('programs', p.programId, p.programName)}</td>
                                     </tr>
-                                `).join('') || '<tr><td colspan="5" class="empty-state">No programs configured.</td></tr>'}
+                                `).join('') || '<tr><td colspan="6" class="empty-state">No programs configured.</td></tr>'}
                             </tbody>
                         </table>
                     </div>
@@ -348,10 +368,11 @@ const AdminPortal = {
                                     <th>Phone</th>
                                     <th>Program</th>
                                     <th>Admission Year</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${students.map(s => `
+                                ${(AdminCrud.cache.students = students).map(s => `
                                     <tr>
                                         <td><strong>#${s.studentId}</strong></td>
                                         <td>${s.name}</td>
@@ -359,8 +380,9 @@ const AdminPortal = {
                                         <td>${s.phone || 'N/A'}</td>
                                         <td>${s.degree} - ${s.programName}</td>
                                         <td>${s.admissionYear}</td>
+                                        <td>${AdminCrud.actions('students', s.studentId, s.name)}</td>
                                     </tr>
-                                `).join('') || '<tr><td colspan="6" class="empty-state">No students found.</td></tr>'}
+                                `).join('') || '<tr><td colspan="7" class="empty-state">No students found.</td></tr>'}
                             </tbody>
                         </table>
                     </div>
@@ -478,10 +500,11 @@ const AdminPortal = {
                                     <th>Phone</th>
                                     <th>Designation</th>
                                     <th>Department</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${faculty.map(f => `
+                                ${(AdminCrud.cache.faculty = faculty).map(f => `
                                     <tr>
                                         <td>#${f.facultyId}</td>
                                         <td><strong>${f.name}</strong></td>
@@ -489,8 +512,9 @@ const AdminPortal = {
                                         <td>${f.phone || 'N/A'}</td>
                                         <td><span class="badge badge-info">${f.designation}</span></td>
                                         <td>${f.departmentName}</td>
+                                        <td>${AdminCrud.actions('faculty', f.facultyId, f.name)}</td>
                                     </tr>
-                                `).join('') || '<tr><td colspan="6" class="empty-state">No faculty members found.</td></tr>'}
+                                `).join('') || '<tr><td colspan="7" class="empty-state">No faculty members found.</td></tr>'}
                             </tbody>
                         </table>
                     </div>
@@ -601,18 +625,20 @@ const AdminPortal = {
                                     <th>Credits</th>
                                     <th>Course Type</th>
                                     <th>Department</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${courses.map(c => `
+                                ${(AdminCrud.cache.courses = courses).map(c => `
                                     <tr>
                                         <td>#${c.courseId}</td>
                                         <td><strong>${c.courseName}</strong></td>
                                         <td>${c.credits} Credits</td>
                                         <td><span class="badge badge-info">${c.courseType}</span></td>
                                         <td>${c.departmentName}</td>
+                                        <td>${AdminCrud.actions('courses', c.courseId, c.courseName)}</td>
                                     </tr>
-                                `).join('') || '<tr><td colspan="5" class="empty-state">No courses registered.</td></tr>'}
+                                `).join('') || '<tr><td colspan="6" class="empty-state">No courses registered.</td></tr>'}
                             </tbody>
                         </table>
                     </div>
@@ -724,10 +750,11 @@ const AdminPortal = {
                                     <th>Max Seats</th>
                                     <th>Enrolled</th>
                                     <th>Classes Held</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${offerings.map(o => `
+                                ${(AdminCrud.cache.offerings = offerings).map(o => `
                                     <tr>
                                         <td>#${o.offeringId}</td>
                                         <td><strong>${o.courseName}</strong></td>
@@ -737,8 +764,9 @@ const AdminPortal = {
                                         <td>${o.maxSeats}</td>
                                         <td><span class="badge badge-success">${o.enrolledCount} Enrolled</span></td>
                                         <td>${o.classesHeld}</td>
+                                        <td>${AdminCrud.actions('offerings', o.offeringId, o.courseName)}</td>
                                     </tr>
-                                `).join('') || '<tr><td colspan="8" class="empty-state">No course offerings created yet.</td></tr>'}
+                                `).join('') || '<tr><td colspan="9" class="empty-state">No course offerings created yet.</td></tr>'}
                             </tbody>
                         </table>
                     </div>
@@ -866,10 +894,11 @@ const AdminPortal = {
                                     <th>Venue</th>
                                     <th>Max Marks</th>
                                     <th>Status</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                ${exams.map(e => `
+                                ${(AdminCrud.cache.exams = exams).map(e => `
                                     <tr>
                                         <td>#${e.examId}</td>
                                         <td><strong>${e.courseName}</strong> (Sec ${e.section})</td>
@@ -879,9 +908,10 @@ const AdminPortal = {
                                         <td>${e.startTime ? e.startTime.replace('T', ' ') : ''} - ${e.endTime ? e.endTime.split('T')[1] : ''}</td>
                                         <td>${e.venue}</td>
                                         <td>${e.maxMarks}</td>
-                                        <td><span class="badge badge-success">${e.status}</span></td>
+                                        <td><span class="badge ${e.status === 'SCHEDULED' ? 'badge-info' : e.status === 'CANCELLED' ? 'badge-danger' : 'badge-success'}">${e.status}</span></td>
+                                        <td>${AdminCrud.examActions(e)}</td>
                                     </tr>
-                                `).join('') || '<tr><td colspan="9" class="empty-state">No exams scheduled yet.</td></tr>'}
+                                `).join('') || '<tr><td colspan="10" class="empty-state">No exams scheduled yet.</td></tr>'}
                             </tbody>
                         </table>
                     </div>
@@ -1011,6 +1041,7 @@ const AdminPortal = {
                                     <th>Status</th>
                                     <th>Grade</th>
                                     <th>Published Date</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -1024,8 +1055,9 @@ const AdminPortal = {
                                         <td><span class="badge ${r.resultStatus === 'PASS' ? 'badge-success' : 'badge-danger'}">${r.resultStatus}</span></td>
                                         <td><strong>Grade ${r.gradeCode || 'N/A'}</strong></td>
                                         <td>${r.publishedDate || 'N/A'}</td>
+                                        <td><div class="row-actions"><button class="btn btn-sm btn-secondary" onclick="AdminCrud.openResults(${r.examId})">Edit</button><button class="btn btn-sm btn-danger" onclick="AdminCrud.confirmDelete('results', ${r.examResultId}, 'student ${r.studentId}')">Delete</button></div></td>
                                     </tr>
-                                `).join('') || '<tr><td colspan="8" class="empty-state">No results published yet.</td></tr>'}
+                                `).join('') || '<tr><td colspan="9" class="empty-state">No results published yet.</td></tr>'}
                             </tbody>
                         </table>
                     </div>

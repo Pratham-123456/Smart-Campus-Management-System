@@ -39,17 +39,17 @@ public class FacultyController {
         return ResponseEntity.ok(ApiResponse.ok(facultyService.getEnrolledStudents(facultyId, offeringId)));
     }
 
-    @PostMapping("/{facultyId}/offerings/{offeringId}/classes-held")
+    @RequestMapping(value = "/{facultyId}/offerings/{offeringId}/classes-held", method = {RequestMethod.POST, RequestMethod.PUT})
     public ResponseEntity<ApiResponse<Void>> updateClassesHeld(
             @PathVariable Long facultyId,
             @PathVariable Long offeringId,
             @RequestBody Map<String, Integer> payload) {
-        Integer classesHeld = payload.get("classesHeld");
+        Integer classesHeld = payload == null ? null : payload.get("classesHeld");
         facultyService.updateClassesHeld(facultyId, offeringId, classesHeld);
         return ResponseEntity.ok(ApiResponse.ok("Classes held updated successfully.", null));
     }
 
-    @PostMapping("/{facultyId}/attendance")
+    @RequestMapping(value = "/{facultyId}/attendance", method = {RequestMethod.POST, RequestMethod.PUT})
     public ResponseEntity<ApiResponse<Void>> updateAttendance(
             @PathVariable Long facultyId,
             @Valid @RequestBody AttendanceUpdateRequest req) {
@@ -57,7 +57,7 @@ public class FacultyController {
         return ResponseEntity.ok(ApiResponse.ok("Attendance updated successfully.", null));
     }
 
-    @PostMapping("/{facultyId}/marks")
+    @RequestMapping(value = "/{facultyId}/marks", method = {RequestMethod.POST, RequestMethod.PUT})
     public ResponseEntity<ApiResponse<Void>> updateMarks(
             @PathVariable Long facultyId,
             @Valid @RequestBody MarksUpdateRequest req) {

@@ -274,10 +274,14 @@ const App = {
             } else if (u.role === 'ADMINISTRATOR') {
                 subItems = [
                     { id: 'admin-dashboard', label: 'Academic Overview' },
-                    { id: 'admin-departments', label: 'Departments & Programs' },
-                    { id: 'admin-courses', label: 'Course Catalog & Offerings' },
-                    { id: 'admin-directories', label: 'Student & Faculty Directories' },
-                    { id: 'admin-provisioning', label: 'Account Provisioning' }
+                    { id: 'admin-departments', label: 'Departments' },
+                    { id: 'admin-programs', label: 'Degree Programs' },
+                    { id: 'admin-courses', label: 'Course Catalog' },
+                    { id: 'admin-offerings', label: 'Course Offerings' },
+                    { id: 'admin-directories', label: 'Student Directory' },
+                    { id: 'admin-faculty', label: 'Faculty Directory' },
+                    { id: 'admin-provisioning', label: 'Account Provisioning' },
+                    { id: 'admin-accounts', label: 'User Accounts' }
                 ];
             }
         } else if (this.currentMainSection === 'EXAMINATIONS') {
@@ -349,9 +353,13 @@ const App = {
             // Administrator Academics
             case 'admin-dashboard': AdminPortal.loadDashboard(); break;
             case 'admin-departments': AdminPortal.loadDepartments(); break;
+            case 'admin-programs': AdminPortal.loadPrograms(); break;
             case 'admin-courses': AdminPortal.loadCourses(); break;
+            case 'admin-offerings': AdminPortal.loadOfferings(); break;
             case 'admin-directories': AdminPortal.loadStudents(); break;
+            case 'admin-faculty': AdminPortal.loadFaculty(); break;
             case 'admin-provisioning': AdminPortal.loadProvisioningConsole(); break;
+            case 'admin-accounts': AdminCrud.loadAccounts(); break;
 
             // Administrator Examinations
             case 'admin-exams': AdminPortal.loadExams(); break;
@@ -379,7 +387,11 @@ const UI = {
         if (type === 'success') icon = '✓';
         if (type === 'error') icon = '⚠️';
 
-        toast.innerHTML = `<span>${icon}</span><span>${message}</span>`;
+        const iconSpan = document.createElement('span');
+        iconSpan.textContent = icon;
+        const textSpan = document.createElement('span');
+        textSpan.textContent = message; // server text is never interpreted as HTML
+        toast.append(iconSpan, textSpan);
         container.appendChild(toast);
 
         setTimeout(() => {
