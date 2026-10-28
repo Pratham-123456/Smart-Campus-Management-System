@@ -44,3 +44,6 @@ desktop.ini
 # Temporary files
 *.tmp
 *.bak
+
+# Local-only submission kit (contains review PDFs and generated bundles)
+final_submission_kit/
