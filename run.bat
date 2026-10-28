@@ -36,7 +36,13 @@ if errorlevel 1 (
 echo.
 echo [3/4] Verifying database credentials...
 if "%CAMPUS_DB_PASSWORD%"=="" (
-    set "CAMPUS_DB_PASSWORD=<your-db-password>"
+    echo [INFO] CAMPUS_DB_PASSWORD is not set. Tip: run  setx CAMPUS_DB_PASSWORD "your-password"  once to save it.
+    set /p "CAMPUS_DB_PASSWORD=Enter the Oracle password for campus_app: "
+)
+if "%CAMPUS_DB_PASSWORD%"=="" (
+    echo [ERROR] No database password provided.
+    pause
+    exit /b 1
 )
 echo [OK] Database credentials loaded.
 

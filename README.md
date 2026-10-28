@@ -98,7 +98,7 @@ powershell -ExecutionPolicy Bypass -File .\run.ps1
 **Option 3: Manual Launch via Maven**
 ```powershell
 cd SmartCampus
-$env:CAMPUS_DB_PASSWORD = "<your-db-password>"
+$env:CAMPUS_DB_PASSWORD = "<your-db-password>"   # or set it once: setx CAMPUS_DB_PASSWORD "<your-db-password>"
 .\mvnw.cmd spring-boot:run
 ```
 

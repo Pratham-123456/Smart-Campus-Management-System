@@ -20,15 +20,12 @@ $script:passCount = 0
 $script:failCount = 0
 $script:results = @()
 
-# --- DB password: environment first, then the dev default in run.bat (never printed)
+# --- DB password: CAMPUS_DB_PASSWORD (process, then user scope), else a hidden prompt (never printed)
 $dbPassword = $env:CAMPUS_DB_PASSWORD
 if ([string]::IsNullOrWhiteSpace($dbPassword)) { $dbPassword = [Environment]::GetEnvironmentVariable("CAMPUS_DB_PASSWORD", "User") }
 if ([string]::IsNullOrWhiteSpace($dbPassword)) {
-    $runBat = Join-Path $PSScriptRoot "..\run.bat"
-    if (Test-Path $runBat) {
-        $m = Select-String -Path $runBat -Pattern 'CAMPUS_DB_PASSWORD=([^"]+)"' | Select-Object -First 1
-        if ($m) { $dbPassword = $m.Matches[0].Groups[1].Value }
-    }
+    $secure = Read-Host "Enter the Oracle password for campus_app" -AsSecureString
+    $dbPassword = [System.Net.NetworkCredential]::new("", $secure).Password
 }
 
 function Record-Test {

@@ -20,7 +20,13 @@ Write-Host "[2/4] Verifying database credentials..." -ForegroundColor Gray
 if ([string]::IsNullOrWhiteSpace($env:CAMPUS_DB_PASSWORD)) {
     $env:CAMPUS_DB_PASSWORD = [System.Environment]::GetEnvironmentVariable("CAMPUS_DB_PASSWORD", "User")
     if ([string]::IsNullOrWhiteSpace($env:CAMPUS_DB_PASSWORD)) {
-        $env:CAMPUS_DB_PASSWORD = "<your-db-password>"
+        # Never hardcode the password: prompt (input hidden). Save it once with: setx CAMPUS_DB_PASSWORD "..."
+        $secure = Read-Host "Enter the Oracle password for campus_app" -AsSecureString
+        $env:CAMPUS_DB_PASSWORD = [System.Net.NetworkCredential]::new("", $secure).Password
+    }
+    if ([string]::IsNullOrWhiteSpace($env:CAMPUS_DB_PASSWORD)) {
+        Write-Host "[ERROR] No database password provided." -ForegroundColor Red
+        exit 1
     }
 }
 Write-Host "[OK] Database credentials loaded." -ForegroundColor Green

@@ -200,7 +200,7 @@ The script will verify Docker, set up credentials, start the Spring Boot web ser
 ### Manual Launch:
 ```powershell
 cd SmartCampus
-$env:CAMPUS_DB_PASSWORD = "<your-db-password>"
+$env:CAMPUS_DB_PASSWORD = "<your-db-password>"   # or set it once: setx CAMPUS_DB_PASSWORD "<your-db-password>"
 .\mvnw.cmd spring-boot:run
 # or: java -jar target\smart-campus-1.0.0.jar
 ```

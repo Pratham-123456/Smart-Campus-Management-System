@@ -17,4 +17,4 @@
 10. **Cross-section uniqueness is enforced in the service layer**, not by an Oracle constraint, because it spans two tables (ENROLLMENT ⋈ COURSE_OFFERING). A compound trigger could enforce it in the database; it is listed as future work.
 11. **Grade boundaries are two-decimal bands** (e.g. A 80.00–89.99). Percentages are rounded to two decimals before lookup, so values such as 89.995 % round into the S band.
 12. **Screenshots** were captured headlessly at 1440 px width by `scripts/capture_screenshots.js`. In tall captures the dark modal backdrop only covers the first 960 px viewport; this is an artifact of the capture.
-13. **`run.bat` holds a dev default database password** (from the original project). Fine for a local course demo; use the `CAMPUS_DB_PASSWORD` environment variable anywhere else.
+13. **No database password is stored in the repository.** `run.bat`, `run.ps1` and `verify_workflows.ps1` read `CAMPUS_DB_PASSWORD` and prompt if it is missing (save it once with `setx CAMPUS_DB_PASSWORD "..."`). The original dev password is still in the git history of the first commit, so change the Oracle `campus_app` password if the repository is public.

@@ -172,7 +172,7 @@ Four layers: Oracle constraint probes, SQL data audits, JUnit/MockMvc integratio
 
 ## 24. How to run
 
-1. Start Docker Desktop. Then run `run.bat`, which starts `oracle-db`, sets the database password and launches the jar on :8080.
+1. Start Docker Desktop. Then run `run.bat`, which starts `oracle-db`, reads the database password from `CAMPUS_DB_PASSWORD` (or prompts for it) and launches the jar on :8080.
 2. For an existing database, apply `database/phase3` (see `MIGRATION_GUIDE.md`).
 3. Run the tests: `cd SmartCampus` and `mvn test` (needs the `CAMPUS_DB_PASSWORD` environment variable).
 4. Run `powershell -ExecutionPolicy Bypass -File scripts\verify_workflows.ps1`.
