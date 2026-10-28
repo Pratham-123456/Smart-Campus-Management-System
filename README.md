@@ -1,216 +1,214 @@
-# XYZ University — Smart Campus Management System
-> **Academic Services Portal & Relational Database System**  
-> *Developed for BACSE202 — Database Systems Course Project*
+# Student Academic & Examination Management System
+### Smart Campus Management System · XYZ University Academic Services Portal
 
-A full-stack, enterprise-grade university academic information portal built with **Java 21**, **Spring Boot 3.3.4**, **Oracle AI Database 26ai Free**, and a modern **Vanilla JavaScript SPA (Single-Page Application)** frontend.
+> **BACSE202 — Database Systems · Course Project (CO5) · Fall Semester 2026 · VIT SCOPE**
+> A VTOP-inspired academic and examination portal: a normalised Oracle database interfaced with a web front end through **JDBC**, with full CRUD.
 
----
-
-## 🌟 Key Features
-
-### 👨‍🎓 Student Portal
-- **Academic Dashboard**: Real-time summary of enrollments, attendance percentages, continuous assessment marks, and exam schedules.
-- **Course Registration**: Browse available semester offerings with live seat capacity tracking (`enrolled / maxSeats`), preventing duplicate enrollments and over-capacity registrations.
-- **Attendance Tracking**: Visual attendance rate indicators with warning alerts for attendance shortage (< 75%).
-- **Continuous Assessment & Marks**: Breakdown of Continuous Assessment (CA $\le$ 30), Midterm ($\le$ 30), Final Exam ($\le$ 50), Total marks, and letter grades.
-- **Examinations**: Timetables for CAT1, CAT2, and FAT with one-click exam registration.
-- **Official Results & Grade Cards**: Dynamic percentage calculation mapped strictly to the authoritative university grade scale (S, A, B, C, D, F).
-- **Re-Examination Petitions**: Modal application submission for grade re-evaluation with real-time status tracking (`PENDING`, `APPROVED`, `REJECTED`).
-
-### 👩‍🏫 Faculty Portal
-- **Course Sections Overview**: List of assigned course offerings and classroom schedules.
-- **Student Roster Management**: Live roster of all enrolled students with attendance records and performance metrics.
-- **Attendance Grading**: Update total classes conducted and record individual student attendance with boundary validation (`Classes_Attended <= Classes_Held`).
-- **Marks Entry Gradebook**: Enter and persist Continuous Assessment, Midterm, and Final examination marks.
-- **Exam Invigilation Schedule**: View assigned supervisory duties and examination sessions.
-
-### 🛡️ Administrator Portal
-- **Real-Time KPI Dashboard**: University-wide counters for Departments, Programs, Faculty, Students, Offerings, and Exams.
-- **Institutional Management**: CRUD management for Departments, Degree Programs, Faculty, Students, and Courses.
-- **Course Offering Scheduler**: Schedule semester sections with faculty assignments, room allocations, and seat capacities.
-- **Examination Scheduler**: Schedule CAT1, CAT2, and FAT examinations with dates, venues, and timings.
-- **Re-Exam Petition Decision Center**: Review submitted re-evaluation requests with instant **Approve** or **Reject** actions.
-- **Multi-Role User Provisioning**: On-demand BCrypt user account creation and credential management.
-
----
-
-## 🏛️ System Architecture
-
-```
-[ Client Web Browser ]  (Single Page Application: HTML5, CSS3, JavaScript ES6)
-         │
-         ▼  HTTP REST (Session Cookie Authentication)
-[ Security & Interceptor Layer ] (AuthInterceptor: 401 Unauthorized / 403 Forbidden Role Isolation)
-         │
-         ▼
-[ Spring Boot 3.3.4 Backend ]  (REST Controllers & Business Validation Services)
-         │
-         ▼  JDBC (HikariCP High-Performance Connection Pool)
-[ Oracle Database 26ai Free ]  (14 Academic Tables + USER_ACCOUNT Security Table)
-```
-
----
-
-## 📊 Relational Database Schema (Oracle 26ai)
-
-The system is backed by **14 core academic tables** and **1 authentication table**:
-
-| # | Table Name | Description | Key Attributes | Live Records |
-| :---: | :--- | :--- | :--- | :---: |
-| 1 | `DEPARTMENT` | Academic Departments | `Dept_ID (PK)`, `Name`, `Code` | 6 |
-| 2 | `PROGRAM` | Degree Programs | `Program_ID (PK)`, `Dept_ID (FK)`, `Degree_Level` | 10 |
-| 3 | `FACULTY` | Professors & Instructors | `Faculty_ID (PK)`, `Dept_ID (FK)`, `Designation` | 15 |
-| 4 | `STUDENT` | University Students | `Student_ID (PK)`, `Program_ID (FK)`, `Admission_Year` | 60 |
-| 5 | `COURSE` | Master Course Catalog | `Course_ID (PK)`, `Dept_ID (FK)`, `Credits` | 30 |
-| 6 | `COURSE_OFFERING` | Semester Course Sections | `Offering_ID (PK)`, `Course_ID (FK)`, `Faculty_ID (FK)`, `Max_Seats` | 45 |
-| 7 | `ENROLLMENT` | Course Registrations | `Enrollment_ID (PK)`, `Student_ID (FK)`, `Offering_ID (FK)` | 365 |
-| 8 | `ATTENDANCE` | Course Attendance Logs | `Attendance_ID (PK)`, `Student_ID (FK)`, `Classes_Attended` | 365 |
-| 9 | `MARKS` | Continuous Assessment | `Mark_ID (PK)`, `Continuous_Assessment_Marks`, `Final_Exam_Marks` | 250 |
-| 10 | `GRADE` | University Letter Grades | `Grade_Code (PK)`, `Min_Percentage`, `Max_Percentage`, `Grade_Point` | 6 |
-| 11 | `EXAM` | Examination Schedules | `Exam_ID (PK)`, `Offering_ID (FK)`, `Exam_Type`, `Exam_Date` | 42 |
-| 12 | `EXAM_REGISTRATION` | Student Exam Seats | `Exam_Registration_ID (PK)`, `Student_ID (FK)`, `Exam_ID (FK)` | 232 |
-| 13 | `EXAM_RESULT` | Published Results | `Exam_Result_ID (PK)`, `Marks_Obtained`, `Grade_Code (FK)` | 190 |
-| 14 | `RE_EXAM_APPLICATION` | Re-Evaluation Petitions | `ReExam_Application_ID (PK)`, `Exam_Result_ID (FK)`, `Status` | 20 |
-| 15 | `USER_ACCOUNT` | Multi-Role Authentication | `User_ID (PK)`, `Username (UQ)`, `Password_Hash`, `Role` | 76 |
-
----
-
-## 🚀 Quick Start Guide
-
-### Prerequisites
-- **Java 21 LTS** (`java -version`)
-- **Docker Desktop** (with Oracle 26ai Free container running on port `1521`)
-- **Maven 3.9+** (or use the included `./mvnw.cmd` wrapper)
-
-### Running the Application
-
-**Option 1: Windows One-Click Launcher (Recommended)**
-```cmd
-run.bat
-```
-*Automatically inspects Docker, starts `oracle-db` if stopped, configures credentials, launches Spring Boot on port 8080, and opens your browser.*
-
-**Option 2: PowerShell Launcher**
-```powershell
-powershell -ExecutionPolicy Bypass -File .\run.ps1
-```
-
-**Option 3: Manual Launch via Maven**
-```powershell
-cd SmartCampus
-$env:CAMPUS_DB_PASSWORD = "<your-db-password>"   # or set it once: setx CAMPUS_DB_PASSWORD "<your-db-password>"
-.\mvnw.cmd spring-boot:run
-```
-
-Once started, open **[http://localhost:8080](http://localhost:8080)** in your browser.
-
----
-
-## 🔑 Demonstration Credentials
-
-All accounts in the development environment are configured with the universal password **`1234`** (hashed using BCrypt):
-
-| Portal Role | Username / ID | Full Name | Program / Department |
-| :--- | :--- | :--- | :--- |
-| **Student** | `1001` | Aarav Sharma | B.Tech Computer Science and Engineering |
-| **Student** | `1010` | Ananya Roy | B.Tech Computer Science and Engineering |
-| **Student** | `1041` | Tanisha Das | Master of Computer Applications (MCA) |
-| **Faculty** | `201` | Dr. Rajesh Sharma | Department of Computer Science |
-| **Faculty** | `205` | Dr. Sneha Reddy | Department of Electronics and Communication |
-| **Administrator** | `admin` | System Administrator | University Administration |
-
----
-
-## 🧪 Automated End-to-End Verification Suite
-
-The repository includes a complete automated verification test runner (`scripts/verify_workflows.ps1`) covering the 15 original end-to-end workflow scenarios (Part A) plus 31 Phase 3 scenarios (Part B, 46 in total):
-
-```powershell
-powershell -ExecutionPolicy Bypass -File scripts\verify_workflows.ps1
-```
-
-All 15 scenarios passed with 100% compliance:
-- [x] Student authentication and active enrollment viewing
-- [x] Duplicate course registration rejection (`HTTP 409 Conflict`)
-- [x] Full seat capacity enforcement (`HTTP 409 Conflict`)
-- [x] Course registration persistence in Oracle DB
-- [x] Faculty attendance recording & student verification
-- [x] Faculty marks entry & gradebook calculation
-- [x] Published result viewing with authoritative letter grades
-- [x] Clean zero-result empty state rendering
-- [x] Re-examination application lifecycle (`PENDING` tracking)
-- [x] Cross-faculty unauthorized offering editing rejection (`HTTP 403 Forbidden`)
-- [x] Administrative global entity and statistics retrieval
-- [x] Responsive table formatting without horizontal overflow
-- [x] Real-time client-side table search filtering (`UI.filterTable`)
-- [x] Meaningful error messaging for invalid inputs
-- [x] Clean application logs without unhandled exceptions
-
----
-
-## 🧩 Phase 3: Integration & Delivery
-
-All eight Review 2 Appendix A findings are fixed in the code, the seed scripts and the live database, and every table now has create, read, update and delete (or logical retirement) end to end.
-
-| Area | Where |
+| Team member | Register No. |
 |---|---|
-| Live-database migration (audit → migrate → verify, idempotent) | `database/phase3/` · guide: `docs/phase3/MIGRATION_GUIDE.md` |
-| Implementation report (26 sections) | `docs/phase3/PHASE3_IMPLEMENTATION_REPORT.md` |
-| CRUD matrix for 15 tables | `docs/phase3/CRUD_COVERAGE.md` |
-| Test plan and results | `docs/phase3/TEST_PLAN_AND_RESULTS.md`, evidence in `docs/phase3/test-evidence/` |
-| Screenshots (23) | `docs/phase3/screenshots/` (regenerate: `node scripts/capture_screenshots.js`) |
-| Demo script, viva bank, slide outline, known issues | `docs/phase3/` |
+| Pratham Garg | 25BCE2016 |
+| S Rohith | 25BCE0790 |
+| Divyam Kurkan | 25BCE2041 |
 
-Verification on 28-Oct-2026: Oracle constraint probes 23/23 · SQL audit 0 violations · `mvn test` 36/36 (live Oracle, rolled back) · `verify_workflows.ps1` 46/46 with live data unchanged.
+**Stack:** Java 21 · Spring Boot 3.3.4 · Spring JDBC (`JdbcTemplate`) · HikariCP · Oracle AI Database 26ai Free (Docker) · HTML5 / CSS3 / vanilla JavaScript SPA · JUnit 5 + MockMvc
 
-Marks policy: CA /30 + Midterm /30 + Final /50; the course **total is out of 100** (sum × 100 ÷ 110, never above 100) and the grade is taken from it. Students can drop an active course from the registration page or the marks page.
+📄 **Final report (all 11 stages + presentation content):** [`docs/FINAL_PROJECT_REPORT.md`](docs/FINAL_PROJECT_REPORT.md)
 
 ---
 
-## 📁 Project Directory Structure
+## At a glance
+
+| | |
+|---|---|
+| Functional requirements | 12 (5 student-facing, 7 admin/faculty) |
+| ER model | 14 entities, 18 relationships (Chen notation) |
+| Normalisation | UNF → 1NF (4) → 2NF (6) → 3NF (11) → 14 tables |
+| Oracle schema | **15 tables, 20 foreign keys, 11 named CHECK constraints** |
+| Seed data | **1,712 rows** (1,636 academic + 76 BCrypt logins); 1,736 live |
+| REST API | 69 endpoints; CRUD on every table |
+| Verification | Oracle probes 23/23 · SQL audit 0 violations · JUnit 36/36 · workflow suite 46/46 |
+
+## Project phases
+
+| Phase | Assessment | Deliverable | Status |
+|---|---|---|---|
+| 1 — Design Foundation | 8 (30 %) | Requirements, ER/EER, relational mapping, 1NF–3NF | ✅ Review 1 |
+| 2 — Implementation Core | 9 (80 %) | DDL, DML, front end, business logic, initial JDBC | ✅ Review 2 |
+| 3 — Integration & Delivery | 10 (100 %) | Complete JDBC CRUD, testing, report, final PPT, demo | ✅ This repository |
+
+---
+
+## Features
+
+### 👨‍🎓 Student
+- Profile, plus course registration with live seats (`enrolled / Max_Seats`) and search
+- **Drop** an active course, from the registration page or the marks page
+- Attendance per course with computed % and a shortage warning below 75 %
+- Marks shown as CA /30, Midterm /30 and Final /50, with a **course total out of 100**, letter grade, grade point and GPA, plus a printable grade sheet
+- Exam timetable (CAT1, CAT2, FAT): **register** or **cancel**, with clash detection
+- Published results with grade, and **re-exam application**: apply, track PENDING / APPROVED / REJECTED, or withdraw
+
+### 👩‍🏫 Faculty (own offerings only)
+- Assigned offerings, class roster with attendance % and marks
+- Edit Classes Held, record attendance (0 ≤ attended ≤ held) and marks (30 / 30 / 50)
+- Invigilation schedule
+
+### 🛡️ Administrator
+- Live KPI dashboard (students, faculty, courses, offerings, enrollments, pending re-exams, departments/programs, exams/results)
+- **Create / edit / delete** departments, programs, courses, offerings, students and faculty. A record that other records still depend on returns `409` and lists what references it.
+- Exam scheduling, **Mark Completed** (only after the exam has ended), Cancel, Edit, Delete
+- **Result publication:** the grade and PASS/FAIL are derived from the GRADE table; results can be withheld, edited or deleted
+- Re-exam decisions (`PENDING → APPROVED / REJECTED`)
+- Account provisioning (BCrypt), plus a user accounts page to activate, deactivate, reset passwords and delete
+
+### Business rules (enforced in the service layer, backed by Oracle constraints)
+| Rule | Response |
+|---|---|
+| Same offering twice / another section of the same course in the same term / offering full | `409 Conflict` |
+| Overlapping exam registration on the same date (back-to-back allowed) | `409 Conflict` |
+| Completing an exam or publishing results before the exam has ended | `409 Conflict` |
+| Attendance above Classes_Held, marks above 30 / 30 / 50, semester outside 1–10 | `400 Bad Request` |
+| Another user's record or the wrong role | `403 Forbidden` · no session → `401` |
+| Unknown id | `404 Not Found` |
+
+**Marks policy:** the component sum is out of 110 (30 + 30 + 50), so the course **total is scaled to 100** (sum × 100 ÷ 110) and the grade is taken from it.
+
+---
+
+## Architecture
 
 ```
-Database Systems/
-├── run.bat                               # Windows one-click application starter
-├── run.ps1                               # PowerShell application launcher
-├── README.md                             # Project documentation & overview
-├── EXPANSION_SETUP.md                    # Database expansion & setup guide
-├── PROJECT_REPORT.md                     # Course project report
-├── SMART_CAMPUS_SYSTEM_DOCUMENTATION.pdf # Full 10-page technical specification PDF
-├── dataset_export.txt                    # Text dump of the seeded data (1,896 LINES incl. headers; 1,712 seeded ROWS)
-├── docs/                                 # Documentation assets
-│   └── project_documentation.html        # Printable technical specification HTML
-├── sql/                                  # Database SQL scripts
-│   ├── 01_create_schema.sql              # Relational DDL for 14 academic tables
-│   ├── 02_insert_sample_data.sql         # Seed sample dataset
-│   ├── 03_expand_sample_data.sql         # Expanded dataset (365 enrollments, 250 marks)
-│   └── 04_authentication_migration.sql   # USER_ACCOUNT table and BCrypt provisioning
-├── scripts/                              # Utility and verification scripts
-│   ├── verify_workflows.ps1              # 15-scenario automated verification test runner
-│   ├── provision_dev_accounts.ps1        # Database account provisioner
-│   └── provision_dev_students.ps1        # Student account provisioning utility
-└── SmartCampus/                          # Spring Boot & Frontend Application
-    ├── pom.xml                           # Maven project descriptor
-    ├── mvnw.cmd                          # Maven wrapper
-    └── src/main/
-        ├── java/com/campus/smartcampus/  # Backend Java 21 source code
-        │   ├── SmartCampusApplication.java
-        │   ├── config/                   # HikariCP, WebMvc, AuthInterceptor
-        │   ├── controller/               # Auth, Student, Faculty, Admin REST controllers
-        │   ├── dto/                      # Data Transfer Objects with validation
-        │   ├── model/                    # Domain models for all 15 tables
-        │   ├── repository/               # JDBC repositories with SQL queries
-        │   └── service/                  # Business logic & validation services
-        └── resources/
-            ├── application.properties    # Server & datasource configuration
-            └── static/                   # Frontend SPA web assets
-                ├── index.html            # Main SPA container & layout
-                ├── css/portal.css        # University styling & responsive system
-                └── js/                   # Client controllers (app, api, student, faculty, admin)
+Browser (HTML5 · CSS3 · vanilla JS SPA)
+   │  fetch() + session cookie (JSON)
+   ▼
+AuthInterceptor ── 401 no session · 403 wrong role / another user's id
+   ▼
+REST controllers (Auth, Student, Faculty, Admin) + GlobalExceptionHandler (400/403/404/409, no SQL leaked)
+   ▼
+Services — business rules, @Transactional
+   ▼
+JDBC repositories — JdbcTemplate → PreparedStatement ('?' binds only)
+   ▼
+HikariCP pool → Oracle AI Database 26ai Free · FREEPDB1 · Docker container oracle-db :1521
+```
+The database credentials stay on the server, read from the `CAMPUS_DB_PASSWORD` environment variable. Nothing is hardcoded in the repository.
+
+---
+
+## Database schema (Oracle 26ai)
+
+| # | Table | Primary key | Foreign keys | Notable constraints |
+|---:|---|---|---|---|
+| 1 | DEPARTMENT | Department_ID | — | UNIQUE Department_Name |
+| 2 | PROGRAM | Program_ID | Department_ID | UNIQUE Program_Name, Duration > 0 |
+| 3 | STUDENT | Student_ID | Program_ID | UNIQUE Email |
+| 4 | FACULTY | Faculty_ID | Department_ID | UNIQUE Email |
+| 5 | COURSE | Course_ID | Department_ID | Credits > 0 |
+| 6 | COURSE_OFFERING | Offering_ID | Course_ID, Faculty_ID | UNIQUE (Course, Semester, Year, Section); **Semester NUMBER(2) 1–10**; Max_Seats > 0 |
+| 7 | ENROLLMENT | Enrollment_ID | Student_ID, Offering_ID | UNIQUE (Student, Offering); CK_ENROLLMENT_STATUS |
+| 8 | ATTENDANCE | Attendance_ID | Student_ID, Offering_ID | UNIQUE (Student, Offering); ≥ 0 |
+| 9 | MARKS | Mark_ID | Student_ID, Offering_ID | UNIQUE (Student, Offering); CK_MARKS_CA / _MIDTERM / _FINAL (30 / 30 / 50) |
+| 10 | GRADE | Grade_Code | — | CK_GRADE_RANGE |
+| 11 | EXAM | Exam_ID | Offering_ID | CK_EXAM_TIME (End > Start); CK_EXAM_STATUS |
+| 12 | EXAM_REGISTRATION | Exam_Registration_ID | Student_ID, Exam_ID | UNIQUE (Student, Exam); CK_EXAMREG_STATUS |
+| 13 | EXAM_RESULT | Exam_Result_ID | Exam_Registration_ID (UNIQUE, 1:1), Grade_Code | CK_RESULT_STATUS |
+| 14 | RE_EXAM_APPLICATION | ReExam_Application_ID | Exam_Result_ID | CK_REEXAM_STATUS |
+| 15 | USER_ACCOUNT | Account_ID | Student_ID, Faculty_ID | UNIQUE Username; CK_ACCOUNT_REF; BCrypt hash |
+
+3NF design notes: `Classes_Held` lives in COURSE_OFFERING (it depends on the offering alone), and RE_EXAM_APPLICATION does not store `Student_ID` (it is reached through the result). Attendance % and totals are computed, never stored.
+
+---
+
+## Quick start
+
+**Prerequisites:** Java 21, Docker Desktop with the Oracle 26ai Free container `oracle-db` (port 1521, service `FREEPDB1`, user `campus_app`), and Maven 3.9+ (or the included `mvnw.cmd`).
+
+1. **Save the database password once.** The launch scripts read it from this variable and prompt if it is missing.
+   ```powershell
+   setx CAMPUS_DB_PASSWORD "<your-db-password>"
+   ```
+2. **Create the database:**
+   - **Fresh database:** run `sql/01_create_schema.sql` → `02_insert_sample_data.sql` → `03_expand_sample_data.sql` → `04_authentication_migration.sql`.
+   - **Existing database from Phase 2:** apply `database/phase3/` (see [Migration guide](docs/phase3/MIGRATION_GUIDE.md)).
+3. **Run the app.** `run.bat` checks Docker, starts `oracle-db` if it is stopped, launches the server on port 8080 and opens the browser:
+   ```cmd
+   run.bat
+   ```
+   Alternatives: `powershell -ExecutionPolicy Bypass -File .\run.ps1`, or `cd SmartCampus` then `.\mvnw.cmd spring-boot:run`.
+4. Open **http://localhost:8080**.
+
+### Demo accounts (development password `1234`, stored only as BCrypt hashes)
+
+| Role | Username | Name |
+|---|---|---|
+| Student | `1001` | Aarav Sharma — B.Tech Computer Science Engineering |
+| Student | `1010` | Arjun Gupta — B.Tech Mechanical Engineering |
+| Student | `1041` | Shreya Yadav — B.Tech Robotics and Industrial Automation (no published results yet) |
+| Faculty | `201` | Dr. Meera Rao — Computer Science |
+| Faculty | `205` | Prof. Rajesh Nair — Computer Science |
+| Administrator | `admin` | System Administrator |
+
+---
+
+## Testing
+
+| Suite | Command | Result |
+|---|---|---|
+| Oracle constraint probes (rolled back) | `@database/phase3/03_verify_post_migration.sql` | 23 / 23 |
+| Data audit (all Review 2 findings) | `@database/phase3/01_audit_all.sql` | 0 violations |
+| JUnit + MockMvc against live Oracle (rolled back) | `cd SmartCampus` then `mvn test` | 36 / 36 |
+| End-to-end HTTP workflows (self-cleaning) | `powershell -ExecutionPolicy Bypass -File scripts\verify_workflows.ps1` | 46 / 46 |
+| Screenshots | `node scripts/capture_screenshots.js` | 23 PNGs |
+
+Evidence: [`docs/phase3/test-evidence/`](docs/phase3/test-evidence/) · test plan: [`docs/phase3/TEST_PLAN_AND_RESULTS.md`](docs/phase3/TEST_PLAN_AND_RESULTS.md)
+
+---
+
+## Documentation
+
+| Document | Purpose |
+|---|---|
+| [`docs/FINAL_PROJECT_REPORT.md`](docs/FINAL_PROJECT_REPORT.md) | **Complete final report** (11 stages), slide-by-slide presentation content, artefact index |
+| [`docs/phase3/PHASE3_IMPLEMENTATION_REPORT.md`](docs/phase3/PHASE3_IMPLEMENTATION_REPORT.md) | Phase 3 implementation details |
+| [`docs/phase3/CRUD_COVERAGE.md`](docs/phase3/CRUD_COVERAGE.md) | CRUD matrix for all 15 tables (endpoints, layers, constraints, tests) |
+| [`docs/phase3/TEST_PLAN_AND_RESULTS.md`](docs/phase3/TEST_PLAN_AND_RESULTS.md) | Test cases and results |
+| [`docs/phase3/MIGRATION_GUIDE.md`](docs/phase3/MIGRATION_GUIDE.md) | Applying the Phase 3 migration to an existing database |
+| [`docs/phase3/DEMO_AND_VIVA_GUIDE.md`](docs/phase3/DEMO_AND_VIVA_GUIDE.md) | 5-minute demo script and viva question bank |
+| [`docs/phase3/FINAL_PRESENTATION_OUTLINE.md`](docs/phase3/FINAL_PRESENTATION_OUTLINE.md) | 15-slide outline |
+| [`docs/phase3/KNOWN_ISSUES.md`](docs/phase3/KNOWN_ISSUES.md) | Data reconciliation decisions and limitations |
+| `PROJECT_REPORT.md`, `SMART_CAMPUS_SYSTEM_DOCUMENTATION.pdf` | Earlier (Phase 2) reports |
+
+---
+
+## Repository layout
+
+```
+├── run.bat / run.ps1                  # Launchers (Docker check → Oracle → Spring Boot :8080)
+├── sql/                               # Fresh-install scripts
+│   ├── 01_create_schema.sql           #   DDL: 14 academic tables + constraints
+│   ├── 02_insert_sample_data.sql      #   Seed data (45 rows)
+│   ├── 03_expand_sample_data.sql      #   Expanded data (1,591 rows, idempotent)
+│   └── 04_authentication_migration.sql#   USER_ACCOUNT + 76 BCrypt logins
+├── database/phase3/                   # Live-database audit → migrate → verify (idempotent)
+├── scripts/
+│   ├── verify_workflows.ps1           #   46-scenario end-to-end suite
+│   └── capture_screenshots.js         #   Headless-Chrome screenshot capture
+├── docs/
+│   ├── FINAL_PROJECT_REPORT.md        #   Final report + presentation content
+│   └── phase3/                        #   Phase 3 docs, screenshots/, test-evidence/
+└── SmartCampus/                       # Spring Boot application
+    ├── pom.xml
+    └── src/
+        ├── main/java/com/campus/smartcampus/
+        │   ├── config/                #   AuthInterceptor, WebMvc, DataSource
+        │   ├── controller/            #   Auth, Student, Faculty, Admin + GlobalExceptionHandler
+        │   ├── service/               #   Business rules (@Transactional)
+        │   ├── repository/            #   JDBC repositories (SQL)
+        │   ├── dto/  model/  exception/
+        ├── main/resources/static/     #   index.html, css/, js/ (api, app, student, faculty, admin, admin-crud)
+        └── test/java/…                #   Phase3IntegrationTest, MarksPolicyTest
 ```
 
 ---
 
-## 📄 License
-
-Developed for academic purposes at **XYZ University** as part of the **BACSE202 — Database Systems** curriculum.
+Developed for academic purposes as part of **BACSE202 — Database Systems**, VIT. "XYZ University" is the project's fictional institution.
